@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cocon90.Db.Mysql", "Cocon90.Db.Mysql\Cocon90.Db.Mysql.csproj", "{D735D1D8-1E3D-47BF-8C2F-5C055EDAA047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cocon90.Db.Common", "Cocon90.Db.Common\Cocon90.Db.Common.csproj", "{DC5BE3FA-D29E-460A-9EE6-59E44EC3CDD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cocon90.Db.Demo", "Cocon90.Db.Demo\Cocon90.Db.Demo.csproj", "{03C937CB-8BB5-40A1-92C4-B54909B402C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cocon90.Db.SqlServer", "Cocon90.Db.SqlServer\Cocon90.Db.SqlServer.csproj", "{88DE23C4-2AE7-4EA0-92BA-ED60FEF461AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cocon90.Db.Sqlite", "Cocon90.Db.Sqlite\Cocon90.Db.Sqlite.csproj", "{2D8D45E6-C546-470F-966C-FD96EA36DB52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D735D1D8-1E3D-47BF-8C2F-5C055EDAA047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D735D1D8-1E3D-47BF-8C2F-5C055EDAA047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D735D1D8-1E3D-47BF-8C2F-5C055EDAA047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D735D1D8-1E3D-47BF-8C2F-5C055EDAA047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC5BE3FA-D29E-460A-9EE6-59E44EC3CDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC5BE3FA-D29E-460A-9EE6-59E44EC3CDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC5BE3FA-D29E-460A-9EE6-59E44EC3CDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC5BE3FA-D29E-460A-9EE6-59E44EC3CDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C937CB-8BB5-40A1-92C4-B54909B402C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C937CB-8BB5-40A1-92C4-B54909B402C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C937CB-8BB5-40A1-92C4-B54909B402C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C937CB-8BB5-40A1-92C4-B54909B402C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88DE23C4-2AE7-4EA0-92BA-ED60FEF461AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88DE23C4-2AE7-4EA0-92BA-ED60FEF461AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88DE23C4-2AE7-4EA0-92BA-ED60FEF461AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88DE23C4-2AE7-4EA0-92BA-ED60FEF461AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D8D45E6-C546-470F-966C-FD96EA36DB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D8D45E6-C546-470F-966C-FD96EA36DB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D8D45E6-C546-470F-966C-FD96EA36DB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D8D45E6-C546-470F-966C-FD96EA36DB52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

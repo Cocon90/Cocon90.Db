@@ -1,0 +1,16 @@
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Demo.exe
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Demo.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Common.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Mysql.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\MySql.Data.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Mysql.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\obj\Debug\Cocon90.Db.Demo.csprojResolveAssemblyReference.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\obj\Debug\Cocon90.Db.Demo.exe
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\obj\Debug\Cocon90.Db.Demo.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Demo.exe.config
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.SqlServer.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.SqlServer.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Sqlite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\System.Data.SQLite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Sqlite.pdb
