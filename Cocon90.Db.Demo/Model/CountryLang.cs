@@ -18,7 +18,6 @@ namespace Cocon90.Db.Demo.Model
         public decimal? Percent { get; set; }
         public DateTime? Date { get; set; }
         public Guid? Guid { get; set; }
-        public DateTimeOffset? MyDateOff { get; set; }
     }
 
     [Table(TableName = "CountryLanguage")]

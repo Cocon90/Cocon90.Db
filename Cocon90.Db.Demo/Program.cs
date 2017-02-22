@@ -11,10 +11,9 @@ namespace Cocon90.Db.Demo
     {
         static void Main(string[] args)
         {
-            Stopwatch sp = Stopwatch.StartNew();
-            //create data helper.
+            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Cocon90.Db.Sqlite.dll", "Cocon90.Db.Sqlite.DbDriver", "D:\\Application\\DbTools\\sqliteSpy\\SQLiteSpy.db3;");
+
             var dh = Cocon90.Db.Common.Db.GetDataHelper();
-            //get table.
 
             var createSql = dh.GetCreateTableSql<Model.CountryLanguageModel>();
             var updateTabSql = dh.GetUpdateTableSql(typeof(Model.CountryLanguageModel));
@@ -24,7 +23,7 @@ namespace Cocon90.Db.Demo
             Random rand = new Random();
             for (int i = 0; i < 500; i++)
             {
-                needInserts.Add(new Model.CountryLanguageModel() { MyDateOff = DateTimeOffset.Now, Percent = (decimal)(rand.NextDouble() * 10), Date = DateTime.Now.AddDays(-1 * i), Guid = Guid.NewGuid(), IsOfficial = rand.Next(0, 2) > 0, Code = i, Language = "Lang_" + i });
+                needInserts.Add(new Model.CountryLanguageModel() { Percent = (decimal)(rand.NextDouble() * 10), Date = DateTime.Now.AddDays(-1 * i), Guid = Guid.NewGuid(), IsOfficial = rand.Next(0, 2) > 0, Code = i, Language = "Lang_" + i });
             }
             var succRows = dh.Save(needInserts.ToArray());
             dh.GetTable("SELECT * FROM countrylanguage");
@@ -54,8 +53,6 @@ namespace Cocon90.Db.Demo
             var pageSql = dh.Driver.GetPagedSql("select * from countrylanguage", "CountryCode", true, 1, 10);
             var pageResult = dh.GetPagedResult<Model.CountryLanguageModel>("select * from countrylanguage", "countrycode", true, 1, 10);
 
-            sp.Stop();
-            Console.WriteLine("total ms:" + sp.ElapsedMilliseconds);
         }
     }
 }
