@@ -1,0 +1,6 @@
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\bin\Release\Cocon90.Db.Common.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\bin\Release\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\obj\Release\Cocon90.Db.Common.csprojResolveAssemblyReference.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\obj\Release\Cocon90.Db.Common.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\obj\Release\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\bin\Release\Cocon90.Db.Common.XML
