@@ -137,3 +137,5 @@ static void Main(string[] args)
         public string CodeAndLang { get; set; }
     }
 ```
+
+需要注意的是，实体的设计时，所有类型都必须可以为NULL值（如果是结构体类型，请采用可空类型）。
