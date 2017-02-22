@@ -41,7 +41,7 @@ static void Main(string[] args)
 </configuration>
 ```
 然后即可进行数据库的常规操作：
-```
+```C#
     var tab = dh.GetTable("select * from Student");
     dh.ExecNoQuery("...");
     dh.GetString("...");
@@ -53,7 +53,7 @@ static void Main(string[] args)
 ```
 
 下面是常用的一些测试：
-```
+```C#
  class Program
     {
         static void Main(string[] args)
@@ -105,7 +105,7 @@ static void Main(string[] args)
 ```
 
 其中测试实体类：
-```
+```C#
     public class Student
     {
         [Cocon90.Db.Common.Attribute.Column(PrimaryKey = true)]
@@ -114,7 +114,7 @@ static void Main(string[] args)
         public string Addrss { get; set; }
         public DateTime? Birthday { get; set; }
     }
-```
+```C#
 ```
     [Table(TableName = "CountryLanguage")]
     public class CountryLanguageTab
