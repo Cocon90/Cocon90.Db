@@ -105,6 +105,7 @@ static void Main(string[] args)
 ```
 
 其中测试实体类：
+
 ```C#
     public class Student
     {
@@ -114,8 +115,9 @@ static void Main(string[] args)
         public string Addrss { get; set; }
         public DateTime? Birthday { get; set; }
     }
-```C#
 ```
+
+```C#
     [Table(TableName = "CountryLanguage")]
     public class CountryLanguageTab
     {
