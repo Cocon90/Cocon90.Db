@@ -33,6 +33,12 @@
             <para>If MsSql DB Please Add：[name="ConnectionString" providerName="Cocon90.Db.SqlServer.dll|Cocon90.Db.SqlServer.DbDriver" connectionString="Server=127.0.0.1;Database=test;Uid=sa;Pwd=123456;"] in ConnectionStrings nodes.</para> 
             </summary>
         </member>
+        <member name="M:Cocon90.Db.Common.Db.HandlerConnectionString(System.String)">
+            <summary>
+            取得加工后的连接语句
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Cocon90.Db.Common.Helper.DataHelper.#ctor(Cocon90.Db.Common.Driver.BaseDriver)">
             <summary>
             Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Helper.DataHelper"/> class.

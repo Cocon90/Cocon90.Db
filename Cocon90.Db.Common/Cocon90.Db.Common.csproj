@@ -60,6 +60,7 @@
     <Compile Include="Data\Params.cs" />
     <Compile Include="Db.cs" />
     <Compile Include="Driver\BaseDriver.cs" />
+    <Compile Include="Exceptions\ConnectionException.cs" />
     <Compile Include="Exceptions\ConvertException.cs" />
     <Compile Include="Exceptions\DriverNotFoundException.cs" />
     <Compile Include="Exceptions\NoConfigurePrimaryKeyException.cs" />
