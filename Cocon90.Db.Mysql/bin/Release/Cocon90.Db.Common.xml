@@ -29,8 +29,9 @@
         <member name="M:Cocon90.Db.Common.Db.GetDataHelper(System.String)">
             <summary>
             Gets the data helper. 
-            <para>If MySQL DB Please Add：[name="ConnectionString" providerName="Cocon90.Db.Mysql.dll|Cocon90.Db.Mysql.DbDriver" connectionString="Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;"] in ConnectionStrings nodes.</para> 
-            <para>If MsSql DB Please Add：[name="ConnectionString" providerName="Cocon90.Db.SqlServer.dll|Cocon90.Db.SqlServer.DbDriver" connectionString="Server=127.0.0.1;Database=test;Uid=sa;Pwd=123456;"] in ConnectionStrings nodes.</para> 
+            <para>If MySQL DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.Mysql.dll|Cocon90.Db.Mysql.DbDriver" connectionString="Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;"] in ConnectionStrings nodes.</para> 
+            <para>If MsSql DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.SqlServer.dll|Cocon90.Db.SqlServer.DbDriver" connectionString="Server=127.0.0.1;Database=test;Uid=sa;Pwd=123456;"] in ConnectionStrings nodes.</para> 
+            <para>If Sqlite DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.Sqlite.dll|Cocon90.Db.Sqlite.DbDriver" connectionString="Data Source=${app}\testdb.db3"] in ConnectionStrings nodes.</para> 
             </summary>
         </member>
         <member name="M:Cocon90.Db.Common.Db.HandlerConnectionString(System.String)">
