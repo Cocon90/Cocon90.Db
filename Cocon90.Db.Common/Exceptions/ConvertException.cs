@@ -14,8 +14,5 @@ namespace Cocon90.Db.Common.Exceptions
         public ConvertException() { }
         public ConvertException(string message) : base(message) { }
         public ConvertException(string message, Exception inner) : base(message, inner) { }
-        protected ConvertException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

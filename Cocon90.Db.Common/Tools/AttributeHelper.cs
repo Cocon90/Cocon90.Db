@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cocon90.Db.Common.Data;
+using System.Reflection;
 
 namespace Cocon90.Db.Common.Tools
 {
@@ -20,7 +21,7 @@ namespace Cocon90.Db.Common.Tools
                 if (!prop.CanRead || !prop.CanWrite) continue;
                 var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
                 if (attrs == null) { dic.Add(prop.Name, prop.Name); continue; }
-                var lstAttrs = attrs.ToList().ConvertAll(a => (Common.Attribute.ColumnAttribute)a);
+                var lstAttrs = attrs.ToList().Select(a => (Common.Attribute.ColumnAttribute)a);
                 var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
                 if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
                 if (targetAttr != null && !string.IsNullOrWhiteSpace(targetAttr.ColumnName)) dic.Add(prop.Name, targetAttr.ColumnName);
@@ -42,7 +43,7 @@ namespace Cocon90.Db.Common.Tools
                 if (ignoreProperys.Contains(prop.Name)) continue;
                 var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
                 if (attrs == null) { dic.Add(prop.Name, prop.Name); continue; }
-                var lstAttrs = attrs.ToList().ConvertAll(a => (Common.Attribute.ColumnAttribute)a);
+                var lstAttrs = attrs.ToList().ConvertToAll(a => (Common.Attribute.ColumnAttribute)a);
                 var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
                 if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
                 if (targetAttr != null && !string.IsNullOrWhiteSpace(targetAttr.CreateDDL)) dic.Add(prop.Name, targetAttr.CreateDDL);
@@ -63,7 +64,7 @@ namespace Cocon90.Db.Common.Tools
                 if (!prop.CanRead || !prop.CanWrite) continue;
                 var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
                 if (attrs == null) continue;
-                var lstAttrs = attrs.ToList().ConvertAll(a => (Common.Attribute.ColumnAttribute)a);
+                var lstAttrs = attrs.ToList().ConvertToAll(a => (Common.Attribute.ColumnAttribute)a);
                 var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
                 if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
                 if (targetAttr != null && targetAttr.PrimaryKey)
@@ -83,7 +84,7 @@ namespace Cocon90.Db.Common.Tools
                 if (!prop.CanRead || !prop.CanWrite) continue;
                 var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.IgnoreAttribute), true);
                 if (attrs == null) continue;
-                var lstAttrs = attrs.ToList().ConvertAll(a => (Common.Attribute.IgnoreAttribute)a);
+                var lstAttrs = attrs.ToList().ConvertToAll(a => (Common.Attribute.IgnoreAttribute)a);
                 var targetAttr = lstAttrs.FirstOrDefault();
                 if (targetAttr != null && targetAttr.IsIgnore)
                     lst.Add(prop.Name);
@@ -96,7 +97,17 @@ namespace Cocon90.Db.Common.Tools
         public static string GetTableName(Type modelType, bool isWithSchemaName, Func<string, string> safeNameFunc = null)
         {
             if (safeNameFunc == null) safeNameFunc = (name) => name;
+
+
+#if NETSTANDARD
+            List<System.Attribute> tableAttrList = new List<System.Attribute>();
+            var attrs = modelType.GetTypeInfo().GetCustomAttributes(typeof(Common.Attribute.TableAttribute), true);
+            if (attrs.Count() > 0)
+                tableAttrList.AddRange(attrs);
+            System.Attribute[] tableAttr = tableAttrList.ToArray();
+#elif NETFRAMEWORK
             var tableAttr = modelType.GetCustomAttributes(typeof(Common.Attribute.TableAttribute), true);
+#endif
             if (tableAttr == null || tableAttr.Length == 0)
                 return safeNameFunc(modelType.Name);
             var tabAttr = tableAttr[0] as Common.Attribute.TableAttribute;

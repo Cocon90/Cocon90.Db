@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>Cocon90.Db.Common</AssemblyName>
+    <RootNamespace>Cocon90.Db.Common</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Cocon90.Db.Common\Attribute\ColumnAttribute.cs" Link="Attribute\ColumnAttribute.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Attribute\IgnoreAttribute.cs" Link="Attribute\IgnoreAttribute.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Attribute\TableAttribute.cs" Link="Attribute\TableAttribute.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\DirverType.cs" Link="Data\DirverType.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\PagedResult.cs" Link="Data\PagedResult.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\PagedSqlBatch.cs" Link="Data\PagedSqlBatch.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\Params.cs" Link="Data\Params.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\Schema\MCell.cs" Link="Data\Schema\MCell.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\Schema\MColumn.cs" Link="Data\Schema\MColumn.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\Schema\MDataSet.cs" Link="Data\Schema\MDataSet.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\Schema\MDataTable.cs" Link="Data\Schema\MDataTable.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\Schema\MRow.cs" Link="Data\Schema\MRow.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\SqlBatch.cs" Link="Data\SqlBatch.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Db.cs" Link="Db.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Driver\BaseDriver.cs" Link="Driver\BaseDriver.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\ConnectionException.cs" Link="Exceptions\ConnectionException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\ConvertException.cs" Link="Exceptions\ConvertException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\DriverNotFoundException.cs" Link="Exceptions\DriverNotFoundException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\NoConfigurePrimaryKeyException.cs" Link="Exceptions\NoConfigurePrimaryKeyException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\PrimaryKeyCountUnequalException.cs" Link="Exceptions\PrimaryKeyCountUnequalException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\PropertyNoneValueException.cs" Link="Exceptions\PropertyNoneValueException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Exceptions\SqlBatchExecuteException.cs" Link="Exceptions\SqlBatchExecuteException.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelper.cs" Link="Helper\DataHelper.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperBaseExtension.cs" Link="Helper\DataHelperBaseExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperDdlExtension.cs" Link="Helper\DataHelperDdlExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmExtension.cs" Link="Helper\DataHelperOrmExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\ArrayExtensions.cs" Link="Tools\ArrayExtensions.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\AttributeHelper.cs" Link="Tools\AttributeHelper.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\ModelHelper.cs" Link="Tools\ModelHelper.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\ReflectHelper.cs" Link="Tools\ReflectHelper.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\TypeConverter.cs" Link="Tools\TypeConverter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Attribute\" />
+    <Folder Include="Data\Schema\" />
+    <Folder Include="Driver\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Helper\" />
+    <Folder Include="Tools\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

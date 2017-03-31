@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cocon90.Db.Common.Data.Schema;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Cocon90.Db.Common.Data
         public int Total { get; set; }
 
         [DataMember]
-        public DataTable Data { get; set; }
+        public MDataTable Data { get; set; }
         [DataMember]
         public int PageNumber { get; set; }
 

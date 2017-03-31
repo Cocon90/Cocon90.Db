@@ -120,7 +120,7 @@ namespace System
 
             List<object> primaryKeyValues = new List<object>();
             primaryKeyValues.Add(primaryKeyValue ?? DBNull.Value);
-            if (otherParmaryKeysSortByColumnName != null) primaryKeyValues.AddRange(otherParmaryKeysSortByColumnName.ToList().ConvertAll(obj => obj ?? DBNull.Value));
+            if (otherParmaryKeysSortByColumnName != null) primaryKeyValues.AddRange(otherParmaryKeysSortByColumnName.ToList().ConvertToAll(obj => obj ?? DBNull.Value));
             if (primaryKeyValues.Count > primaryKeys.Count) throw new PrimaryKeyCountUnequalExceptionException("primary key and it's values count unequal.") { PrimaryKeys = primaryKeys.ToArray(), PrimaryKeyValues = primaryKeyValues.ToArray() };
             var conditionPrimaryKeys = new List<string>();
             List<Params> paraList = new List<Params>();
@@ -184,8 +184,8 @@ namespace System
                     columnList.Add(columnNameDic[key]);
                     param.Add(new Params(columnNameDic[key], modelValues[key]));
                 }
-                var columnString = string.Join(",", columnList.ConvertAll(p => dh.Driver.SafeName(p)));
-                var columnParamString = string.Join(",", columnList.ConvertAll(p => "@" + p));
+                var columnString = string.Join(",", columnList.ConvertToAll(p => dh.Driver.SafeName(p)));
+                var columnParamString = string.Join(",", columnList.ConvertToAll(p => "@" + p));
                 var sql = string.Format("INSERT INTO {0}({1}) VALUES({2})", tableName, columnString, columnParamString);
                 sqls.Add(new SqlBatch(sql, param.ToArray()));
             }

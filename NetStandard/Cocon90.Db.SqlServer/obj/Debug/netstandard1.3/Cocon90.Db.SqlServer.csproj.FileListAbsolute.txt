@@ -1,0 +1,9 @@
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90.Db.SqlServer.deps.json
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90.Db.SqlServer.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90.Db.SqlServer.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90.Db.Common.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\obj\Debug\netstandard1.3\Cocon90.Db.SqlServer.csprojResolveAssemblyReference.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\obj\Debug\netstandard1.3\Cocon90.Db.SqlServer.AssemblyInfo.cs
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\obj\Debug\netstandard1.3\Cocon90.Db.SqlServer.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\obj\Debug\netstandard1.3\Cocon90.Db.SqlServer.pdb

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Cocon90.Db.Common.Tools
@@ -14,6 +15,7 @@ namespace Cocon90.Db.Common.Tools
         {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             if (obj == null) return dic;
+            
             var props = type.GetProperties();
             var ignoreProps = AttributeHelper.GetIgnorePropertys(type);
             foreach (var prop in props)

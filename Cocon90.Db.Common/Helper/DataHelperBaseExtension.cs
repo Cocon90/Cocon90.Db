@@ -1,4 +1,5 @@
 ﻿using Cocon90.Db.Common.Data;
+using Cocon90.Db.Common.Data.Schema;
 using Cocon90.Db.Common.Driver;
 using Cocon90.Db.Common.Helper;
 using Cocon90.Db.Common.Tools;
@@ -141,9 +142,9 @@ namespace System
         /// <param name="tsqlParamed">The TSQL paramed.</param>
         /// <param name="paramKeyAndValue">The parameter key and value.</param>
         /// <returns>DataTable.</returns>
-        public static DataTable GetTable(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
+        public static MDataTable GetTable(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            DataTable dt = new DataTable();
+            MDataTable dt = null;
             var ds = dh.GetDataSet(tsqlParamed, paramKeyAndValue);
             if (ds.Tables != null && ds.Tables.Count > 0)
             { dt = ds.Tables[0]; }
@@ -163,7 +164,7 @@ namespace System
             List<string> list = new List<string>();
             var dt = GetTable(dh, tsqlParamed, paramKeyAndValue);
             if (dt == null || dt.Columns.Count <= 0 || dt.Rows.Count <= 0) { return list; }
-            foreach (DataRow row in dt.Rows)
+            foreach (MRow row in dt.Rows)
             {
                 if (isDistinct)
                 {

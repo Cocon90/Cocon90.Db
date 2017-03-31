@@ -15,7 +15,7 @@ namespace Cocon90.Db.Common.Driver
         public abstract DirverType DirverType { get; }
         public abstract DbConnection CreateConnection();
         public abstract DbCommand CreateCommand(string tsqlParamed, CommandType commandType, params Params[] param);
-        public abstract DbDataAdapter CreateAdapter(string tsqlParamed, CommandType commandType, params Params[] param);
+        public abstract DbDataReader CreateDataReader(string tsqlParamed, CommandType commandType = CommandType.Text, CommandBehavior behavior = CommandBehavior.Default, params Params[] param);
         public abstract DbParameter CreateParameter(string key, object value);
         public abstract char ParameterChar { get; }
         public abstract string SafeName(string columnNameOrTableName);

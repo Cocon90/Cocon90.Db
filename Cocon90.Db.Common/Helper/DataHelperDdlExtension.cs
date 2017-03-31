@@ -35,7 +35,7 @@ namespace System
             {
                 columnDdls.Add(columnNameDic[ddl.Key], ddl.Value);
             }
-            var primaryKeyColumns = primaryKeyProps.ConvertAll(p => columnNameDic[p]);
+            var primaryKeyColumns = primaryKeyProps.ConvertToAll(p => columnNameDic[p]);
             SqlBatch sql = dh.Driver.GetCreateTableSql(tableName, columnDdls, primaryKeyColumns);
             return sql;
         }
@@ -54,7 +54,7 @@ namespace System
             {
                 columnDdls.Add(columnNameDic[ddl.Key], ddl.Value);
             }
-            var primaryKeyColumns = primaryKeyProps.ConvertAll(p => columnNameDic[p]);
+            var primaryKeyColumns = primaryKeyProps.ConvertToAll(p => columnNameDic[p]);
             SqlBatch sql = dh.Driver.GetUpdateTableSql(tableName, columnDdls, primaryKeyColumns);
             return sql;
         }

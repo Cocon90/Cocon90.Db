@@ -14,8 +14,5 @@ namespace Cocon90.Db.Common.Exceptions
         public PrimaryKeyCountUnequalExceptionException() { }
         public PrimaryKeyCountUnequalExceptionException(string message) : base(message) { }
         public PrimaryKeyCountUnequalExceptionException(string message, Exception inner) : base(message, inner) { }
-        protected PrimaryKeyCountUnequalExceptionException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

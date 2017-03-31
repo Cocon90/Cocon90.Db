@@ -22,11 +22,11 @@ namespace Cocon90.Db.SqlServer
                 return DirverType.SQLServer;
             }
         }
-        public override DbDataAdapter CreateAdapter(string tsqlParamed, CommandType commandType, params Params[] param)
+        public override DbDataReader CreateDataReader(string tsqlParamed, CommandType commandType = CommandType.Text, CommandBehavior behavior = CommandBehavior.Default, params Params[] param)
         {
             var cmd = (SqlCommand)CreateCommand(tsqlParamed, commandType, param);
-            var dap = new SqlDataAdapter(cmd);
-            return dap;
+            var reader = cmd.ExecuteReader(behavior);
+            return reader;
         }
 
         public override DbCommand CreateCommand(string tsqlParamed, CommandType commandType, params Params[] param)
@@ -127,7 +127,7 @@ namespace Cocon90.Db.SqlServer
             }
             if (primaryKeyColumns != null && primaryKeyColumns.Count > 0)
             {
-                var pkString = string.Join(",", primaryKeyColumns.ConvertAll(pk => SafeName(pk)));
+                var pkString = string.Join(",", primaryKeyColumns.ConvertToAll(pk => SafeName(pk)));
                 sql.AppendFormat("Primary key ({0}) ", pkString);
             }
             sql.AppendFormat(");");
@@ -152,14 +152,14 @@ namespace Cocon90.Db.SqlServer
              ELSE 
              UPDATE Setting SET Title=@title,SearchKeys=@searchKeys,ServiceIntervalSecond=@serviceIntervalSecond, SleepMillisecondPerSearch=@sleepMillisecondPerSearch
             */
-            var columnString = string.Join(",", columnList.ConvertAll(p => SafeName(p)));
-            var columnParamString = string.Join(",", columnList.ConvertAll(p => "@" + p));
+            var columnString = string.Join(",", columnList.ConvertToAll(p => SafeName(p)));
+            var columnParamString = string.Join(",", columnList.ConvertToAll(p => "@" + p));
             var insertSql = string.Format("INSERT INTO {0}({1}) VALUES({2})", tableNameWithSchema, columnString, columnParamString);
             if (primaryKeys.Count == 0)
                 return new SqlBatch(insertSql, param);
 
-            string columnParaString = string.Join(",", columnList.ConvertAll(pk => SafeName(pk) + "=@" + pk)); //[Col1]=@Col1 , [Col2]=@Col2, [Col3]=@Col3
-            var primeryParamString = string.Join(" and ", primaryKeys.ConvertAll(pk => SafeName(pk) + "=@" + pk)); //[PK1]=@PK1 and [PK2]=@PK2 and [PK3]=@PK3
+            string columnParaString = string.Join(",", columnList.ConvertToAll(pk => SafeName(pk) + "=@" + pk)); //[Col1]=@Col1 , [Col2]=@Col2, [Col3]=@Col3
+            var primeryParamString = string.Join(" and ", primaryKeys.ConvertToAll(pk => SafeName(pk) + "=@" + pk)); //[PK1]=@PK1 and [PK2]=@PK2 and [PK3]=@PK3
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("if NOT exists(SELECT * FROM {0} WHERE {1}) ", tableNameWithSchema, primeryParamString);
             sb.Append(insertSql);

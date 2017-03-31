@@ -1,5 +1,7 @@
 ﻿using Cocon90.Db.Common.Data;
+using Cocon90.Db.Common.Data.Schema;
 using Cocon90.Db.Common.Driver;
+using Cocon90.Db.Common.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,8 +17,8 @@ namespace Cocon90.Db.Common.Helper
         /// </summary>
         /// <param name="driver">The driver.</param>
         /// <exception cref="NoNullAllowedException">driver can not be null.</exception>
-        public DataHelper(BaseDriver driver) { this.Driver = driver; if (driver == null) throw new NoNullAllowedException("driver can not be null."); }
-       
+        public DataHelper(BaseDriver driver) { this.Driver = driver; if (driver == null) throw new ArgumentNullException("driver can not be null."); }
+
         /// <summary>
         /// Gets or sets the driver.
         /// </summary>
@@ -64,13 +66,13 @@ namespace Cocon90.Db.Common.Helper
                     if (allowThrowException)
                     {
                         var sb = sqlBatch.ToList()[count];
-                        var sql = string.Join("\r\n", sb.Sql + "|Argument:" + (sb.Params == null ? "" : string.Join(",", sb.Params.ToList().ConvertAll(p => p.Name + "=" + p.Value))));
+                        var sql = string.Join("\r\n", sb.Sql + "|Argument:" + (sb.Params == null ? "" : string.Join(",", sb.Params.ToList().ConvertToAll(p => p.Name + "=" + p.Value))));
                         throw new Exceptions.SqlBatchExecuteException(string.Format("An error occurred while executing the {0} SqlBatch: {1}.\r\n The exception is: {2}.", count + 1, sql, ex.Message), ex) { AllSqlBatch = sqlBatch, CurrentSqlBatch = sb };
                     }
                 }
             }
             return count;
-
+           
         }
 
         /// <summary>
@@ -109,19 +111,32 @@ namespace Cocon90.Db.Common.Helper
         /// <param name="tsqlParamed">The TSQL paramed.</param>
         /// <param name="paramKeyAndValue">The parameter key and value.</param>
         /// <returns>DataSet.</returns>
-        public virtual DataSet GetDataSet(string tsqlParamed, params Params[] paramKeyAndValue)
+        public virtual MDataSet GetDataSet(string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            using (var dap = this.Driver.CreateAdapter(tsqlParamed, CommandType.Text, paramKeyAndValue))
+            MDataSet ds = new MDataSet();
+            using (var dr = this.Driver.CreateDataReader(tsqlParamed, CommandType.Text, CommandBehavior.Default, paramKeyAndValue))
             {
-                DataSet ds = new DataSet();
-                dap.Fill(ds);
-                if (dap.SelectCommand != null && dap.SelectCommand.Connection != null && dap.SelectCommand.Connection.State == ConnectionState.Open)
+                List<MColumn> columns = new List<MColumn>();
+                for (int i = 0; i < dr.FieldCount; i++)
                 {
-                    dap.SelectCommand.Connection.Close();
-                    dap.SelectCommand.Connection.Dispose();
+                    var fieldType = dr.GetFieldType(i);
+                    var caption = dr.GetName(i);
+                    columns.Add(new MColumn(caption, fieldType));
                 }
-                return ds;
+                MDataTable dt = new MDataTable(columns);
+                while (dr.Read())
+                {
+                    List<MCell> cells = new List<MCell>();
+                    for (int i = 0; i < dr.FieldCount; i++)
+                    {
+                        var value = dr[i];
+                        cells.Add(new MCell(columns[i], value));
+                    }
+                    dt.AddRow(cells);
+                }
+                ds.Tables.Add(dt);
             }
+            return ds;
         }
 
     }

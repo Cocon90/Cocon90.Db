@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cocon90.Db.Common.Data.Schema;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cocon90.Db.Common.Tools
 {
     public class ModelHelper
     {
-        public static List<T> GetList<T>(DataTable table, Data.DirverType attrDirverType = Data.DirverType.UnKnown) where T : new()
+        public static List<T> GetList<T>(MDataTable table, Data.DirverType attrDirverType = Data.DirverType.UnKnown) where T : new()
         {
             List<T> result;
             if (table == null)
@@ -22,7 +23,7 @@ namespace Cocon90.Db.Common.Tools
                 Type typeFromHandle = typeof(T);
                 var attrDic = AttributeHelper.GetColumnNames(attrDirverType, typeFromHandle);
                 PropertyInfo[] properties = typeFromHandle.GetProperties();
-                foreach (DataRow dataRow in table.Rows)
+                foreach (var dataRow in table.Rows)
                 {
                     T t = (T)((object)Activator.CreateInstance(typeFromHandle));
                     PropertyInfo[] array = properties;
@@ -31,11 +32,11 @@ namespace Cocon90.Db.Common.Tools
                         PropertyInfo propertyInfo = array[i];
                         var columnName = propertyInfo.Name;
                         if (attrDic.ContainsKey(columnName)) columnName = attrDic[columnName];
-                        if (dataRow.Table.Columns.Contains(columnName))
+                        if (table.ContainsColumn(columnName))
                         {
                             if (propertyInfo.CanWrite)
                             {
-                                var cellValue = dataRow[columnName];
+                                var cellValue = dataRow[columnName].Value;
                                 if (cellValue is DBNull || cellValue == null)
                                 {
                                     propertyInfo.SetValue(t, null, null);
@@ -54,12 +55,12 @@ namespace Cocon90.Db.Common.Tools
             }
             return result ?? new List<T>();
         }
-        public static DataTable GetDataTable<T>(IList<T> list)
+        public static MDataTable GetDataTable<T>(IList<T> list)
         {
             //检查实体集合不能为空
             if (list == null || list.Count < 1)
             {
-                return null;
+                return new MDataTable();
             }
 
             //取出第一个实体的所有Propertie
@@ -68,12 +69,12 @@ namespace Cocon90.Db.Common.Tools
 
             //生成DataTable的structure
             //生产代码中，应将生成的DataTable结构Cache起来，此处略
-            var dt = new DataTable();
+            var dt = new MDataTable();
             foreach (PropertyInfo t in entityProperties)
             {
                 object value = t.GetValue(list[0], null);
-                if (value == null) { dt.Columns.Add(t.Name, typeof(string)); }
-                else { dt.Columns.Add(t.Name, value.GetType()); }
+                if (value == null) { dt.Columns.Add(new MColumn(t.Name, typeof(string))); }
+                else { dt.Columns.Add(new MColumn(t.Name, value.GetType())); }
             }
             //将所有entity添加到DataTable中
             foreach (object entity in list)
@@ -88,7 +89,12 @@ namespace Cocon90.Db.Common.Tools
                 {
                     entityValues[i] = entityProperties[i].GetValue(entity, null);
                 }
-                dt.Rows.Add(entityValues);
+                var row = new MRow(dt.Columns);
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    row.AddCell(dt.Columns[i], entityValues[i]);
+                }
+                dt.Rows.Add(row);
             }
             return dt;
         }

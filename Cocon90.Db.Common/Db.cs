@@ -1,5 +1,6 @@
 ﻿using Cocon90.Db.Common.Driver;
 using Cocon90.Db.Common.Helper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,18 +14,18 @@ namespace Cocon90.Db.Common
     {
         /// <summary>
         /// Gets the data helper. 
-        /// <para>If MySQL DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.Mysql.dll|Cocon90.Db.Mysql.DbDriver" connectionString="Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;"] in ConnectionStrings nodes.</para> 
-        /// <para>If MsSql DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.SqlServer.dll|Cocon90.Db.SqlServer.DbDriver" connectionString="Server=127.0.0.1;Database=test;Uid=sa;Pwd=123456;"] in ConnectionStrings nodes.</para> 
-        /// <para>If Sqlite DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.Sqlite.dll|Cocon90.Db.Sqlite.DbDriver" connectionString="Data Source=${app}\testdb.db3"] in ConnectionStrings nodes.</para> 
+        /// <para>If MySQL DB dbType is "Mysql" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+        /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+        /// <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
         /// </summary>
-        public static DataHelper GetDataHelper(string connectionStringName = "ConnectionString")
+        public static DataHelper GetDataHelper(string jsonConfigFile = "appsettings.json", string dbTypeSectionName = "dbType", string dbConnStringSectionName = "dbConnString")
         {
-            var driver = GetDriver(connectionStringName);
+            var driver = GetDriver(jsonConfigFile, dbTypeSectionName, dbConnStringSectionName);
             return GetDataHelper(driver);
         }
-        public static DataHelper GetDataHelper(string dllPath, string driverTypeClassFullName, string connectionString)
+        public static DataHelper GetDataHelper(string dbTypeName, string dbConnString)
         {
-            var driver = GetDriver(dllPath, driverTypeClassFullName, connectionString);
+            var driver = GetDriver(dbTypeName, dbConnString);
             return GetDataHelper(driver);
         }
         public static DataHelper GetDataHelper(Driver.BaseDriver driver)
@@ -32,86 +33,45 @@ namespace Cocon90.Db.Common
             var dh = new DataHelper(driver);
             return dh;
         }
-        public static BaseDriver GetDriver(Type driverType, string connectionString)
+        internal static BaseDriver GetDriver(Type driverType, string connectionString)
         {
             try
             {
+                connectionString = HandlerConnectionString(connectionString);
                 var driver = (BaseDriver)Activator.CreateInstance(driverType, new object[] { connectionString });
                 return driver;
             }
             catch (Exception ex) { throw ex; }
         }
-        public static BaseDriver GetDriver(string dllPath, string driverTypeClassFullName, string connectionString)
+        internal static BaseDriver GetDriver(string dbTypeName, string dbConnString)
         {
-            var ass = System.Reflection.Assembly.LoadFrom(dllPath);
+            var assName = string.Format("Cocon90.Db.{0}", dbTypeName);
+            var ass = System.Reflection.Assembly.Load(new System.Reflection.AssemblyName(assName));
+            var driverTypeClassFullName = assName + ".DbDriver";
             var type = ass.GetType(driverTypeClassFullName);
-            if (type == null) throw new Exceptions.DriverNotFoundException("Driver " + driverTypeClassFullName + " not found in library " + dllPath + ".");
-            var driver = GetDriver(type, connectionString);
+            if (type == null) throw new Exceptions.DriverNotFoundException("Driver " + driverTypeClassFullName + " not found in assembly '" + assName + ".dll'");
+            var driver = GetDriver(type, dbConnString);
             return driver;
         }
-        public static BaseDriver GetDriver(string connectionStringName = "ConnectionString")
-        {
-            var conf = System.Configuration.ConfigurationManager.ConnectionStrings[connectionStringName];
-            if (conf == null) throw new KeyNotFoundException("ConnectionStringName " + connectionStringName + " not found.");
-            var providerArr = conf.ProviderName?.Split('|');
-            if (providerArr == null || providerArr.Length < 2)
-                throw new Exceptions.ConnectionException("The connection string '" + connectionStringName + "' providerName is made up of two parts: dll path | db driver namespace. like ${app}\\Cocon90.Db.SqlServer.dll|Cocon90.Db.SqlServer.DbDriver");
-            var dllPath = HandlerConnectionString(providerArr[0]);
-            var connectionString = HandlerConnectionString(conf.ConnectionString);
-            return GetDriver(dllPath, providerArr[1], connectionString);
-        }
         /// <summary>
-        /// 取得加工后的连接语句
+        /// Get dbdriver from config file.
         /// </summary>
-        /// <returns></returns>
-        private static string HandlerConnectionString(string connString)
+        internal static BaseDriver GetDriver(string jsonConfigFile = "appsettings.json", string dbTypeSectionName = "dbType", string dbConnStringSectionName = "dbConnString")
         {
-            var appSetting = (System.Configuration.ConfigurationManager.AppSettings["IsConnectionStringEncry"] + "").Trim().ToLower();
-            if (appSetting == "1" || appSetting == "true" || appSetting == "on")
-            {
-                connString = Des(connString, "chinapsu");
-            }
-            if (connString.ToLower().Contains("${app}"))
-            {
-                var dir = System.AppDomain.CurrentDomain.BaseDirectory;
-                dir = dir.TrimEnd('\\');
-                connString = connString.ToLower().Replace("${app}", dir);
-            }
-            foreach (var item in Enum.GetNames(typeof(Environment.SpecialFolder)))
-            {
-                if (connString.Contains("${" + item + "}"))
-                {
-                    Environment.SpecialFolder folder = Environment.SpecialFolder.CommonApplicationData;
-                    if (Enum.TryParse<Environment.SpecialFolder>(item, out folder))
-                    {
-                        var dir = System.Environment.GetFolderPath(folder);
-                        connString = connString.Replace("${" + item + "}", dir.TrimEnd('\\'));
-                    }
-                }
-            }
-            return connString;
+            var cfgPath = Path.Combine(AppContext.BaseDirectory, jsonConfigFile);
+            if (!File.Exists(cfgPath)) throw new FileNotFoundException("The json configuration file '" + jsonConfigFile + "' was not found.");
+            var setting = new ConfigurationBuilder().AddJsonFile(cfgPath, optional: true).Build();
+            var dbConn = setting.GetSection(dbConnStringSectionName).Value;
+            if (string.IsNullOrWhiteSpace(dbConn)) throw new KeyNotFoundException("'dbConnStringSectionName' " + dbConnStringSectionName + " not found in '" + cfgPath + "'");
+            var dbType = setting.GetSection(dbTypeSectionName).Value;
+            if (string.IsNullOrWhiteSpace(dbType)) throw new KeyNotFoundException("'dbTypeSectionName' " + dbTypeSectionName + " not found in '" + cfgPath + "'");
+            var dllPath = Path.Combine(AppContext.BaseDirectory, string.Format("Cocon90.Db.{0}.dll", dbType));
+            return GetDriver(dbType, dbConn);
         }
 
-        private static byte[] Keys = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
-
-        private static string Des(string decryptString, string decryptKey8Letter)
+        private static string HandlerConnectionString(string connectionString)
         {
-            try
-            {
-                byte[] rgbKey = Encoding.UTF8.GetBytes(decryptKey8Letter);
-                byte[] rgbIV = Keys;
-                byte[] inputByteArray = Convert.FromBase64String(decryptString);
-                DESCryptoServiceProvider DCSP = new DESCryptoServiceProvider();
-                MemoryStream mStream = new MemoryStream();
-                CryptoStream cStream = new CryptoStream(mStream, DCSP.CreateDecryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
-                cStream.Write(inputByteArray, 0, inputByteArray.Length);
-                cStream.FlushFinalBlock();
-                return Encoding.UTF8.GetString(mStream.ToArray());
-            }
-            catch
-            {
-                return decryptString;
-            }
+            return connectionString?.ToLower()?.Replace("${app}", AppContext.BaseDirectory);
         }
     }
 }
