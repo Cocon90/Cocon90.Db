@@ -23,11 +23,6 @@ namespace Cocon90.Db.Common.Data.Schema
         }
 
         /// <summary>
-        /// Gets or sets the field count.
-        /// </summary>
-        /// <value>The field count.</value>
-        public int FieldCount { get; set; }
-        /// <summary>
         /// Gets or sets the columns.
         /// </summary>
         /// <value>The columns.</value>

@@ -80,6 +80,7 @@
     <Compile Include="Tools\ArrayExtensions.cs" />
     <Compile Include="Tools\AttributeHelper.cs" />
     <Compile Include="Tools\ModelHelper.cs" />
+    <Compile Include="Tools\PathHelper.cs" />
     <Compile Include="Tools\ReflectHelper.cs" />
     <Compile Include="Tools\TypeConverter.cs" />
   </ItemGroup>

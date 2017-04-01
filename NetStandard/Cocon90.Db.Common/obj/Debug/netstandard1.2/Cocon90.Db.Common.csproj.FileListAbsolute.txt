@@ -1,0 +1,3 @@
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Debug\netstandard1.2\Cocon90.Db.Common.deps.json
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Debug\netstandard1.2\Cocon90.Db.Common.csprojResolveAssemblyReference.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Debug\netstandard1.2\Cocon90.Db.Common.AssemblyInfo.cs

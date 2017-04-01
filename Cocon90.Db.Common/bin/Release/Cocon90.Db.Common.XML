@@ -4,6 +4,223 @@
         <name>Cocon90.Db.Common</name>
     </assembly>
     <members>
+        <member name="T:Cocon90.Db.Common.Data.Schema.MCell">
+            <summary>
+            Class MCell.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.#ctor(Cocon90.Db.Common.Data.Schema.MColumn,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Data.Schema.MCell"/> class.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MCell.Column">
+            <summary>
+            Gets or sets the column.
+            </summary>
+            <value>The column.</value>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MCell.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>The value.</value>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfString">
+            <summary>
+            Gets the value of string.
+            </summary>
+            <value>The value of string.</value>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfInt(System.Int32)">
+            <summary>
+            Values the of int.
+            </summary>
+            <param name="defaultValue">The default value.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfInt">
+            <summary>
+            Values the of int.
+            </summary>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfDouble(System.Double)">
+            <summary>
+            Values the of double.
+            </summary>
+            <param name="defaultValue">The default value.</param>
+            <returns>System.Double.</returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfDouble">
+            <summary>
+            Values the of double.
+            </summary>
+            <returns>System.Double.</returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfBool(System.Boolean)">
+            <summary>
+            Values the of bool.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOfBool">
+            <summary>
+            Values the of bool.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOf(System.Type,System.Boolean)">
+            <summary>
+            Values the of targetType.
+            </summary>
+            <param name="targetType">Type of the target.</param>
+            <param name="isThrewException">if set to <c>true</c> [is threw exception].</param>
+            <returns>System.Object.</returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MCell.ValueOf``1(``0)">
+            <summary>
+            Values the of type.
+            </summary>
+        </member>
+        <member name="T:Cocon90.Db.Common.Data.Schema.MRow">
+            <summary>
+            Class MRow.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MRow.#ctor(System.Collections.Generic.List{Cocon90.Db.Common.Data.Schema.MColumn})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Data.Schema.MRow"/> class.
+            </summary>
+            <param name="columns">The columns.</param>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MRow.Item(System.Int32)">
+            <summary>
+            Get the cell.
+            </summary>
+            <param name="columnIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MRow.Item(System.String)">
+            <summary>
+            Get the cell.
+            </summary>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MRow.Columns">
+            <summary>
+            Gets or sets the columns.
+            </summary>
+            <value>The columns.</value>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MRow.Cells">
+            <summary>
+            Gets or sets the cells.
+            </summary>
+            <value>The cells.</value>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MRow.AddCell(Cocon90.Db.Common.Data.Schema.MColumn,System.Object)">
+            <summary>
+            add the cell.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MRow.ContainsColumn(System.String)">
+            <summary>
+            Return is contains columnName.
+            </summary>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MRow.ColumnIndexOf(System.String)">
+            <summary>
+            Return is columnName index.
+            </summary>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cocon90.Db.Common.Data.Schema.MColumn">
+            <summary>
+            Class MColumn.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MColumn.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Data.Schema.MColumn"/> class.
+            </summary>
+            <param name="caption">The caption.</param>
+            <param name="dataType">Type of the data.</param>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MColumn.Caption">
+            <summary>
+            Gets or sets the caption.
+            </summary>
+            <value>The caption.</value>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MColumn.DataType">
+            <summary>
+            Gets or sets the type of the data.
+            </summary>
+            <value>The type of the data.</value>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MColumn.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
+        </member>
+        <member name="T:Cocon90.Db.Common.Data.Schema.MDataTable">
+            <summary>
+            Class MDataTable.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MDataTable.#ctor(System.Collections.Generic.List{Cocon90.Db.Common.Data.Schema.MColumn})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Data.Schema.MDataTable"/> class.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MDataTable.Columns">
+            <summary>
+            Gets or sets the columns.
+            </summary>
+            <value>The columns.</value>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MDataTable.Rows">
+            <summary>
+            Gets or sets the rows.
+            </summary>
+            <value>The rows.</value>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MDataTable.AddRow(System.Collections.Generic.IEnumerable{Cocon90.Db.Common.Data.Schema.MCell})">
+            <summary>
+            Add a row to this table.
+            </summary>
+            <param name="cells"></param>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MDataTable.ContainsColumn(System.String)">
+            <summary>
+            Return is contains columnName.
+            </summary>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.Data.Schema.MDataTable.ColumnIndexOf(System.String)">
+            <summary>
+            Return is columnName index.
+            </summary>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cocon90.Db.Common.Data.Schema.MDataSet">
+            <summary>
+            Class MDataSet. The Tables Collections.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Data.Schema.MDataSet.Tables">
+            <summary>
+            Gets or sets the tables.
+            </summary>
+            <value>The tables.</value>
+        </member>
         <member name="T:Cocon90.Db.Common.Data.DirverType">
             <summary>
             数据库的类型
@@ -29,16 +246,18 @@
         <member name="M:Cocon90.Db.Common.Db.GetDataHelper(System.String)">
             <summary>
             Gets the data helper. 
-            <para>If MySQL DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.Mysql.dll|Cocon90.Db.Mysql.DbDriver" connectionString="Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;"] in ConnectionStrings nodes.</para> 
-            <para>If MsSql DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.SqlServer.dll|Cocon90.Db.SqlServer.DbDriver" connectionString="Server=127.0.0.1;Database=test;Uid=sa;Pwd=123456;"] in ConnectionStrings nodes.</para> 
-            <para>If Sqlite DB Please Add：[name="ConnectionString" providerName="${app}\Cocon90.Db.Sqlite.dll|Cocon90.Db.Sqlite.DbDriver" connectionString="Data Source=${app}\testdb.db3"] in ConnectionStrings nodes.</para> 
+            <para>If MySQL DB providerName is "Mysql" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+            <para>If MsSql DB providerName is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+            <para>If Sqlite DB providerName is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
             </summary>
         </member>
-        <member name="M:Cocon90.Db.Common.Db.HandlerConnectionString(System.String)">
+        <member name="M:Cocon90.Db.Common.Db.GetDataHelper(System.String,System.String)">
             <summary>
-            取得加工后的连接语句
+            Gets the data helper. 
+            <para>If MySQL DB dbType is "Mysql" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+            <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+            <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Cocon90.Db.Common.Helper.DataHelper.#ctor(Cocon90.Db.Common.Driver.BaseDriver)">
             <summary>

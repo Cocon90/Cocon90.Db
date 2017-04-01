@@ -40,6 +40,7 @@
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ArrayExtensions.cs" Link="Tools\ArrayExtensions.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\AttributeHelper.cs" Link="Tools\AttributeHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ModelHelper.cs" Link="Tools\ModelHelper.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\PathHelper.cs" Link="Tools\PathHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ReflectHelper.cs" Link="Tools\ReflectHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\TypeConverter.cs" Link="Tools\TypeConverter.cs" />
   </ItemGroup>
