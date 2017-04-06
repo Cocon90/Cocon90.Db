@@ -10,6 +10,10 @@
     <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Cocon90.Db.Common\Attribute\ColumnAttribute.cs" Link="Attribute\ColumnAttribute.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Attribute\IgnoreAttribute.cs" Link="Attribute\IgnoreAttribute.cs" />
