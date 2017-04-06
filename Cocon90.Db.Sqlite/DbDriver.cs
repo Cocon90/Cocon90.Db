@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 using Cocon90.Db.Common.Data;
 using System.Data;
 using System.Data.Common;
+#if NETSTANDARD
+using Microsoft.Data.Sqlite;
+#else
 using System.Data.SQLite;
-
+#endif
 namespace Cocon90.Db.Sqlite
 {
     public class DbDriver : BaseDriver
@@ -24,17 +27,27 @@ namespace Cocon90.Db.Sqlite
                 return DirverType.MySql;
             }
         }
-        public override DbDataAdapter CreateAdapter(string tsqlParamed, CommandType commandType, params Params[] param)
+        public override DbDataReader CreateDataReader(string tsqlParamed, CommandType commandType = CommandType.Text, CommandBehavior behavior = CommandBehavior.Default, params Params[] param)
         {
+#if NETSTANDARD
+            var cmd = (SqliteCommand)CreateCommand(tsqlParamed, commandType, param);
+#else
             var cmd = (SQLiteCommand)CreateCommand(tsqlParamed, commandType, param);
-            var dap = new SQLiteDataAdapter(cmd);
-            return dap;
+#endif
+            var reader = cmd.ExecuteReader(behavior);
+            return reader;
         }
 
         public override DbCommand CreateCommand(string tsqlParamed, CommandType commandType, params Params[] param)
         {
+#if NETSTANDARD
+            var conn = (SqliteConnection)this.CreateConnection();
+            var cmd = new SqliteCommand(tsqlParamed, conn);
+#else
             var conn = (SQLiteConnection)this.CreateConnection();
             var cmd = new SQLiteCommand(tsqlParamed, conn);
+#endif
+
             cmd.CommandType = commandType;
             if (param != null)
             {
@@ -48,9 +61,18 @@ namespace Cocon90.Db.Sqlite
 
         public override DbConnection CreateConnection()
         {
+#if NETSTANDARD
+            SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder(this.ConnectionString);
+            connString.Add("BinaryGUID", false);
+            SqliteConnection conn = new SqliteConnection(connString.ConnectionString);
+#else
             SQLiteConnectionStringBuilder connString = new SQLiteConnectionStringBuilder(this.ConnectionString);
             connString.BinaryGUID = false;
             SQLiteConnection conn = new SQLiteConnection(connString.ConnectionString);
+#endif
+
+
+
             conn.Open();
             return conn;
         }
@@ -64,7 +86,12 @@ namespace Cocon90.Db.Sqlite
             }
             var keyStr = key.Replace('@', this.ParameterChar);
             if (!keyStr.Contains(this.ParameterChar)) { keyStr = this.ParameterChar + keyStr.Trim(); }
+
+#if NETSTANDARD
+            SqliteParameter param = new SqliteParameter(keyStr, objValue);
+#else
             SQLiteParameter param = new SQLiteParameter(keyStr, objValue);
+#endif
             return param;
         }
 
@@ -128,7 +155,7 @@ namespace Cocon90.Db.Sqlite
             }
             if (primaryKeyColumns != null && primaryKeyColumns.Count > 0)
             {
-                var pkString = string.Join(",", primaryKeyColumns.ConvertAll(pk => SafeName(pk)));
+                var pkString = string.Join(",", primaryKeyColumns.ConvertToAll(pk => SafeName(pk)));
                 sql.AppendFormat("Primary key ({0}) ", pkString);
             }
             sql.AppendFormat(");");
@@ -137,17 +164,30 @@ namespace Cocon90.Db.Sqlite
 
         public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
         {
+#if NETSTANDARD
+            var conn = (SqliteConnection)CreateConnection();
+#else
             var conn = (SQLiteConnection)CreateConnection();
-            var dap = CreateAdapter(string.Format("PRAGMA table_info({0})", SafeName(tableName)), CommandType.Text);
-            var schema = new DataTable();
-            dap.Fill(schema);
-            dap.SelectCommand.Dispose();
+#endif
+            var dap = CreateDataReader(string.Format("PRAGMA table_info({0})", SafeName(tableName)), CommandType.Text);
+            List<string> columns = new List<string>();
+            int nameColumnIndex = 1;
+            for (int i = 0; i < dap.FieldCount; i++)
+            {
+                if (dap.GetName(i) + "".ToLower() == "name")
+                { nameColumnIndex = i; break; }
+            }
+            while (dap.Read())
+            {
+                columns.Add(dap.GetString(nameColumnIndex));
+            }
             dap.Dispose();
+            conn.Close();
+            conn.Dispose();
             var sql = new StringBuilder();
             foreach (var ddl in columnDdls)
             {
-                var rows = schema.Select(string.Format("name='{0}'", ddl.Key));
-                if (rows.Length == 0)
+                if (columns.Contains((ddl.Key + "").ToLower()))
                 {
                     sql.AppendLine(string.Format("ALTER TABLE {0} Add Column {1} {2};", SafeName(tableName), SafeName(ddl.Key), ddl.Value));
                 }
@@ -158,8 +198,8 @@ namespace Cocon90.Db.Sqlite
 
         public override SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param)
         {
-            var columnString = string.Join(",", columnList.ConvertAll(p => SafeName(p)));
-            var columnParamString = string.Join(",", columnList.ConvertAll(p => "@" + p));
+            var columnString = string.Join(",", columnList.ConvertToAll(p => SafeName(p)));
+            var columnParamString = string.Join(",", columnList.ConvertToAll(p => "@" + p));
             var sql = string.Format("INSERT OR REPLACE INTO {0}({1}) VALUES({2})", tableNameWithSchema, columnString, columnParamString);
             return new SqlBatch(sql.ToString(), param);
         }

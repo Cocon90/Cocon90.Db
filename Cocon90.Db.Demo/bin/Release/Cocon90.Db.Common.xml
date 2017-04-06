@@ -178,12 +178,6 @@
             Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Data.Schema.MDataTable"/> class.
             </summary>
         </member>
-        <member name="P:Cocon90.Db.Common.Data.Schema.MDataTable.FieldCount">
-            <summary>
-            Gets or sets the field count.
-            </summary>
-            <value>The field count.</value>
-        </member>
         <member name="P:Cocon90.Db.Common.Data.Schema.MDataTable.Columns">
             <summary>
             Gets or sets the columns.
@@ -447,7 +441,7 @@
             Updates by the specified model.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:System.DataHelperOrmExtension.UpdateByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,System.Object,System.Object[])" -->
+        <!-- 对于成员“M:System.DataHelperOrmExtension.UpdateByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,System.Object,System.Object[])”忽略有格式错误的 XML 注释 -->
         <member name="M:System.DataHelperOrmExtension.UpdateByByWhere``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Updates the by by where.

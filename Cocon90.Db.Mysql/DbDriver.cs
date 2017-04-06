@@ -22,11 +22,11 @@ namespace Cocon90.Db.Mysql
                 return DirverType.MySql;
             }
         }
-        public override DbDataAdapter CreateAdapter(string tsqlParamed, CommandType commandType, params Params[] param)
+        public override DbDataReader CreateDataReader(string tsqlParamed, CommandType commandType = CommandType.Text, CommandBehavior behavior = CommandBehavior.Default, params Params[] param)
         {
             var cmd = (MySqlCommand)CreateCommand(tsqlParamed, commandType, param);
-            var dap = new MySqlDataAdapter(cmd);
-            return dap;
+            var reader = cmd.ExecuteReader(behavior);
+            return reader;
         }
 
         public override DbCommand CreateCommand(string tsqlParamed, CommandType commandType, params Params[] param)
@@ -50,7 +50,6 @@ namespace Cocon90.Db.Mysql
             connString.AllowUserVariables = true;
             MySqlConnection conn = new MySqlConnection(connString.ConnectionString);
             conn.Open();
-
             return conn;
         }
 
@@ -129,7 +128,7 @@ namespace Cocon90.Db.Mysql
             }
             if (primaryKeyColumns != null && primaryKeyColumns.Count > 0)
             {
-                var pkString = string.Join(",", primaryKeyColumns.ConvertAll(pk => SafeName(pk)));
+                var pkString = string.Join(",", primaryKeyColumns.ConvertToAll(pk => SafeName(pk)));
                 sql.AppendFormat("Primary key ({0}) ", pkString);
             }
             sql.AppendFormat(")Engine InnoDB;");
@@ -148,8 +147,8 @@ namespace Cocon90.Db.Mysql
 
         public override SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param)
         {
-            var columnString = string.Join(",", columnList.ConvertAll(p => SafeName(p)));
-            var columnParamString = string.Join(",", columnList.ConvertAll(p => "@" + p));
+            var columnString = string.Join(",", columnList.ConvertToAll(p => SafeName(p)));
+            var columnParamString = string.Join(",", columnList.ConvertToAll(p => "@" + p));
             var sql = string.Format("REPLACE INTO {0}({1}) VALUES({2})", tableNameWithSchema, columnString, columnParamString);
             return new SqlBatch(sql.ToString(), param);
         }
