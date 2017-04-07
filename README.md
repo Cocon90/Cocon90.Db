@@ -14,6 +14,7 @@
 （1）新建一件空的项目，取名`Cocon90.Db.Demo`。
 （2）添加对库`Cocon90.Db.Common.dll`的引用，或者执行`Install-Package Cocon90.Db.Common`。
 （3）接下来，如果要操作SqlServer数据库则引入`Cocon90.Db.SqlServer`，如果要操作Sqlite数据库，则引入`Cocon90.Db.Sqlite`，如果要操作Mysql，则需要引入`Cocon90.Db.Mysql`库。
+
 >| DataBase | Require Library |
 |--------|--------|
 |MySql|Cocon90.Db.Common,Cocon90.Db.Mysql|
