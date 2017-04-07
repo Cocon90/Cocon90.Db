@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cocon90.Db.XUnitTest", "Cocon90.Db.XUnitTest\Cocon90.Db.XUnitTest.csproj", "{6CD05027-9A30-4D49-9F91-0C97A7037D89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{748F2D08-7936-4139-A67F-44273A68A510}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748F2D08-7936-4139-A67F-44273A68A510}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{748F2D08-7936-4139-A67F-44273A68A510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD05027-9A30-4D49-9F91-0C97A7037D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD05027-9A30-4D49-9F91-0C97A7037D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD05027-9A30-4D49-9F91-0C97A7037D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD05027-9A30-4D49-9F91-0C97A7037D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +99,6 @@ Global
 		{0AAD71E4-3628-4018-84AC-7400775458FF} = {67EA2745-3444-4A12-966A-EE62A7C24945}
 		{EE9D0C81-2647-4A98-93C5-A14DDA160A18} = {67EA2745-3444-4A12-966A-EE62A7C24945}
 		{748F2D08-7936-4139-A67F-44273A68A510} = {67EA2745-3444-4A12-966A-EE62A7C24945}
+		{6CD05027-9A30-4D49-9F91-0C97A7037D89} = {DB7C39DE-8600-4582-9D7F-0D837755CF2F}
 	EndGlobalSection
 EndGlobal

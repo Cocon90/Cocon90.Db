@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cocon90.Core.Db.XUnitTest.Model
+namespace Cocon90.Db.XUnitTest.Model
 {
     [Table(TableName = "CountryLanguage")]
     public class CountryLanguageTab
