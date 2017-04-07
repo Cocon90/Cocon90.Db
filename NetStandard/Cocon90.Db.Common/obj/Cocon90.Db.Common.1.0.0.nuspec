@@ -25,5 +25,6 @@
   </metadata>
   <files>
     <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\Cocon90.Db.Common.dll" target="lib\netstandard1.3\Cocon90.Db.Common.dll" />
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\.xml" target="lib\netstandard1.3\.xml" />
   </files>
 </package>

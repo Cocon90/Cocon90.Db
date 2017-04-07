@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Cocon90.DbCore.Sqlite</id>
+    <version>1.0.0</version>
+    <authors>Sindrol(Xingzhu Song)</authors>
+    <owners>Sindrol(Xingzhu Song)</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/Cocon90/Cocon90.Db</licenseUrl>
+    <projectUrl>https://github.com/Cocon90/Cocon90.Db</projectUrl>
+    <iconUrl>https://github.com/Cocon90/Cocon90.Db</iconUrl>
+    <description>Cocon90.Db是由Cocon90.Db.Common为核心的类库与其它数据库操作库组合而成，以方便调用为主要目的，支持ORM操作，增、删、改、查、事务、批量执行、创建表、插入或保存记录 等等，并提供多种数据库支持。当前已支持Mysql、Sqlite、SqlServer。</description>
+    <releaseNotes>Cocon90.Db是由Cocon90.Db.Common为核心的类库与其它数据库操作库组合而成，以方便调用为主要目的，支持ORM操作，增、删、改、查、事务、批量执行、创建表、插入或保存记录 等等，并提供多种数据库支持。当前已支持Mysql、Sqlite、SqlServer。</releaseNotes>
+    <copyright>Copyright @ SongXingZhu 2015</copyright>
+    <repository url="https://github.com/Cocon90/Cocon90.Db" />
+    <dependencies>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="Cocon90.Db.Common" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Data.SQLite" version="1.1.0" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\bin\Release\netstandard1.3\Cocon90.Db.Sqlite.dll" target="lib\netstandard1.3\Cocon90.Db.Sqlite.dll" />
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\bin\Release\netstandard1.3\Cocon90.Db.Sqlite.xml" target="lib\netstandard1.3\Cocon90.Db.Sqlite.xml" />
+  </files>
+</package>

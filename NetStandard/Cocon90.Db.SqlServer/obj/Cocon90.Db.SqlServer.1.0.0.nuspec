@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Cocon90.Db.SqlServer</id>
+    <version>1.0.0</version>
+    <authors>Cocon90.Db.SqlServer</authors>
+    <owners>Cocon90.Db.SqlServer</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="Cocon90.Db.Common" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="System.Data.SqlClient" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Release\netstandard1.3\Cocon90.Db.SqlServer.dll" target="lib\netstandard1.3\Cocon90.Db.SqlServer.dll" />
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Release\netstandard1.3\.xml" target="lib\netstandard1.3\.xml" />
+  </files>
+</package>
