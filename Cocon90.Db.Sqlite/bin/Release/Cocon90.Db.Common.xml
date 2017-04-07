@@ -493,7 +493,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetDateTime(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the date time.
+            Gets the date time. if convert failed return '1970-01-01 0:0:0'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -502,7 +502,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetDateTimeOffset(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the date time offset.
+            Gets the date time offset. if convert failed return 'DateTimeOffset.MinValue'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -511,7 +511,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetFloat(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the float.
+            Gets the float. if convert failed return '-1'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -520,7 +520,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetDouble(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the double.
+            Gets the double. if convert failed return '-1'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -529,7 +529,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetInt(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the int.
+            Gets the int. if convert failed return '-1'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -538,7 +538,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetDecimal(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the decimal.
+            Gets the decimal. if convert failed return '-1'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -547,7 +547,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetLong(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the long.
+            Gets the long. if convert failed return '-1'
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -556,7 +556,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetString(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the string.
+            Gets the string. if convert failed return [string.Empty]
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
@@ -565,7 +565,7 @@
         </member>
         <member name="M:System.DataHelperBaseExtension.GetTable(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the table.
+            Gets the table. 
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
