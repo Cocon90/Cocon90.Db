@@ -44,19 +44,21 @@ namespace Cocon90.Db.Common.Helper
                 {
                     foreach (var sql in sqlBatch)
                     {
-                        var cmd = conn.CreateCommand();
-                        cmd.Transaction = trans;
-                        cmd.CommandText = sql.Sql;
-                        cmd.CommandType = CommandType.Text;
-                        if (sql.Params != null)
+                        using (var cmd = conn.CreateCommand())
                         {
-                            foreach (var p in sql.Params)
+                            cmd.Transaction = trans;
+                            cmd.CommandText = sql.Sql;
+                            cmd.CommandType = CommandType.Text;
+                            if (sql.Params != null)
                             {
-                                cmd.Parameters.Add(this.Driver.CreateParameter(p.Name, p.Value));
+                                foreach (var p in sql.Params)
+                                {
+                                    cmd.Parameters.Add(this.Driver.CreateParameter(p.Name, p.Value));
+                                }
                             }
+                            cmd.ExecuteNonQuery();
+                            count += 1;
                         }
-                        cmd.ExecuteNonQuery();
-                        count += 1;
                     }
                     if (isCommit) { trans.Commit(); } else { trans.Rollback(); }
                 }
@@ -70,9 +72,11 @@ namespace Cocon90.Db.Common.Helper
                         throw new Exceptions.SqlBatchExecuteException(string.Format("An error occurred while executing the {0} SqlBatch: {1}.\r\n The exception is: {2}.", count + 1, sql, ex.Message), ex) { AllSqlBatch = sqlBatch, CurrentSqlBatch = sb };
                     }
                 }
+                if (conn.State != ConnectionState.Closed) conn.Close();
             }
+            trans.Dispose();
             return count;
-           
+
         }
 
         /// <summary>
@@ -85,8 +89,12 @@ namespace Cocon90.Db.Common.Helper
         {
             using (var cmd = this.Driver.CreateCommand(tsqlParamed, CommandType.Text, paramKeyAndValue))
             {
-                var obj = cmd.ExecuteScalar();
-                return obj;
+                using (cmd.Connection)
+                {
+                    var obj = cmd.ExecuteScalar();
+                    if (cmd.Connection.State != ConnectionState.Closed) cmd.Connection.Close();
+                    return obj;
+                }
             }
         }
 
@@ -100,8 +108,12 @@ namespace Cocon90.Db.Common.Helper
         {
             using (var cmd = this.Driver.CreateCommand(tsqlParamed, CommandType.Text, paramKeyAndValue))
             {
-                var obj = cmd.ExecuteNonQuery();
-                return obj;
+                using (cmd.Connection)
+                {
+                    var obj = cmd.ExecuteNonQuery();
+                    if (cmd.Connection.State != ConnectionState.Closed) cmd.Connection.Close();
+                    return obj;
+                }
             }
         }
 
