@@ -1553,7 +1553,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Cocon90.Db.Common/1.0.0": {
+      "Cocon90.DbCore.Common/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -5430,7 +5430,7 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Cocon90.Db.Common/1.0.0": {
+    "Cocon90.DbCore.Common/1.0.0": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
@@ -5438,7 +5438,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v1.3": [
-      "Cocon90.Db.Common >= 1.0.0",
+      "Cocon90.DbCore.Common >= 1.0.0",
       "NETStandard.Library >= 1.6.1",
       "System.Data.SqlClient >= 4.3.0"
     ]

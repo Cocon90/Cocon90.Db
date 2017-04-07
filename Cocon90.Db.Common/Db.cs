@@ -20,7 +20,7 @@ namespace Cocon90.Db.Common
         /// <summary>
         /// Gets the data helper. 
         /// <para>If MySQL DB dbType is "Mysql" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
-        /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+        /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Database=world;Uid=sa;Pwd=123456;" </para> 
         /// <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
         /// </summary>
         public static DataHelper GetDataHelper(string jsonConfigFile = "appsettings.json", string dbTypeSectionName = "dbType", string dbConnStringSectionName = "dbConnString")

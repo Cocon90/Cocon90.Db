@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cocon90.Db.Common.Data;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace Cocon90.Db.Demo
     {
         static void Main(string[] args)
         {
-            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Cocon90.Db.Sqlite.dll", "Cocon90.Db.Sqlite.DbDriver", "D:\\Application\\DbTools\\sqliteSpy\\SQLiteSpy.db3;");
-
+            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Sqlite","Data Source=${app}\\test.db3");
             var dh = Cocon90.Db.Common.Db.GetDataHelper();
 
             var createSql = dh.GetCreateTableSql<Model.CountryLanguageModel>();
@@ -45,6 +45,7 @@ namespace Cocon90.Db.Demo
             var deleteSql4 = dh.GetDeleteSql<Model.CountryLanguageModel>(null, "1=@myParam", new Common.Data.Params("myParam", 1));
             var successRow = dh.Delete(new Model.CountryLanguageModel { Code = 3, Percent = 4.5m });
 
+
             var saveSql = dh.GetSaveSql(new Model.CountryLanguageModel() { Percent = 1.555m, IsOfficial = false, Code = 2, Language = "Lang" },
                  new Model.CountryLanguageModel() { Percent = 1.66m, IsOfficial = true, Code = 3, Language = "Lang" });
             var saveRows = dh.Save(new Model.CountryLanguageModel() { Percent = 1.555m, IsOfficial = false, Code = 2, Language = "Lang" },
@@ -52,7 +53,16 @@ namespace Cocon90.Db.Demo
             var executeNoQuery = dh.ExecNoQuery("update countrylanguage set Percentage=4.4 where Percentage=@Percentage", new Model.CountryLanguageModel { Percent = 1.6m });
             var pageSql = dh.Driver.GetPagedSql("select * from countrylanguage", "CountryCode", true, 1, 10);
             var pageResult = dh.GetPagedResult<Model.CountryLanguageModel>("select * from countrylanguage", "countrycode", true, 1, 10);
+            List<Model.CountryLanguageModel> data = pageResult.Data;
+            int totalRecordCount = pageResult.Total;
+            int pageNum = pageResult.PageNumber;
+            int pageSize = pageResult.PageSize;
 
+
+            var sql1 = new SqlBatch("update countrylanguage set Percentage=4.4 where 1=2");
+            var sql2 = new SqlBatch("update countrylanguage set Percentage=4.4 where 1=4");
+            var sql3 = new SqlBatch("update countrylanguage set Percentage=4.4 where 1=6");
+            dh.ExecBatch(new SqlBatch[] { sql1, sql2, sql3 }, true);
         }
     }
 }

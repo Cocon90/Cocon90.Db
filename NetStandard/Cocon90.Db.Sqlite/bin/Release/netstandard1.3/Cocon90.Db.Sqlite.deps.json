@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "cocon90.db.sqlite/1.0.0": {
+      "cocon90.db.sqlite/1.0.0.0": {
         "dependencies": {
           "Cocon90.Db.Common": "1.0.0",
           "Microsoft.Data.Sqlite": "1.1.0",
@@ -860,7 +860,7 @@
     }
   },
   "libraries": {
-    "cocon90.db.sqlite/1.0.0": {
+    "cocon90.db.sqlite/1.0.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

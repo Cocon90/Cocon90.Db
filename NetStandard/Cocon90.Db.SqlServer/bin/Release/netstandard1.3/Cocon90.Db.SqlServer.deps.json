@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "cocon90.db.sqlserver/1.0.0": {
+      "cocon90.db.sqlserver/1.0.0.0": {
         "dependencies": {
           "Cocon90.Db.Common": "1.0.0",
           "NETStandard.Library": "1.6.1",
@@ -1030,7 +1030,7 @@
     }
   },
   "libraries": {
-    "cocon90.db.sqlserver/1.0.0": {
+    "cocon90.db.sqlserver/1.0.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
