@@ -15,7 +15,7 @@
     <repository url="https://github.com/Cocon90/Cocon90.Db" />
     <dependencies>
       <group targetFramework=".NETStandard1.3">
-        <dependency id="Cocon90.Db.Common" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Cocon90.DbCore.Common" version="1.0.0" exclude="Build,Analyzers" />
         <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
         <dependency id="System.Data.SqlClient" version="4.3.0" exclude="Build,Analyzers" />
       </group>

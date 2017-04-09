@@ -44,7 +44,7 @@ namespace Cocon90.Db.Common.Data.Schema
         {
             get
             {
-                return Cells.Find(mc => mc.Column?.Caption == columnName);
+                return Cells.Find(mc => mc.Column?.Caption?.ToLower() == columnName?.ToLower());
             }
         }
         /// <summary>

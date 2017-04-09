@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v1.1": {
       "cocon90core.db.xunittest/1.0.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.0.0",
-          "Cocon90.Db.SqlServer": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.0",
+          "Cocon90.DbCore.SqlServer": "1.0.0",
           "Microsoft.NET.Test.Sdk": "15.0.0",
           "xunit": "2.2.0",
           "xunit.runner.visualstudio": "2.2.0"
@@ -554,7 +554,7 @@
           "Microsoft.TestPlatform.ObjectModel": "15.0.0"
         }
       },
-      "cocon90.db.common/1.0.0": {
+      "cocon90.dbcore.common/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
@@ -567,9 +567,9 @@
           "Cocon90.Db.Common.dll": {}
         }
       },
-      "cocon90.db.sqlserver/1.0.0": {
+      "cocon90.dbcore.sqlserver/1.0.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.0",
           "System.Data.SqlClient": "4.3.0"
         },
         "runtime": {
@@ -885,12 +885,12 @@
       "path": "xunit.runner.visualstudio/2.2.0",
       "hashPath": "xunit.runner.visualstudio.2.2.0.nupkg.sha512"
     },
-    "cocon90.db.common/1.0.0": {
+    "cocon90.dbcore.common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "cocon90.db.sqlserver/1.0.0": {
+    "cocon90.dbcore.sqlserver/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
