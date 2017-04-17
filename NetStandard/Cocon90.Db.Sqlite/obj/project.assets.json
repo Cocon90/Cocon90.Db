@@ -1304,7 +1304,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Cocon90.DbCore.Common/1.0.0": {
+      "Cocon90.DbCore.Common/1.0.4": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -4819,7 +4819,7 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Cocon90.DbCore.Common/1.0.0": {
+    "Cocon90.DbCore.Common/1.0.4": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
@@ -4827,7 +4827,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v1.3": [
-      "Cocon90.DbCore.Common >= 1.0.0",
+      "Cocon90.DbCore.Common >= 1.0.4",
       "Microsoft.Data.SQLite >= 1.1.0",
       "NETStandard.Library >= 1.6.1"
     ]
@@ -4836,7 +4836,7 @@
     "C:\\Users\\Sindrol\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.3",
     "restore": {
       "projectUniqueName": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Sqlite\\Cocon90.Db.Sqlite.csproj",
       "projectName": "Cocon90.Db.Sqlite",

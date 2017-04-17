@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "cocon90.db.common/1.0.0.0": {
+      "cocon90.db.common/1.0.4.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
@@ -839,7 +839,7 @@
     }
   },
   "libraries": {
-    "cocon90.db.common/1.0.0.0": {
+    "cocon90.db.common/1.0.4.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

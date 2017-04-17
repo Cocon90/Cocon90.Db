@@ -7,9 +7,9 @@
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "cocon90.db.sqlserver/1.0.0.0": {
+      "cocon90.db.sqlserver/1.0.3.0": {
         "dependencies": {
-          "Cocon90.DbCore.Common": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.4",
           "NETStandard.Library": "1.6.1",
           "System.Data.SqlClient": "4.3.0"
         },
@@ -1009,7 +1009,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "cocon90.dbcore.common/1.0.0": {
+      "cocon90.dbcore.common/1.0.4": {
         "dependencies": {
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
@@ -1030,7 +1030,7 @@
     }
   },
   "libraries": {
-    "cocon90.db.sqlserver/1.0.0.0": {
+    "cocon90.db.sqlserver/1.0.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1707,7 +1707,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "cocon90.dbcore.common/1.0.0": {
+    "cocon90.dbcore.common/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

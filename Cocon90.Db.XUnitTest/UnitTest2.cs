@@ -10,9 +10,7 @@ namespace Cocon90.Db.XUnitTest
         [TestMethod]
         public void TestMethod()
         {
-      
             
-
         }
     }
 }
