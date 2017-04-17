@@ -9,6 +9,7 @@ namespace Cocon90.Db.XUnitTest
         [Fact]
         public void Test1()
         {
+     
             //var dh = Cocon90.Db.Common.Db.GetDataHelper("Cocon90.Db.Sqlite.dll", "Cocon90.Db.Sqlite.DbDriver", "D:\\Application\\DbTools\\sqliteSpy\\SQLiteSpy.db3;");
 
             var dh = Cocon90.Db.Common.Db.GetDataHelper();

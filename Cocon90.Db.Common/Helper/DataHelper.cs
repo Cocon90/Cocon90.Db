@@ -126,7 +126,7 @@ namespace Cocon90.Db.Common.Helper
         public virtual MDataSet GetDataSet(string tsqlParamed, params Params[] paramKeyAndValue)
         {
             MDataSet ds = new MDataSet();
-            using (var dr = this.Driver.CreateDataReader(tsqlParamed, CommandType.Text, CommandBehavior.Default, paramKeyAndValue))
+            using (var dr = this.Driver.CreateDataReader(tsqlParamed, CommandType.Text, CommandBehavior.CloseConnection, paramKeyAndValue))
             {
                 List<MColumn> columns = new List<MColumn>();
                 for (int i = 0; i < dr.FieldCount; i++)

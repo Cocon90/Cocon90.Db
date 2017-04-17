@@ -12,6 +12,7 @@ namespace Cocon90.Db.Demo
     {
         static void Main(string[] args)
         {
+
             //var dh = Cocon90.Db.Common.Db.GetDataHelper("Sqlite","Data Source=${app}\\test.db3");
             var dh = Cocon90.Db.Common.Db.GetDataHelper();
 

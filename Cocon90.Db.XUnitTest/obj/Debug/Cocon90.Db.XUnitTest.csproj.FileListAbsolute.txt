@@ -13,3 +13,7 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Microsof
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Debug\Cocon90.Db.XUnitTest.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Debug\Cocon90.Db.XUnitTest.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Debug\Cocon90.Db.XUnitTest.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Common.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.SqlServer.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.SqlServer.pdb

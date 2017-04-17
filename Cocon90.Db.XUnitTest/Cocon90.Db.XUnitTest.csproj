@@ -48,11 +48,22 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cocon90.Db.Common\Cocon90.Db.Common.csproj">
+      <Project>{dc5be3fa-d29e-460a-9ee6-59e44ec3cdd6}</Project>
+      <Name>Cocon90.Db.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cocon90.Db.SqlServer\Cocon90.Db.SqlServer.csproj">
+      <Project>{88de23c4-2ae7-4ea0-92ba-ed60fef461aa}</Project>
+      <Name>Cocon90.Db.SqlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

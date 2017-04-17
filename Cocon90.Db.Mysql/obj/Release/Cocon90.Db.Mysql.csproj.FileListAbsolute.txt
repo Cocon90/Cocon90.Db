@@ -1,10 +1,10 @@
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Mysql.XML
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Mysql.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Mysql.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Common.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\MySql.Data.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Common.xml
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\obj\Release\Cocon90.Db.Mysql.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\obj\Release\Cocon90.Db.Mysql.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\obj\Release\Cocon90.Db.Mysql.pdb
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Mysql.XML
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Common.xml

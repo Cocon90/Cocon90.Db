@@ -1,8 +1,8 @@
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\Cocon90.Db.Common.deps.json
-D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Release\netstandard1.3\Cocon90.Db.Common.csprojResolveAssemblyReference.cache
-D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Release\netstandard1.3\Cocon90.Db.Common.AssemblyInfo.cs
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\.xml
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\Cocon90.Db.Common.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Release\netstandard1.3\Cocon90.Db.Common.csprojResolveAssemblyReference.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Release\netstandard1.3\Cocon90.Db.Common.AssemblyInfo.cs
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Release\netstandard1.3\Cocon90.Db.Common.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\obj\Release\netstandard1.3\Cocon90.Db.Common.pdb
-D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\.xml

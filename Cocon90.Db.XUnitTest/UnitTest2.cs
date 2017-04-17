@@ -5,12 +5,14 @@ using System.Diagnostics;
 namespace Cocon90.Db.XUnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest2
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod()
         {
-             
+      
+            
+
         }
     }
 }

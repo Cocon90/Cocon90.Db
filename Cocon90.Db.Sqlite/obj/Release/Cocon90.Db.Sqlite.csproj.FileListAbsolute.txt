@@ -1,10 +1,10 @@
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Sqlite.XML
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Sqlite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Sqlite.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Common.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\System.Data.SQLite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Common.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Common.xml
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Release\Cocon90.Db.Sqlite.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Release\Cocon90.Db.Sqlite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Release\Cocon90.Db.Sqlite.pdb
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Sqlite.XML
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.Db.Common.xml
