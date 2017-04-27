@@ -154,7 +154,7 @@ namespace Cocon90.Db.Common.Tools
                     return (tabAttr.SchemaName, tabAttr.TableName);
                 return (null, tabAttr.TableName);
             });
-            if (tup.schemaName == null) return safeNameFunc(tup.schemaName);
+            if (tup.schemaName == null) return safeNameFunc(tup.tableName);
             else return string.Format("{0}.{1}", safeNameFunc(tup.schemaName), safeNameFunc(tup.tableName));
         }
 
