@@ -89,7 +89,7 @@ namespace Cocon90.Db.Common
 
         private static string HandlerConnectionString(string connectionString)
         {
-            return connectionString?.ToLower()?.Replace("${app}", PathHelper.GetBaseDirectory());
+            return connectionString?.Replace("${app}", PathHelper.GetBaseDirectory());
         }
     }
 }
