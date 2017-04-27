@@ -1,15 +1,77 @@
 ﻿using Cocon90.Db.Common.Data.Schema;
+using Cocon90.DynamicReflection;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace Cocon90.Db.Common.Tools
 {
+    /// <summary>
+    /// Model helper.
+    /// </summary>
     public class ModelHelper
     {
+        readonly static object lockSync = new object();
+
+        /// <summary>
+        /// convert to object list.
+        /// </summary>
+        public static List<T> GetList<T>(DbDataReader dbReader, Data.DirverType attrDirverType = Data.DirverType.UnKnown)
+        {
+            List<T> lst = new List<T>();
+            var type = typeof(T);
+            var typeInfo = ReflectionCacheManager.Instance.GetAndSet(type);
+            var noArgument = new object[] { };
+            var col2PropDics = AttributeHelper.GetColumn2PropNameDics(attrDirverType, type);
+            List<IDynamicPropertyInfo> propQueue = new List<IDynamicPropertyInfo>();
+            List<int> indexs = new List<int>();
+            while (dbReader.Read())
+            {
+                lock (lockSync)
+                {
+                    T instance = (T)typeInfo.DynamicConstructorInfo.Invoke(noArgument);
+                    if (propQueue.Count != 0)
+                    {
+                        int getIndex = 0;
+                        foreach (var columnIndex in indexs)
+                        {
+                            var prop = propQueue[getIndex++];
+                            object dbValue = dbReader.GetValue(columnIndex);
+                            object value = TypeConverter.To(prop.ObjectType, dbValue);
+                            prop.SetValue(instance, value, null);
+                        }
+                    }
+                    else
+                    {
+                        for (int columnIndex = 0; columnIndex < dbReader.FieldCount; columnIndex++)
+                        {
+                            string dbColumnName = dbReader.GetName(columnIndex);
+                            string propertyName = col2PropDics[dbColumnName];
+                            if (!typeInfo.DynamicPropertyDics.ContainsKey(propertyName)) continue;
+                            indexs.Add(columnIndex);
+                            IDynamicPropertyInfo prop = typeInfo.DynamicPropertyDics[propertyName];
+                            propQueue.Add(prop);
+                            object dbValue = dbReader.GetValue(columnIndex);
+                            object value = TypeConverter.To(prop.ObjectType, dbValue);
+                            prop.SetValue(instance, value, null);
+                        }
+                    }
+                    lst.Add(instance);
+                }
+            }
+#if NETFRAMEWORK
+            dbReader.Close();
+#endif
+            dbReader.Dispose();
+            return lst;
+        }
+        /// <summary>
+        /// convert to object list
+        /// </summary>
         public static List<T> GetList<T>(MDataTable table, Data.DirverType attrDirverType = Data.DirverType.UnKnown) where T : new()
         {
             List<T> result;
@@ -21,7 +83,7 @@ namespace Cocon90.Db.Common.Tools
             {
                 List<T> list = new List<T>();
                 Type typeFromHandle = typeof(T);
-                var attrDic = AttributeHelper.GetColumnNames(attrDirverType, typeFromHandle);
+                var attrDic = AttributeHelper.GetProp2ColumnNameDics(attrDirverType, typeFromHandle);
                 PropertyInfo[] properties = typeFromHandle.GetProperties();
                 foreach (var dataRow in table.Rows)
                 {

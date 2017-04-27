@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cocon90.Core.DynamicReflection</name>
+    </assembly>
+    <members>
+        <member name="M:Cocon90.DynamicReflection.Helper.DynamicMethodHelper.CreateGetHandler(System.Type,System.Reflection.PropertyInfo)">
+            <summary>
+            创建PropertyInfo的动态方法get
+            </summary>
+            <param name="type"></param>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.Helper.DynamicMethodHelper.CreateDynamicConstructorInfoHandler(System.Type,System.Reflection.ConstructorInfo)">
+            <summary>
+            创建构造函数
+            </summary>
+            <param name="type"></param>
+            <param name="constructorInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.Helper.DynamicMethodHelper.CreateSetHandler(System.Type,System.Reflection.PropertyInfo)">
+            <summary>
+            创建PropertyInfo的动态方法get
+            </summary>
+            <param name="type"></param>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.Helper.DynamicMethodHelper.CreateSetHandler(System.Type,System.Reflection.FieldInfo)">
+            <summary>
+            创建Field的动态方法set
+            </summary>
+            <param name="type"></param>
+            <param name="fieldInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.Helper.DynamicMethodHelper.CreateGetHandler(System.Type,System.Reflection.FieldInfo)">
+            <summary>
+            创建Field的动态方法get
+            </summary>
+            <param name="type"></param>
+            <param name="fieldInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.Helper.DynamicMethodHelper.UnboxIfNeeded(System.Reflection.Emit.ILGenerator,System.Type)">
+            <summary>
+            判断是否需要拆箱
+            </summary>
+            <param name="generator"></param>
+            <param name="type"></param>
+        </member>
+        <member name="P:Cocon90.DynamicReflection.Models.ReflectionInfo.MetedataDicts">
+            <summary>
+            额外信息存放。
+            </summary>
+        </member>
+        <member name="P:Cocon90.DynamicReflection.Models.ReflectionInfo.InnerType">
+            <summary>
+            原始类型
+            </summary>
+        </member>
+        <member name="P:Cocon90.DynamicReflection.Models.ReflectionInfo.DynamicType">
+            <summary>
+            动态类型
+            </summary>
+        </member>
+        <member name="P:Cocon90.DynamicReflection.Models.ReflectionInfo.DynamicConstructorInfo">
+            <summary>
+            默认的无参构造函数 
+            </summary>
+        </member>
+        <member name="P:Cocon90.DynamicReflection.Models.ReflectionInfo.Properties">
+            <summary>
+            所有动态属性。
+            </summary>
+        </member>
+        <member name="P:Cocon90.DynamicReflection.Models.ReflectionInfo.DynamicPropertyDics">
+            <summary>
+            属性名称为Key，值为动态属性的字典。
+            </summary>
+        </member>
+        <member name="T:Cocon90.DynamicReflection.ReflectionCacheManager">
+            <summary>
+            动态类型调用并提供缓冲
+            </summary>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.ReflectionCacheManager.Get(System.Type)">
+            <summary>
+            从缓冲中获取所需要类型
+            </summary>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.ReflectionCacheManager.Get(System.String)">
+            <summary>
+            通过的FullName属性从缓冲中获取所需要类型
+            </summary>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.ReflectionCacheManager.Set(System.Type)">
+            <summary>
+            将指定类型，与值信息，加入到缓冲。
+            </summary>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.ReflectionCacheManager.Set(System.String,Cocon90.DynamicReflection.Models.ReflectionInfo)">
+            <summary>
+            将指定类型FullName属性，与值信息，加入到缓冲。
+            </summary>
+        </member>
+        <member name="M:Cocon90.DynamicReflection.ReflectionCacheManager.GetAndSet(System.Type)">
+            <summary>
+            获取指定类型的反射信息，如果没有，将生成并返回。
+            </summary>
+        </member>
+    </members>
+</doc>

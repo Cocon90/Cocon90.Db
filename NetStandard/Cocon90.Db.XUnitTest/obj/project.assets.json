@@ -2,6 +2,22 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
+      "Cocon90.DynamicReflection/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
+        }
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -2202,7 +2218,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -2217,7 +2233,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.Lightweight.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll": {}
@@ -3211,6 +3227,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
+          "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
           "NETStandard.Library": "1.6.1",
@@ -3236,6 +3253,19 @@
     }
   },
   "libraries": {
+    "Cocon90.DynamicReflection/2.0.0": {
+      "sha512": "L19LcDf3AzaWqRrpZ9WHcnnUzM1DXZtJOuSiRZILQvEKcX3l6sNfPvR81CCTxT5X2MyWvfDWprk2KsIf2HJA9w==",
+      "type": "package",
+      "path": "cocon90.dynamicreflection/2.0.0",
+      "files": [
+        "cocon90.dynamicreflection.2.0.0.nupkg.sha512",
+        "cocon90.dynamicreflection.nuspec",
+        "lib/net40/Cocon90.DynamicReflection.dll",
+        "lib/net40/Cocon90.DynamicReflection.xml",
+        "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll",
+        "lib/netstandard1.3/Cocon90.Core.DynamicReflection.xml"
+      ]
+    },
     "Libuv/1.9.1": {
       "sha512": "uqX2Frwf9PW8MaY7PRNY6HM5BpW1D8oj1EdqzrmbEFD5nH63Yat3aEjN/tws6Tw6Fk7LwmLBvtUh32tTeTaHiA==",
       "type": "package",
@@ -9203,7 +9233,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sindrol\\.nuget\\packages\\": {}
+    "C:\\Users\\yungoal\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",

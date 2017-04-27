@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cocon90.DynamicReflection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,9 +16,8 @@ namespace Cocon90.Db.Common.Tools
         {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             if (obj == null) return dic;
-            
-            var props = type.GetProperties();
             var ignoreProps = AttributeHelper.GetIgnorePropertys(type);
+            var props = type.GetProperties();
             foreach (var prop in props)
             {
                 var value = prop.GetValue(obj, null);
@@ -29,7 +29,6 @@ namespace Cocon90.Db.Common.Tools
                         {
                             dic.Add(prop.Name, value);
                         }
-
                     }
                 }
             }

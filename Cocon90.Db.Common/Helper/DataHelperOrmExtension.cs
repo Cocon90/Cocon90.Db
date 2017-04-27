@@ -18,26 +18,25 @@ namespace System
         /// </summary>
         public static int ExecNoQuery(this DataHelper dh, string tsqlParamed, object paramUsingModel)
         {
-            List<Params> paramList = new List<Params>();
-            if (paramUsingModel != null)
-            {
-                var columns = AttributeHelper.GetColumnNames(dh.Driver.DirverType, paramUsingModel.GetType());
-                var props = ReflectHelper.GetPropertyValues(paramUsingModel.GetType(), paramUsingModel, true, false, false);
-                foreach (var prop in props)
-                {
-                    paramList.Add(new Params(columns[prop.Key], prop.Value));
-                }
-            }
-            return dh.ExecNoQuery(tsqlParamed, paramList.ToArray());
+            return dh.ExecNoQuery(tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the list.
         /// </summary>
         public static List<T> GetList<T>(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue) where T : new()
         {
-            var tab = dh.GetTable(tsqlParamed, paramKeyAndValue);
-            var lst = ModelHelper.GetList<T>(tab, dh.Driver.DirverType);
-            return lst;
+            Data.Common.DbDataReader dr = null;
+            using (dr = dh.Driver.CreateDataReader(tsqlParamed, CommandType.Text, CommandBehavior.CloseConnection, paramKeyAndValue))
+            {
+                return ModelHelper.GetList<T>(dr, dh.Driver.DirverType);
+            }
+        }
+        /// <summary>
+        /// Gets the list.
+        /// </summary>
+        public static List<T> GetList<T>(this DataHelper dh, string tsqlParamed, object paramUsingModel) where T : new()
+        {
+            return GetList<T>(dh, tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the paged result.
@@ -47,16 +46,21 @@ namespace System
             PagedResult<T> pr = new PagedResult<T>();
             var page = dh.Driver.GetPagedSql(sourceSql, orderColumnName, isAsc, pageNumber, pageSize, paramKeyAndValue);
             if (page == null || page.PagedSql == null || page.CountSql == null) throw new NotImplementedException("the driver has not implatement the paging.");
-            var tab = dh.GetTable(page.PagedSql.Sql, page.PagedSql.Params);
+            var lst = dh.GetList<T>(page.PagedSql.Sql, page.PagedSql.Params);
             var total = dh.GetInt(page.CountSql.Sql, page.CountSql.Params);
-            var lst = ModelHelper.GetList<T>(tab, dh.Driver.DirverType);
             pr.Data = lst;
             pr.Total = total;
             pr.PageNumber = pageNumber;
             pr.PageSize = pageSize;
             return pr;
         }
-
+        /// <summary>
+        /// Gets the paged result.
+        /// </summary>
+        public static PagedResult<T> GetPagedResult<T>(this DataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, object paramUsingModel) where T : new()
+        {
+            return GetPagedResult<T>(dh, sourceSql, orderColumnName, isAsc, pageNumber, pageSize, AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
         /// <summary>
         /// Gets the paged result.
         /// </summary>
@@ -74,15 +78,30 @@ namespace System
             return pr;
         }
         /// <summary>
+        /// Gets the paged result.
+        /// </summary>
+        public static PagedResult GetPagedResult(this DataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, object paramUsingModel)
+        {
+            return GetPagedResult(dh, sourceSql, orderColumnName, isAsc, pageNumber, pageSize, AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
+        /// <summary>
         /// Gets the list by where.
         /// </summary>
         public static List<T> GetListByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue) where T : new()
         {
+            if (string.IsNullOrWhiteSpace(whereCondition)) whereCondition = " 1=1 ";
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
             var tsql = string.Format("SELECT * FROM {0} WHERE {1}", tableName, whereCondition);
             var lst = GetList<T>(dh, tsql, paramKeyAndValue);
             return lst;
+        }
+        /// <summary>
+        /// Gets the list by where.
+        /// </summary>
+        public static List<T> GetListByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel) where T : new()
+        {
+            return GetListByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
 
         /// <summary>
@@ -94,19 +113,33 @@ namespace System
             if (lst == null || lst.Count == 0) return default(T);
             return lst.FirstOrDefault();
         }
+        /// <summary>
+        /// Gets the one.
+        /// </summary>
+        public static T GetOne<T>(this DataHelper dh, string tsqlParamed, object paramUsingModel) where T : new()
+        {
+            return GetOne<T>(dh, tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
 
         /// <summary>
         /// Gets the one by where.
         /// </summary>
         public static T GetOneByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue) where T : new()
         {
+            if (string.IsNullOrWhiteSpace(whereCondition)) whereCondition = " 1=1 ";
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
             var tsql = string.Format("SELECT * FROM {0} WHERE {1}", tableName, whereCondition);
             var one = GetOne<T>(dh, tsql, paramKeyAndValue);
             return one;
         }
-
+        /// <summary>
+        /// Gets the one by where.
+        /// </summary>
+        public static T GetOneByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel) where T : new()
+        {
+            return GetOneByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
         /// <summary>
         /// Gets the one by primary key.
         /// </summary>
@@ -173,7 +206,7 @@ namespace System
             if (models == null || models.Length == 0) { return sqls; }
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             foreach (var md in models)
             {
                 List<string> columnList = new List<string>();
@@ -201,7 +234,7 @@ namespace System
             if (models == null || models.Length == 0) { return sqls; }
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var primaryKeys = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type, true);
             foreach (var md in models)
             {
@@ -226,7 +259,7 @@ namespace System
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var modelValues = ReflectHelper.GetPropertyValues(type, model, !isNullMeansIgnore, true, true);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type, false);
             if (primaryKeyProps.Count <= 0)
@@ -254,7 +287,7 @@ namespace System
         public static SqlBatch GetUpdateSqlByPrimaryKey<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
         {
             var type = typeof(T);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type, false);
             if (primaryKeyProps.Count <= 0)
                 throw new NoConfigurePrimaryKeyExceptionException("Not config any primary key in model.");
@@ -286,7 +319,7 @@ namespace System
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var modelValues = ReflectHelper.GetPropertyValues(type, model, !isNullMeansIgnore, true, true);
             List<string> upPropList = new List<string>();
             List<Params> paramList = new List<Params>();
@@ -307,7 +340,13 @@ namespace System
             var sql = new SqlBatch(sqlString, paramList.ToArray());
             return sql;
         }
-
+        /// <summary>
+        /// Gets the update SQL by where.
+        /// </summary>
+        public static SqlBatch GetUpdateSqlByWhere<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
+        {
+            return GetUpdateSqlByWhere(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
         /// <summary>
         /// Updates by the specified model.
         /// </summary>
@@ -338,6 +377,15 @@ namespace System
         }
 
         /// <summary>
+        /// Updates the by by where.
+        /// </summary>
+        public static int UpdateByByWhere<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
+        {
+            return UpdateByByWhere<T>(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
+
+
+        /// <summary>
         /// Gets the delete SQL by where.
         /// </summary>
         public static SqlBatch GetDeleteSqlByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue)
@@ -353,14 +401,20 @@ namespace System
             var sql = new SqlBatch(sqlString, paramList.ToArray());
             return sql;
         }
-
+        /// <summary>
+        /// Gets the delete SQL by where.
+        /// </summary>
+        public static SqlBatch GetDeleteSqlByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel)
+        {
+            return GetDeleteSqlByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
         /// <summary>
         /// Gets the delete SQL by primary key.
         /// </summary>
         public static SqlBatch GetDeleteSqlByPrimaryKey<T>(this DataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
         {
             var type = typeof(T);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type, false);
             if (primaryKeyProps.Count <= 0)
                 throw new NoConfigurePrimaryKeyExceptionException("Not config any primary key in model.");
@@ -392,7 +446,7 @@ namespace System
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, type);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var modelValues = ReflectHelper.GetPropertyValues(type, model, false, true, true);
 
             List<string> conditionList = new List<string>();
@@ -416,7 +470,13 @@ namespace System
             var sql = GetDeleteSqlByWhere<T>(dh, whereString, paramList.ToArray());
             return sql;
         }
-
+        /// <summary>
+        /// Gets the delete SQL.
+        /// </summary>
+        public static SqlBatch GetDeleteSql<T>(this DataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
+        {
+            return GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
         /// <summary>
         /// Deletes the specified model.
         /// </summary>
@@ -433,6 +493,14 @@ namespace System
             var sql = GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
             return successRows;
+        }
+
+        /// <summary>
+        /// Deletes table rows by the specified model.
+        /// </summary>
+        public static int Delete<T>(this DataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
+        {
+            return Delete<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
 
         /// <summary>
@@ -455,6 +523,12 @@ namespace System
             return successRows;
         }
 
-
+        /// <summary>
+        /// Deletes table rows the by where.
+        /// </summary>
+        public static int DeleteByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel)
+        {
+            return DeleteByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
     }
 }

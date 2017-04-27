@@ -40,10 +40,16 @@
     <AssemblyOriginatorKeyFile>chinapsu.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cocon90.DynamicReflection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=137f586c16013447, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cocon90.DynamicReflection.2.0.0\lib\net40\Cocon90.DynamicReflection.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -79,6 +85,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ArrayExtensions.cs" />
     <Compile Include="Tools\AttributeHelper.cs" />
+    <Compile Include="Tools\MemcacheHelper.cs" />
     <Compile Include="Tools\ModelHelper.cs" />
     <Compile Include="Tools\PathHelper.cs" />
     <Compile Include="Tools\ReflectHelper.cs" />
@@ -86,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="chinapsu.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

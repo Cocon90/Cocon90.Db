@@ -14,7 +14,7 @@ namespace System
     public static class DataHelperBaseExtension
     {
         /// <summary>
-        /// Gets the boolean. if value is all,1,true,yes,t  return true.otherwise is false.
+        /// Gets the boolean. 
         /// </summary>
         /// <param name="dh">The dh.</param>
         /// <param name="tsqlParamed">The TSQL paramed.</param>
@@ -22,11 +22,11 @@ namespace System
         /// <returns><c>true</c> if on, 1, true, yes, t, <c>false</c> otherwise.</returns>
         public static bool GetBoolean(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            return TypeConverter.ToBool(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "");
+            return Convert.ToBoolean(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
-        /// Gets the date time. if convert failed return '1970-01-01 0:0:0'
+        /// Gets the date time. if convert failed threw exception.
         /// </summary>
         /// <param name="dh">The dh.</param>
         /// <param name="tsqlParamed">The TSQL paramed.</param>
@@ -34,9 +34,7 @@ namespace System
         /// <returns>DateTime.</returns>
         public static DateTime GetDateTime(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            DateTime temp = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            if (DateTime.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return Convert.ToDateTime(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
@@ -48,13 +46,11 @@ namespace System
         /// <returns>DateTimeOffset.</returns>
         public static DateTimeOffset GetDateTimeOffset(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            DateTimeOffset temp = DateTimeOffset.MinValue;
-            if (DateTimeOffset.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return new DateTimeOffset(Convert.ToDateTime(dh.GetScalar(tsqlParamed, paramKeyAndValue)));
         }
 
         /// <summary>
-        /// Gets the float. if convert failed return '-1'
+        /// Gets the float. if convert failed threw exception.
         /// </summary>
         /// <param name="dh">The dh.</param>
         /// <param name="tsqlParamed">The TSQL paramed.</param>
@@ -62,13 +58,11 @@ namespace System
         /// <returns>System.Single.</returns>
         public static float GetFloat(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            float temp = -1;
-            if (float.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return Convert.ToSingle(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
-        /// Gets the double. if convert failed return '-1'
+        /// Gets the double. if convert failed threw exception.
         /// </summary>
         /// <param name="dh">The dh.</param>
         /// <param name="tsqlParamed">The TSQL paramed.</param>
@@ -76,9 +70,7 @@ namespace System
         /// <returns>System.Double.</returns>
         public static double GetDouble(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            double temp = -1;
-            if (double.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return Convert.ToDouble(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
@@ -90,9 +82,7 @@ namespace System
         /// <returns>System.Int32.</returns>
         public static int GetInt(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            int temp = -1;
-            if (int.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return Convert.ToInt32(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
@@ -104,9 +94,7 @@ namespace System
         /// <returns>System.Decimal.</returns>
         public static decimal GetDecimal(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            decimal temp = -1;
-            if (decimal.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return Convert.ToDecimal(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
@@ -118,9 +106,7 @@ namespace System
         /// <returns>System.Int64.</returns>
         public static long GetLong(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue)
         {
-            long temp = -1;
-            if (long.TryParse(dh.GetScalar(tsqlParamed, paramKeyAndValue) + "", out temp)) return temp;
-            return temp;
+            return Convert.ToInt64(dh.GetScalar(tsqlParamed, paramKeyAndValue));
         }
 
         /// <summary>
@@ -168,9 +154,9 @@ namespace System
             {
                 if (isDistinct)
                 {
-                    if (!list.Contains(row[0] + "")) { list.Add(row[0] + ""); }
+                    if (!list.Contains(row[0].ValueOfString())) { list.Add(row[0].ValueOfString()); }
                 }
-                else { list.Add(row[0] + ""); }
+                else { list.Add(row[0].ValueOfString()); }
             }
             return list;
         }

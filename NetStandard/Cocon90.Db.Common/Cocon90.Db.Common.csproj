@@ -59,6 +59,7 @@
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmExtension.cs" Link="Helper\DataHelperOrmExtension.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ArrayExtensions.cs" Link="Tools\ArrayExtensions.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\AttributeHelper.cs" Link="Tools\AttributeHelper.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Tools\MemcacheHelper.cs" Link="Tools\MemcacheHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ModelHelper.cs" Link="Tools\ModelHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\PathHelper.cs" Link="Tools\PathHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ReflectHelper.cs" Link="Tools\ReflectHelper.cs" />
@@ -75,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cocon90.DynamicReflection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />

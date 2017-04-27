@@ -26,9 +26,9 @@ namespace System
         public static SqlBatch GetCreateTableSql(this DataHelper dh, Type modelType)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, modelType);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, modelType);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, modelType, false);
-            var createDdls = AttributeHelper.GetCreateDDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
+            var createDdls = AttributeHelper.GetPropertyName2DDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
             var tableName = AttributeHelper.GetTableName(modelType, false, null);
             Dictionary<string, string> columnDdls = new Dictionary<string, string>();
             foreach (var ddl in createDdls)
@@ -45,9 +45,9 @@ namespace System
         public static SqlBatch GetUpdateTableSql(this DataHelper dh, Type modelType)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
-            var columnNameDic = AttributeHelper.GetColumnNames(dh.Driver.DirverType, modelType);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, modelType);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, modelType, false);
-            var createDdls = AttributeHelper.GetCreateDDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
+            var createDdls = AttributeHelper.GetPropertyName2DDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
             var tableName = AttributeHelper.GetTableName(modelType, false, null);
             Dictionary<string, string> columnDdls = new Dictionary<string, string>();
             foreach (var ddl in createDdls)

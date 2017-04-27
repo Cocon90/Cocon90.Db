@@ -2,6 +2,22 @@
   "version": 2,
   "targets": {
     ".NETStandard,Version=v1.6": {
+      "Cocon90.DynamicReflection/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
+        }
+      },
       "Google.Protobuf/3.0.0": {
         "type": "package",
         "dependencies": {
@@ -1488,7 +1504,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -1503,7 +1519,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.Lightweight.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll": {}
@@ -2200,6 +2216,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
+          "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
           "NETStandard.Library": "1.6.1",
@@ -2216,8 +2233,21 @@
     }
   },
   "libraries": {
+    "Cocon90.DynamicReflection/2.0.0": {
+      "sha512": "L19LcDf3AzaWqRrpZ9WHcnnUzM1DXZtJOuSiRZILQvEKcX3l6sNfPvR81CCTxT5X2MyWvfDWprk2KsIf2HJA9w==",
+      "type": "package",
+      "path": "cocon90.dynamicreflection/2.0.0",
+      "files": [
+        "cocon90.dynamicreflection.2.0.0.nupkg.sha512",
+        "cocon90.dynamicreflection.nuspec",
+        "lib/net40/Cocon90.DynamicReflection.dll",
+        "lib/net40/Cocon90.DynamicReflection.xml",
+        "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll",
+        "lib/netstandard1.3/Cocon90.Core.DynamicReflection.xml"
+      ]
+    },
     "Google.Protobuf/3.0.0": {
-      "sha512": "dR2aOri7pW74e1mKgA7/+ocXnfDIW5fb+FrexPsxA9xx8EijQQp7ps09llRoF+M3D75GFVhusjlIMQ5We+ow/w==",
+      "sha512": "l5CH4IoWys8hIQR53F+nM3RpFOX12Jj9iXVOh30ejoz0TRHApzvAHc+5T5mGnMWa/vCVfYFZkhqStn+IuK8+5g==",
       "type": "package",
       "path": "google.protobuf/3.0.0",
       "files": [
@@ -6856,7 +6886,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sindrol\\.nuget\\packages\\": {}
+    "C:\\Users\\yungoal\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.3",

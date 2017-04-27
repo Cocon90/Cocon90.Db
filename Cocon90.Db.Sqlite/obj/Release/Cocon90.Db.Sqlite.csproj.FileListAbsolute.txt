@@ -8,3 +8,6 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.D
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Release\Cocon90.Db.Sqlite.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Release\Cocon90.Db.Sqlite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Release\Cocon90.Db.Sqlite.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\System.ValueTuple.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.DynamicReflection.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Release\Cocon90.DynamicReflection.xml

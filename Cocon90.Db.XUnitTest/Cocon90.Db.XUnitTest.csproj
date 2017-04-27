@@ -31,7 +31,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -48,9 +48,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Student.cs" />
     <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidTab.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -59,6 +61,10 @@
     <ProjectReference Include="..\Cocon90.Db.Common\Cocon90.Db.Common.csproj">
       <Project>{dc5be3fa-d29e-460a-9ee6-59e44ec3cdd6}</Project>
       <Name>Cocon90.Db.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cocon90.Db.Mysql\Cocon90.Db.Mysql.csproj">
+      <Project>{d735d1d8-1e3d-47bf-8c2f-5c055edaa047}</Project>
+      <Name>Cocon90.Db.Mysql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cocon90.Db.SqlServer\Cocon90.Db.SqlServer.csproj">
       <Project>{88de23c4-2ae7-4ea0-92ba-ed60fef461aa}</Project>

@@ -19,3 +19,10 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Micros
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Release\Cocon90.Db.XUnitTest.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Release\Cocon90.Db.XUnitTest.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Release\Cocon90.Db.XUnitTest.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.DynamicReflection.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.DynamicReflection.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\System.ValueTuple.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Mysql.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\MySql.Data.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Mysql.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Mysql.xml
