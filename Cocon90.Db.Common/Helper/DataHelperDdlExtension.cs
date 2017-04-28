@@ -1,4 +1,5 @@
-﻿using Cocon90.Db.Common.Data;
+﻿using Cocon90.Db.Common;
+using Cocon90.Db.Common.Data;
 using Cocon90.Db.Common.Driver;
 using Cocon90.Db.Common.Exceptions;
 using Cocon90.Db.Common.Helper;
@@ -16,14 +17,14 @@ namespace System
         /// <summary>
         /// Gets the create table SQL.
         /// </summary>
-        public static SqlBatch GetCreateTableSql<T>(this DataHelper dh)
+        public static SqlBatch GetCreateTableSql<T>(this IDataHelper dh)
         {
             return GetCreateTableSql(dh, typeof(T));
         }
         /// <summary>
         /// Gets the create table SQL.
         /// </summary>
-        public static SqlBatch GetCreateTableSql(this DataHelper dh, Type modelType)
+        public static SqlBatch GetCreateTableSql(this IDataHelper dh, Type modelType)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, modelType);
@@ -42,7 +43,7 @@ namespace System
         /// <summary>
         /// Gets the update table schema SQL.
         /// </summary>
-        public static SqlBatch GetUpdateTableSql(this DataHelper dh, Type modelType)
+        public static SqlBatch GetUpdateTableSql(this IDataHelper dh, Type modelType)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, modelType);
@@ -61,14 +62,14 @@ namespace System
         /// <summary>
         /// Create or update table schema. if success it will return a number greater than 0. otherwise it will threw a exception.
         /// </summary>
-        public static int CreateOrUpdateTable<T>(this DataHelper dh)
+        public static int CreateOrUpdateTable<T>(this IDataHelper dh)
         {
             return CreateOrUpdateTable(dh, typeof(T));
         }
         /// <summary>
         /// Create or update table schema.if success it will return a number greater than 0. otherwise it will threw a exception.
         /// </summary>
-        public static int CreateOrUpdateTable(this DataHelper dh, Type type)
+        public static int CreateOrUpdateTable(this IDataHelper dh, Type type)
         {
             var createSql = GetCreateTableSql(dh, type);
             var updateSql = GetUpdateTableSql(dh, type);

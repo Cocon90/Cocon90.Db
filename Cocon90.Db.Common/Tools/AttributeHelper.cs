@@ -151,7 +151,7 @@ namespace Cocon90.Db.Common.Tools
                     return new Attribute.TableAttribute() { TableName = modelType.Name };
                 var tabAttr = tableAttr[0] as Common.Attribute.TableAttribute;
                 if (string.IsNullOrWhiteSpace(tabAttr.TableName)) tabAttr.TableName = modelType.Name;
-                if (!string.IsNullOrWhiteSpace(tabAttr.SchemaName) && isWithSchemaName)
+                if (isWithSchemaName && !string.IsNullOrWhiteSpace(tabAttr.SchemaName))
                     return new Attribute.TableAttribute() { SchemaName = tabAttr.SchemaName, TableName = tabAttr.TableName };
                 return new Attribute.TableAttribute { TableName = tabAttr.TableName };
             });
@@ -166,17 +166,15 @@ namespace Cocon90.Db.Common.Tools
         /// <param name="dh"></param>
         /// <param name="paramUsingModel"></param>
         /// <returns></returns>
-        public static Params[] GetParamsArrayByModel(DataHelper dh, object paramUsingModel)
+        public static Params[] GetParamsArrayByModel(IDataHelper dh, object paramUsingModel)
         {
             List<Params> paramList = new List<Params>();
-            if (paramUsingModel != null)
+            if (paramUsingModel == null) return paramList.ToArray();
+            var paramUsingModelType = paramUsingModel.GetType();
+            var props = ReflectHelper.GetPropertyValues(paramUsingModelType, paramUsingModel, false, false, false);
+            foreach (var prop in props)
             {
-                var paramUsingModelType = paramUsingModel.GetType();
-                var props = ReflectHelper.GetPropertyValues(paramUsingModelType, paramUsingModel, true, false, false);
-                foreach (var prop in props)
-                {
-                    paramList.Add(new Params(prop.Key, prop.Value));
-                }
+                paramList.Add(new Params(prop.Key, prop.Value));
             }
             return paramList.ToArray();
         }

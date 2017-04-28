@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Cocon90.Db.Common.Helper
 {
-    public class DataHelper
+    public class DataHelper : IDataHelper
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DataHelper"/> class.

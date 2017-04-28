@@ -1,4 +1,5 @@
-﻿using Cocon90.Db.Common.Data;
+﻿using Cocon90.Db.Common;
+using Cocon90.Db.Common.Data;
 using Cocon90.Db.Common.Driver;
 using Cocon90.Db.Common.Exceptions;
 using Cocon90.Db.Common.Helper;
@@ -16,14 +17,14 @@ namespace System
         /// <summary>
         /// Executes the no query. but the parameter using model.
         /// </summary>
-        public static int ExecNoQuery(this DataHelper dh, string tsqlParamed, object paramUsingModel)
+        public static int ExecNoQuery(this IDataHelper dh, string tsqlParamed, object paramUsingModel)
         {
             return dh.ExecNoQuery(tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the list.
         /// </summary>
-        public static List<T> GetList<T>(this DataHelper dh) where T : new()
+        public static List<T> GetList<T>(this IDataHelper dh) where T : new()
         {
             var tableName = AttributeHelper.GetTableName(typeof(T), true, dh.Driver.SafeName);
             var tsqlParamed = "SELECT * FROM " + tableName;
@@ -32,7 +33,7 @@ namespace System
         /// <summary>
         /// Gets the list.
         /// </summary>
-        public static List<T> GetList<T>(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue) where T : new()
+        public static List<T> GetList<T>(this IDataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue) where T : new()
         {
             Data.Common.DbDataReader dr = null;
             using (dr = dh.Driver.CreateDataReader(tsqlParamed, CommandType.Text, CommandBehavior.CloseConnection, paramKeyAndValue))
@@ -43,14 +44,14 @@ namespace System
         /// <summary>
         /// Gets the list.
         /// </summary>
-        public static List<T> GetList<T>(this DataHelper dh, string tsqlParamed, object paramUsingModel) where T : new()
+        public static List<T> GetList<T>(this IDataHelper dh, string tsqlParamed, object paramUsingModel) where T : new()
         {
             return GetList<T>(dh, tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the paged result.
         /// </summary>
-        public static PagedResult<T> GetPagedResult<T>(this DataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, params Params[] paramKeyAndValue) where T : new()
+        public static PagedResult<T> GetPagedResult<T>(this IDataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, params Params[] paramKeyAndValue) where T : new()
         {
             PagedResult<T> pr = new PagedResult<T>();
             var page = dh.Driver.GetPagedSql(sourceSql, orderColumnName, isAsc, pageNumber, pageSize, paramKeyAndValue);
@@ -66,14 +67,14 @@ namespace System
         /// <summary>
         /// Gets the paged result.
         /// </summary>
-        public static PagedResult<T> GetPagedResult<T>(this DataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, object paramUsingModel) where T : new()
+        public static PagedResult<T> GetPagedResult<T>(this IDataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, object paramUsingModel) where T : new()
         {
             return GetPagedResult<T>(dh, sourceSql, orderColumnName, isAsc, pageNumber, pageSize, AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the paged result.
         /// </summary>
-        public static PagedResult GetPagedResult(this DataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, params Params[] paramKeyAndValue)
+        public static PagedResult GetPagedResult(this IDataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, params Params[] paramKeyAndValue)
         {
             PagedResult pr = new PagedResult();
             var page = dh.Driver.GetPagedSql(sourceSql, orderColumnName, isAsc, pageNumber, pageSize, paramKeyAndValue);
@@ -89,14 +90,14 @@ namespace System
         /// <summary>
         /// Gets the paged result.
         /// </summary>
-        public static PagedResult GetPagedResult(this DataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, object paramUsingModel)
+        public static PagedResult GetPagedResult(this IDataHelper dh, string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, object paramUsingModel)
         {
             return GetPagedResult(dh, sourceSql, orderColumnName, isAsc, pageNumber, pageSize, AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the list by where.
         /// </summary>
-        public static List<T> GetListByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue) where T : new()
+        public static List<T> GetListByWhere<T>(this IDataHelper dh, string whereCondition, params Params[] paramKeyAndValue) where T : new()
         {
             if (string.IsNullOrWhiteSpace(whereCondition)) whereCondition = " 1=1 ";
             var type = typeof(T);
@@ -108,7 +109,7 @@ namespace System
         /// <summary>
         /// Gets the list by where.
         /// </summary>
-        public static List<T> GetListByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel) where T : new()
+        public static List<T> GetListByWhere<T>(this IDataHelper dh, string whereCondition, object paramUsingModel) where T : new()
         {
             return GetListByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
@@ -116,7 +117,7 @@ namespace System
         /// <summary>
         /// Gets the one.
         /// </summary>
-        public static T GetOne<T>(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue) where T : new()
+        public static T GetOne<T>(this IDataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue) where T : new()
         {
             var lst = GetList<T>(dh, tsqlParamed, paramKeyAndValue);
             if (lst == null || lst.Count == 0) return default(T);
@@ -125,7 +126,7 @@ namespace System
         /// <summary>
         /// Gets the one.
         /// </summary>
-        public static T GetOne<T>(this DataHelper dh, string tsqlParamed, object paramUsingModel) where T : new()
+        public static T GetOne<T>(this IDataHelper dh, string tsqlParamed, object paramUsingModel) where T : new()
         {
             return GetOne<T>(dh, tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
@@ -133,7 +134,7 @@ namespace System
         /// <summary>
         /// Gets the one by where.
         /// </summary>
-        public static T GetOneByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue) where T : new()
+        public static T GetOneByWhere<T>(this IDataHelper dh, string whereCondition, params Params[] paramKeyAndValue) where T : new()
         {
             if (string.IsNullOrWhiteSpace(whereCondition)) whereCondition = " 1=1 ";
             var type = typeof(T);
@@ -145,14 +146,14 @@ namespace System
         /// <summary>
         /// Gets the one by where.
         /// </summary>
-        public static T GetOneByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel) where T : new()
+        public static T GetOneByWhere<T>(this IDataHelper dh, string whereCondition, object paramUsingModel) where T : new()
         {
             return GetOneByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the one by primary key.
         /// </summary>
-        public static T GetOneByPrimaryKey<T>(this DataHelper dh, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName) where T : new()
+        public static T GetOneByPrimaryKey<T>(this IDataHelper dh, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName) where T : new()
         {
             var type = typeof(T);
             var primaryKeys = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type);
@@ -190,7 +191,7 @@ namespace System
         /// <summary>
         /// Inserts by the specified models.
         /// </summary>
-        public static int Insert<T>(this DataHelper dh, params T[] models)
+        public static int Insert<T>(this IDataHelper dh, params T[] models)
         {
             var sqls = GetInsertSql<T>(dh, models);
             var successRows = dh.ExecBatch(sqls, true, true);
@@ -199,7 +200,7 @@ namespace System
         /// <summary>
         /// Inserts or Replace into tables by the specified models.
         /// </summary>
-        public static int Save<T>(this DataHelper dh, params T[] models)
+        public static int Save<T>(this IDataHelper dh, params T[] models)
         {
             var sqls = GetSaveSql<T>(dh, models);
             var successRows = dh.ExecBatch(sqls, true, true);
@@ -209,7 +210,7 @@ namespace System
         /// <summary>
         /// Gets the insert SQL.
         /// </summary>
-        public static List<SqlBatch> GetInsertSql<T>(this DataHelper dh, params T[] models)
+        public static List<SqlBatch> GetInsertSql<T>(this IDataHelper dh, params T[] models)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
             if (models == null || models.Length == 0) { return sqls; }
@@ -237,7 +238,7 @@ namespace System
         /// <summary>
         /// Gets the insert or replace SQL.
         /// </summary>
-        public static List<SqlBatch> GetSaveSql<T>(this DataHelper dh, params T[] models)
+        public static List<SqlBatch> GetSaveSql<T>(this IDataHelper dh, params T[] models)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
             if (models == null || models.Length == 0) { return sqls; }
@@ -264,7 +265,7 @@ namespace System
         /// <summary>
         /// Gets the update SQL.
         /// </summary>
-        public static SqlBatch GetUpdateSql<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition)
+        public static SqlBatch GetUpdateSql<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition)
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
@@ -293,7 +294,7 @@ namespace System
         /// <summary>
         /// Gets the update SQL by primary key.
         /// </summary>
-        public static SqlBatch GetUpdateSqlByPrimaryKey<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
+        public static SqlBatch GetUpdateSqlByPrimaryKey<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
         {
             var type = typeof(T);
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
@@ -324,7 +325,7 @@ namespace System
         /// <summary>
         /// Gets the update SQL by where.
         /// </summary>
-        public static SqlBatch GetUpdateSqlByWhere<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, params Params[] paramKeyAndValue)
+        public static SqlBatch GetUpdateSqlByWhere<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, params Params[] paramKeyAndValue)
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
@@ -352,14 +353,14 @@ namespace System
         /// <summary>
         /// Gets the update SQL by where.
         /// </summary>
-        public static SqlBatch GetUpdateSqlByWhere<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
+        public static SqlBatch GetUpdateSqlByWhere<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
         {
             return GetUpdateSqlByWhere(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Updates by the specified model.
         /// </summary>
-        public static int Update<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition)
+        public static int Update<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition)
         {
             var sql = GetUpdateSql<T>(dh, model, isNullMeansIgnore, otherWhereCondition);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
@@ -368,7 +369,7 @@ namespace System
 
         /// <summary>
         /// Updates table by primary key.
-        public static int UpdateByPrimaryKey<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
+        public static int UpdateByPrimaryKey<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
         {
             var sql = GetUpdateSqlByPrimaryKey<T>(dh, model, isNullMeansIgnore, otherWhereCondition, primaryKeyValue, otherParmaryKeysSortByColumnName);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
@@ -378,7 +379,7 @@ namespace System
         /// <summary>
         /// Updates the by by where.
         /// </summary>
-        public static int UpdateByByWhere<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, params Params[] paramKeyAndValue)
+        public static int UpdateByByWhere<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, params Params[] paramKeyAndValue)
         {
             var sql = GetUpdateSqlByWhere<T>(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
@@ -388,7 +389,7 @@ namespace System
         /// <summary>
         /// Updates the by by where.
         /// </summary>
-        public static int UpdateByByWhere<T>(this DataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
+        public static int UpdateByByWhere<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
         {
             return UpdateByByWhere<T>(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
@@ -397,7 +398,7 @@ namespace System
         /// <summary>
         /// Gets the delete SQL by where.
         /// </summary>
-        public static SqlBatch GetDeleteSqlByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue)
+        public static SqlBatch GetDeleteSqlByWhere<T>(this IDataHelper dh, string whereCondition, params Params[] paramKeyAndValue)
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
@@ -413,14 +414,14 @@ namespace System
         /// <summary>
         /// Gets the delete SQL by where.
         /// </summary>
-        public static SqlBatch GetDeleteSqlByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel)
+        public static SqlBatch GetDeleteSqlByWhere<T>(this IDataHelper dh, string whereCondition, object paramUsingModel)
         {
             return GetDeleteSqlByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Gets the delete SQL by primary key.
         /// </summary>
-        public static SqlBatch GetDeleteSqlByPrimaryKey<T>(this DataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
+        public static SqlBatch GetDeleteSqlByPrimaryKey<T>(this IDataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
         {
             var type = typeof(T);
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
@@ -451,7 +452,7 @@ namespace System
         /// <summary>
         /// Gets the delete SQL.
         /// </summary>
-        public static SqlBatch GetDeleteSql<T>(this DataHelper dh, T model, string otherWhereCondition, params Params[] paramKeyAndValue)
+        public static SqlBatch GetDeleteSql<T>(this IDataHelper dh, T model, string otherWhereCondition, params Params[] paramKeyAndValue)
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
@@ -482,14 +483,14 @@ namespace System
         /// <summary>
         /// Gets the delete SQL.
         /// </summary>
-        public static SqlBatch GetDeleteSql<T>(this DataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
+        public static SqlBatch GetDeleteSql<T>(this IDataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
         {
             return GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
         /// <summary>
         /// Deletes the specified model.
         /// </summary>
-        public static int Delete<T>(this DataHelper dh, T model)
+        public static int Delete<T>(this IDataHelper dh, T model)
         {
             return Delete(dh, model, null, null);
         }
@@ -497,7 +498,7 @@ namespace System
         /// <summary>
         /// Deletes table rows by the specified model.
         /// </summary>
-        public static int Delete<T>(this DataHelper dh, T model, string otherWhereCondition, params Params[] paramKeyAndValue)
+        public static int Delete<T>(this IDataHelper dh, T model, string otherWhereCondition, params Params[] paramKeyAndValue)
         {
             var sql = GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
@@ -507,7 +508,7 @@ namespace System
         /// <summary>
         /// Deletes table rows by the specified model.
         /// </summary>
-        public static int Delete<T>(this DataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
+        public static int Delete<T>(this IDataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
         {
             return Delete<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
@@ -515,7 +516,7 @@ namespace System
         /// <summary>
         /// Deletes table rows the by primary key.
         /// </summary>
-        public static int DeleteByPrimaryKey<T>(this DataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
+        public static int DeleteByPrimaryKey<T>(this IDataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
         {
             var sql = GetDeleteSqlByPrimaryKey<T>(dh, otherWhereCondition, primaryKeyValue, otherParmaryKeysSortByColumnName);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
@@ -525,7 +526,7 @@ namespace System
         /// <summary>
         /// Deletes table rows the by where.
         /// </summary>
-        public static int DeleteByWhere<T>(this DataHelper dh, string whereCondition, params Params[] paramKeyAndValue)
+        public static int DeleteByWhere<T>(this IDataHelper dh, string whereCondition, params Params[] paramKeyAndValue)
         {
             var sql = GetDeleteSqlByWhere<T>(dh, whereCondition, paramKeyAndValue);
             var successRows = dh.ExecBatch(new[] { sql }, true, true);
@@ -535,7 +536,7 @@ namespace System
         /// <summary>
         /// Deletes table rows the by where.
         /// </summary>
-        public static int DeleteByWhere<T>(this DataHelper dh, string whereCondition, object paramUsingModel)
+        public static int DeleteByWhere<T>(this IDataHelper dh, string whereCondition, object paramUsingModel)
         {
             return DeleteByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }

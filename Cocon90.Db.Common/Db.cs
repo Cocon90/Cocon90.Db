@@ -24,7 +24,7 @@ namespace Cocon90.Db.Common
         /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Database=world;Uid=sa;Pwd=123456;" </para> 
         /// <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
         /// </summary>
-        public static DataHelper GetDataHelper(string jsonConfigFile = "appsettings.json", string dbTypeSectionName = "dbType", string dbConnStringSectionName = "dbConnString")
+        public static IDataHelper GetDataHelper(string jsonConfigFile = "appsettings.json", string dbTypeSectionName = "dbType", string dbConnStringSectionName = "dbConnString")
         {
             var cfgPath = Path.Combine(PathHelper.GetBaseDirectory(), jsonConfigFile);
             if (!File.Exists(cfgPath)) throw new FileNotFoundException("The json configuration file '" + jsonConfigFile + "' was not found.");
@@ -42,7 +42,7 @@ namespace Cocon90.Db.Common
         /// <para>If MsSql DB providerName is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
         /// <para>If Sqlite DB providerName is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
         /// </summary>
-        public static DataHelper GetDataHelper(string dbConnStringSectionName = "dbConnString")
+        public static IDataHelper GetDataHelper(string dbConnStringSectionName = "dbConnString")
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings[dbConnStringSectionName];
             if (connString == null) throw new KeyNotFoundException("'dbConnStringSectionName' " + dbConnStringSectionName + " not found in appconfig.");
@@ -57,10 +57,13 @@ namespace Cocon90.Db.Common
         /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
         /// <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
         /// </summary>
-        public static DataHelper GetDataHelper(string dbTypeName, string dbConnString)
+        public static IDataHelper GetDataHelper(string dbTypeName, string dbConnString)
         {
-            var driver = GetDriver(dbTypeName, dbConnString);
-            return new DataHelper(driver);
+            return MemcacheHelper<DataHelper>.ReadAndWrite("[" + dbTypeName + "][" + dbConnString + "]", () =>
+            {
+                var driver = GetDriver(dbTypeName, dbConnString);
+                return new DataHelper(driver);
+            });
         }
         /// <summary>
         /// Gets the data helper. 
@@ -68,7 +71,7 @@ namespace Cocon90.Db.Common
         /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
         /// <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
         /// </summary>
-        public static DataHelper GetDataHelper(DbTypeEnum dbTypeName, string dbConnString)
+        public static IDataHelper GetDataHelper(DbTypeEnum dbTypeName, string dbConnString)
         {
             return GetDataHelper(dbTypeName.ToString(), dbConnString);
         }

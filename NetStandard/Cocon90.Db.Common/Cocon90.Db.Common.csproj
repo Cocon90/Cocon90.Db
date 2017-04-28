@@ -58,6 +58,7 @@
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperBaseExtension.cs" Link="Helper\DataHelperBaseExtension.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperDdlExtension.cs" Link="Helper\DataHelperDdlExtension.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmExtension.cs" Link="Helper\DataHelperOrmExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\IDataHelper.cs" Link="IDataHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ArrayExtensions.cs" Link="Tools\ArrayExtensions.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\AttributeHelper.cs" Link="Tools\AttributeHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\MemcacheHelper.cs" Link="Tools\MemcacheHelper.cs" />

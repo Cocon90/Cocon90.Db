@@ -9,7 +9,7 @@ namespace Cocon90.Db.Common.Tools
     /// Cache helper.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MemcacheHelper<T>
+    public static class MemcacheHelper<T>
     {
         static MemcacheHelper()
         {

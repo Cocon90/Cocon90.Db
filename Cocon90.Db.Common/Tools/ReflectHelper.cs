@@ -23,16 +23,10 @@ namespace Cocon90.Db.Common.Tools
             foreach (var prop in props)
             {
                 var value = prop.GetValue(obj, null);
-                if (isWithNullValue || value != null)
-                {
-                    if (!isOnlyCanReadWrite || (prop.CanRead && prop.CanWrite))
-                    {
-                        if (!isNotWithIgnoreProperty || !ignoreProps.Contains(prop.Name))
-                        {
-                            dic.Add(prop.Name, value);
-                        }
-                    }
-                }
+                if (!isWithNullValue && value == null) continue;
+                if (isOnlyCanReadWrite && (!prop.CanRead || !prop.CanWrite)) continue;
+                if (isNotWithIgnoreProperty && ignoreProps.Contains(prop.Name)) continue;
+                dic.Add(prop.Name, value);
             }
             return dic;
         }

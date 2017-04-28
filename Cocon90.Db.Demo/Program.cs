@@ -13,8 +13,9 @@ namespace Cocon90.Db.Demo
         static void Main(string[] args)
         {
 
-            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Sqlite","Data Source=${app}\\test.db3");
-            var dh = Cocon90.Db.Common.Db.GetDataHelper();
+            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Sqlite", "Data Source=${app}\\test.db3");
+            //var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.Mysql,"server=127.0.0.1;port=3306;database=datarepair;uid=root;pwd=123456;");
+            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "server=.;database=datarepair;uid=sa;pwd=123456;");
 
             var createSql = dh.GetCreateTableSql<Model.CountryLanguageModel>();
             var updateTabSql = dh.GetUpdateTableSql(typeof(Model.CountryLanguageModel));
@@ -51,7 +52,8 @@ namespace Cocon90.Db.Demo
                  new Model.CountryLanguageModel() { Percent = 1.66m, IsOfficial = true, Code = 3, Language = "Lang" });
             var saveRows = dh.Save(new Model.CountryLanguageModel() { Percent = 1.555m, IsOfficial = false, Code = 2, Language = "Lang" },
                new Model.CountryLanguageModel() { Percent = 1.66m, IsOfficial = true, Code = 3, Language = "Lang" });
-            var executeNoQuery = dh.ExecNoQuery("update countrylanguage set Percentage=4.4 where Percentage=@Percentage", new Model.CountryLanguageModel { Percent = 1.6m });
+            var executeNoQuery = dh.ExecNoQuery("update countrylanguage set Percentage=4.4 where Percentage=@Percent", new Model.CountryLanguageModel { Percent = 1.6m });
+            var executeNoQuery2 = dh.ExecNoQuery("update countrylanguage set Percentage=4.4 where Percentage=@Percent", new { Percent = 1.6m });
             var pageSql = dh.Driver.GetPagedSql("select * from countrylanguage", "CountryCode", true, 1, 10);
             var pageResult = dh.GetPagedResult<Model.CountryLanguageModel>("select * from countrylanguage", "countrycode", true, 1, 10);
             List<Model.CountryLanguageModel> data = pageResult.Data;
