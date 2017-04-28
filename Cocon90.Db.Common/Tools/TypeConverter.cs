@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Cocon90.Db.Common.Tools
@@ -49,10 +50,13 @@ namespace Cocon90.Db.Common.Tools
 
                 if (targetType == typeof(double?) || targetType == typeof(double))
                     return Convert.ToDouble(value);
-
-                if (targetType == typeof(DateTimeOffset?) || targetType == typeof(DateTimeOffset))
-                    return DateTimeOffset.Parse(value + "");
-
+#if NETSTANDARD
+                if (targetType.GetTypeInfo().IsEnum || Nullable.GetUnderlyingType(targetType).GetTypeInfo().IsEnum)
+                    return Enum.ToObject(Nullable.GetUnderlyingType(targetType)??targetType, Convert.ToInt32(value));
+#else
+                if (targetType.IsEnum || Nullable.GetUnderlyingType(targetType).IsEnum)
+                    return Enum.ToObject(Nullable.GetUnderlyingType(targetType) ?? targetType, Convert.ToInt32(value));
+#endif           
                 if (targetType == typeof(decimal?) || targetType == typeof(decimal))
                     return Convert.ToDecimal(value);
 
@@ -67,6 +71,11 @@ namespace Cocon90.Db.Common.Tools
 
                 if (targetType == typeof(byte[]) && value.GetType() == typeof(string))
                     return Convert.FromBase64String(value + "");
+
+                if (targetType == typeof(DateTimeOffset?) || targetType == typeof(DateTimeOffset))
+                    return DateTimeOffset.Parse(value + "");
+
+
                 return value;
             }
             catch (Exception ex) { throw new Exceptions.ConvertException("Convert '" + value + "' to target type '" + targetType.FullName + "' error.", ex) { NeedConvertValue = value, TargetType = targetType }; }

@@ -1570,7 +1570,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Cocon90.DbCore.Common/1.0.4": {
+      "Cocon90.Db.Common/1.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -5488,7 +5488,7 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Cocon90.DbCore.Common/1.0.4": {
+    "Cocon90.Db.Common/1.1.0": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
@@ -5496,7 +5496,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v1.3": [
-      "Cocon90.DbCore.Common >= 1.0.4",
+      "Cocon90.Db.Common >= 1.1.0",
       "NETStandard.Library >= 1.6.1",
       "System.Data.SqlClient >= 4.3.0"
     ]
@@ -5505,7 +5505,7 @@
     "C:\\Users\\yungoal\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.3",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.SqlServer\\Cocon90.Db.SqlServer.csproj",
       "projectName": "Cocon90.Db.SqlServer",

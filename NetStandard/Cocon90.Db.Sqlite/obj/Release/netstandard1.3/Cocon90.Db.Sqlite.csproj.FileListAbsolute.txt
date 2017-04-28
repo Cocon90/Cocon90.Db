@@ -8,3 +8,4 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\obj\Relea
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\obj\Release\netstandard1.3\Cocon90.Db.Sqlite.AssemblyInfo.cs
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\obj\Release\netstandard1.3\Cocon90.Db.Sqlite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\obj\Release\netstandard1.3\Cocon90.Db.Sqlite.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\bin\Release\netstandard1.3\Cocon90.Db.Common.xml

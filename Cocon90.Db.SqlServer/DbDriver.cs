@@ -6,6 +6,7 @@ using System.Text;
 using Cocon90.Db.Common.Data;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace Cocon90.Db.SqlServer
 {
@@ -107,13 +108,15 @@ namespace Cocon90.Db.SqlServer
             instence.Add(typeof(DateTimeOffset?).FullName, "datetimeoffset");
             instence.Add(typeof(Guid?).FullName, "uniqueidentifier");
             //返回相应类型。
-            foreach (var key in instence.Keys)
-            {
-                if (key == csType.FullName)
-                {
-                    return instence[key];
-                }
-            }
+            if (instence.ContainsKey(csType.FullName))
+                return instence[csType.FullName];
+#if NETSTANDARD
+            if (csType.GetTypeInfo().IsEnum || (Nullable.GetUnderlyingType(csType)??csType).GetTypeInfo().IsEnum)
+                return "int";
+#else
+            if (csType.IsEnum || (Nullable.GetUnderlyingType(csType) ?? csType).IsEnum)
+                return "int";
+#endif
             return "nvarchar(max)";
         }
 

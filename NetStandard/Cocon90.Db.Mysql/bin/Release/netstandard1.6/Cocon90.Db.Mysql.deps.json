@@ -7,9 +7,9 @@
   "targets": {
     ".NETStandard,Version=v1.6": {},
     ".NETStandard,Version=v1.6/": {
-      "cocon90.db.mysql/1.0.3.0": {
+      "cocon90.db.mysql/1.1.0.0": {
         "dependencies": {
-          "Cocon90.DbCore.Common": "1.0.4",
+          "Cocon90.Db.Common": "1.1.0",
           "MySql.Data": "7.0.7-m61",
           "NETStandard.Library": "1.6.1"
         },
@@ -1430,7 +1430,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "cocon90.dbcore.common/1.0.4": {
+      "cocon90.db.common/1.1.0": {
         "dependencies": {
           "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
@@ -1451,7 +1451,7 @@
     }
   },
   "libraries": {
-    "cocon90.db.mysql/1.0.3.0": {
+    "cocon90.db.mysql/1.1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -2296,7 +2296,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "cocon90.dbcore.common/1.0.4": {
+    "cocon90.db.common/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

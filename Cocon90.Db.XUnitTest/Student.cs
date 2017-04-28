@@ -16,6 +16,13 @@ namespace Cocon90.Db.XUnitTest
         public int? Age { get; set; }
         public DateTime? Birth { get; set; }
         public string BirthString { get { return Birth?.ToString("yyyy年MM月dd日"); } }
-
+        public UserType? UserType { get; set; }
+    }
+    public enum UserType
+    {
+        Unknow = 0,
+        GoodStudent = 1,
+        BadStudent = 2,
+        LimitStudent = 3
     }
 }

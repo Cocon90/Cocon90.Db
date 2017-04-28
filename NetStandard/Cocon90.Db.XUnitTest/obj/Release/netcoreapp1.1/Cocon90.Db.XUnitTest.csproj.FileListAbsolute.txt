@@ -15,3 +15,4 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\obj\Re
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\obj\Release\netcoreapp1.1\Cocon90.Db.XUnitTest.AssemblyInfo.cs
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\obj\Release\netcoreapp1.1\Cocon90Core.Db.XUnitTest.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\obj\Release\netcoreapp1.1\Cocon90Core.Db.XUnitTest.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\Release\netcoreapp1.1\Cocon90.Db.Common.xml

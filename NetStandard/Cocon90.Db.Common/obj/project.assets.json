@@ -4807,7 +4807,7 @@
     "C:\\Users\\yungoal\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.4",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Common\\Cocon90.Db.Common.csproj",
       "projectName": "Cocon90.Db.Common",

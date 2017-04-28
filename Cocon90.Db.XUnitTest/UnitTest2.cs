@@ -21,20 +21,19 @@ namespace Cocon90.Db.XUnitTest
         [TestMethod]
         public void GetOneTest()
         {
-            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Mysql", "Server=127.0.0.1;Port=3306;Database=DataRepair;Uid=root;Pwd=123456;");
-            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "Server=127.0.0.1;Database=DataRepair;Uid=sa;Pwd=123456;");
+            var dh = Cocon90.Db.Common.Db.GetDataHelper("Mysql", "Server=127.0.0.1;Port=3306;Database=DataRepair;Uid=root;Pwd=123456;");
             for (int i = 0; i < 10000; i++)
             {
-                //var dt = dh.GetList<ValidTab>("select * from validtab limit 10000");
-                //var sql = dh.GetInsertSql(new ValidTab
-                //{
-                //    AlarmRuleIdSnap = Guid.NewGuid(),
-                //    AlarmValidCode = "asdffasdf",
-                //    AreaId = "asdfasf",
-                //    RowId = Guid.NewGuid(),
-                //    ErrorLineNumber = i,
-                //    FileName = "asdfasdf"
-                //});
+                var dt = dh.GetList<ValidTab>("select * from validtab limit 10000");
+                var sql = dh.GetInsertSql(new ValidTab
+                {
+                    AlarmRuleIdSnap = Guid.NewGuid(),
+                    AlarmValidCode = "asdffasdf",
+                    AreaId = "asdfasf",
+                    RowId = Guid.NewGuid(),
+                    ErrorLineNumber = i,
+                    FileName = "asdfasdf"
+                });
                 var one = dh.GetOne<ValidTab>("select * from validtab limit 1");
             }
         }
@@ -42,21 +41,23 @@ namespace Cocon90.Db.XUnitTest
         [TestMethod]
         public void InsertTest()
         {
-            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Mysql", "Server=127.0.0.1;Port=3306;Database=DataRepair;Uid=root;Pwd=123456;");
-            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "Server=.;Database=DataRepair;Uid=sa;Pwd=123456;");
+            var dh = Cocon90.Db.Common.Db.GetDataHelper("Mysql", "Server=127.0.0.1;Port=3306;Database=DataRepair;Uid=root;Pwd=123456;");
+            //var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "Server=.;Database=DataRepair;Uid=sa;Pwd=123456;");
             dh.CreateOrUpdateTable(typeof(Student));
 
             List<Student> lst = new List<Student>();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 10000; i++)
             {
                 lst.Add(new Student
                 {
                     Age = i,
                     Birth = DateTime.UtcNow.AddHours(8),
                     Name = "Test" + i,
-                    RowId = Guid.NewGuid()
+                    RowId = Guid.NewGuid(),
+                    UserType = (UserType)(i % 5)
                 });
             }
+            lst.Insert(0, new Student { Age = 232, Birth = DateTime.Now, RowId = Guid.NewGuid(), Name = "asdf", UserType = null });
             //var sql = dh.GetInsertSql(lst.ToArray());
             dh.Insert<Student>(lst.ToArray());
         }
@@ -88,6 +89,17 @@ namespace Cocon90.Db.XUnitTest
             {
                 var lst4 = dh.GetInt("select age from student limit 1");
             }
+
+        }
+
+        [TestMethod]
+        public void EnumTest()
+        {
+            var dh = Cocon90.Db.Common.Db.GetDataHelper("Mysql", "Server=127.0.0.1;Port=3306;Database=DataRepair;Uid=root;Pwd=123456;");
+            //dh.CreateOrUpdateTable(typeof(Student));
+            var lst = dh.GetList<Student>("select UserType from Student limit 100000");
+
+            int a = 3;
 
         }
     }

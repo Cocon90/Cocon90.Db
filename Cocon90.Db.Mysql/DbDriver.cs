@@ -6,6 +6,7 @@ using System.Text;
 using Cocon90.Db.Common.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Reflection;
 
 namespace Cocon90.Db.Mysql
 {
@@ -79,6 +80,19 @@ namespace Cocon90.Db.Mysql
         public override string TypeMapping(Type csType, int len = 0)
         {
             Dictionary<string, string> instence = new Dictionary<string, string>();
+            instence.Add(typeof(int?).FullName, "int");
+            instence.Add(typeof(bool?).FullName, "bit");
+            instence.Add(typeof(char?).FullName, "varchar(2)");
+            instence.Add(typeof(byte?).FullName, "tinyint");
+            instence.Add(typeof(short?).FullName, "smallint");
+            instence.Add(typeof(long?).FullName, "bigint");
+            instence.Add(typeof(float?).FullName, "float");
+            instence.Add(typeof(double?).FullName, "double");
+            instence.Add(typeof(decimal?).FullName, "double");
+            instence.Add(typeof(DateTime?).FullName, "datetime");
+            instence.Add(typeof(DateTimeOffset?).FullName, "datetime");
+            instence.Add(typeof(Guid?).FullName, "varchar(36)");
+
             instence.Add(typeof(int).FullName, "int");
             instence.Add(typeof(bool).FullName, "bit");
             instence.Add(typeof(char).FullName, "varchar(2)");
@@ -94,27 +108,16 @@ namespace Cocon90.Db.Mysql
             instence.Add(typeof(DateTimeOffset).FullName, "datetime");
             instence.Add(typeof(Guid).FullName, "varchar(36)");
 
-            instence.Add(typeof(int?).FullName, "int");
-            instence.Add(typeof(bool?).FullName, "bit");
-            instence.Add(typeof(char?).FullName, "varchar(2)");
-            instence.Add(typeof(byte?).FullName, "tinyint");
-            instence.Add(typeof(short?).FullName, "smallint");
-            instence.Add(typeof(long?).FullName, "bigint");
-            instence.Add(typeof(float?).FullName, "float");
-            instence.Add(typeof(double?).FullName, "double");
-            instence.Add(typeof(decimal?).FullName, "double");
-            instence.Add(typeof(DateTime?).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset?).FullName, "datetime");
-            instence.Add(typeof(Guid?).FullName, "varchar(36)");
-
             //返回相应类型。
-            foreach (var key in instence.Keys)
-            {
-                if (key == csType.FullName)
-                {
-                    return instence[key];
-                }
-            }
+            if (instence.ContainsKey(csType.FullName))
+                return instence[csType.FullName];
+#if NETSTANDARD
+            if (csType.GetTypeInfo().IsEnum || (Nullable.GetUnderlyingType(csType)??csType).GetTypeInfo().IsEnum)
+                return "int";
+#else
+            if (csType.IsEnum || (Nullable.GetUnderlyingType(csType) ?? csType).IsEnum)
+                return "int";
+#endif
             return "longtext";
         }
 

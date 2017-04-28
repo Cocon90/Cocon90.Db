@@ -259,6 +259,14 @@
             <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
             </summary>
         </member>
+        <member name="M:Cocon90.Db.Common.Db.GetDataHelper(Cocon90.Db.Common.Data.DbTypeEnum,System.String)">
+            <summary>
+            Gets the data helper. 
+            <para>If MySQL DB dbType is "Mysql" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+            <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+            <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
+            </summary>
+        </member>
         <member name="M:Cocon90.Db.Common.Helper.DataHelper.#ctor(Cocon90.Db.Common.Driver.BaseDriver)">
             <summary>
             Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Helper.DataHelper"/> class.
@@ -306,6 +314,41 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>DataSet.</returns>
         </member>
+        <member name="T:Cocon90.Db.Common.IDataHelper">
+            <summary>
+            Database connection operate helper.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.IDataHelper.Driver">
+            <summary>
+            The base operate from database.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.IDataHelper.ExecBatch(System.Collections.Generic.IEnumerable{Cocon90.Db.Common.Data.SqlBatch},System.Boolean,System.Boolean)">
+            <summary>
+            execute sqls use a transaction.
+            </summary>
+            <param name="sqlBatch">the sql with it's params.</param>
+            <param name="isCommit">is commit on finish.</param>
+            <param name="allowThrowException">is throw exception allowed.</param>
+            <returns>it's will return the sqls count before error.</returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.IDataHelper.ExecNoQuery(System.String,Cocon90.Db.Common.Data.Params[])">
+            <summary>
+            execute a sql return cmd.ExecuteNonQuery result.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cocon90.Db.Common.IDataHelper.GetDataSet(System.String,Cocon90.Db.Common.Data.Params[])">
+            <summary>
+            get a datatable collections.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.IDataHelper.GetScalar(System.String,Cocon90.Db.Common.Data.Params[])">
+            <summary>
+            get a object.
+            </summary>
+        </member>
         <member name="T:Cocon90.Db.Common.Tools.AttributeHelper">
             <summary>
             attribute helper.
@@ -341,7 +384,7 @@
             Gets the name of the table. with schemaName.tableName, if you set safeNameFunc it can return like `schemaName`.`tableName` on mysql.
             </summary>
         </member>
-        <member name="M:Cocon90.Db.Common.Tools.AttributeHelper.GetParamsArrayByModel(Cocon90.Db.Common.Helper.DataHelper,System.Object)">
+        <member name="M:Cocon90.Db.Common.Tools.AttributeHelper.GetParamsArrayByModel(Cocon90.Db.Common.IDataHelper,System.Object)">
             <summary>
             Get the parameters by a model object.
             </summary>
@@ -393,213 +436,218 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:System.DataHelperDdlExtension.GetCreateTableSql``1(Cocon90.Db.Common.Helper.DataHelper)">
+        <member name="M:System.DataHelperDdlExtension.GetCreateTableSql``1(Cocon90.Db.Common.IDataHelper)">
             <summary>
             Gets the create table SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperDdlExtension.GetCreateTableSql(Cocon90.Db.Common.Helper.DataHelper,System.Type)">
+        <member name="M:System.DataHelperDdlExtension.GetCreateTableSql(Cocon90.Db.Common.IDataHelper,System.Type)">
             <summary>
             Gets the create table SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperDdlExtension.GetUpdateTableSql(Cocon90.Db.Common.Helper.DataHelper,System.Type)">
+        <member name="M:System.DataHelperDdlExtension.GetUpdateTableSql(Cocon90.Db.Common.IDataHelper,System.Type)">
             <summary>
             Gets the update table schema SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperDdlExtension.CreateOrUpdateTable``1(Cocon90.Db.Common.Helper.DataHelper)">
+        <member name="M:System.DataHelperDdlExtension.CreateOrUpdateTable``1(Cocon90.Db.Common.IDataHelper)">
             <summary>
             Create or update table schema. if success it will return a number greater than 0. otherwise it will threw a exception.
             </summary>
         </member>
-        <member name="M:System.DataHelperDdlExtension.CreateOrUpdateTable(Cocon90.Db.Common.Helper.DataHelper,System.Type)">
+        <member name="M:System.DataHelperDdlExtension.CreateOrUpdateTable(Cocon90.Db.Common.IDataHelper,System.Type)">
             <summary>
             Create or update table schema.if success it will return a number greater than 0. otherwise it will threw a exception.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.ExecNoQuery(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.ExecNoQuery(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
             <summary>
             Executes the no query. but the parameter using model.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetList``1(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetList``1(Cocon90.Db.Common.IDataHelper)">
             <summary>
             Gets the list.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetList``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetList``1(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the list.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetPagedResult``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetList``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
+            <summary>
+            Gets the list.
+            </summary>
+        </member>
+        <member name="M:System.DataHelperOrmExtension.GetPagedResult``1(Cocon90.Db.Common.IDataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the paged result.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetPagedResult``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetPagedResult``1(Cocon90.Db.Common.IDataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,System.Object)">
             <summary>
             Gets the paged result.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetPagedResult(Cocon90.Db.Common.Helper.DataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetPagedResult(Cocon90.Db.Common.IDataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the paged result.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetPagedResult(Cocon90.Db.Common.Helper.DataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetPagedResult(Cocon90.Db.Common.IDataHelper,System.String,System.String,System.Boolean,System.Int32,System.Int32,System.Object)">
             <summary>
             Gets the paged result.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetListByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetListByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the list by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetListByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetListByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
             <summary>
             Gets the list by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetOne``1(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetOne``1(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the one.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetOne``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetOne``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
             <summary>
             Gets the one.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetOneByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetOneByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the one by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetOneByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetOneByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
             <summary>
             Gets the one by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetOneByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,System.Object,System.Object[])">
+        <member name="M:System.DataHelperOrmExtension.GetOneByPrimaryKey``1(Cocon90.Db.Common.IDataHelper,System.Object,System.Object[])">
             <summary>
             Gets the one by primary key.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.Insert``1(Cocon90.Db.Common.Helper.DataHelper,``0[])">
+        <member name="M:System.DataHelperOrmExtension.Insert``1(Cocon90.Db.Common.IDataHelper,``0[])">
             <summary>
             Inserts by the specified models.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.Save``1(Cocon90.Db.Common.Helper.DataHelper,``0[])">
+        <member name="M:System.DataHelperOrmExtension.Save``1(Cocon90.Db.Common.IDataHelper,``0[])">
             <summary>
             Inserts or Replace into tables by the specified models.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetInsertSql``1(Cocon90.Db.Common.Helper.DataHelper,``0[])">
+        <member name="M:System.DataHelperOrmExtension.GetInsertSql``1(Cocon90.Db.Common.IDataHelper,``0[])">
             <summary>
             Gets the insert SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetSaveSql``1(Cocon90.Db.Common.Helper.DataHelper,``0[])">
+        <member name="M:System.DataHelperOrmExtension.GetSaveSql``1(Cocon90.Db.Common.IDataHelper,``0[])">
             <summary>
             Gets the insert or replace SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetUpdateSql``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String)">
+        <member name="M:System.DataHelperOrmExtension.GetUpdateSql``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String)">
             <summary>
             Gets the update SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetUpdateSqlByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,System.Object,System.Object[])">
+        <member name="M:System.DataHelperOrmExtension.GetUpdateSqlByPrimaryKey``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String,System.Object,System.Object[])">
             <summary>
             Gets the update SQL by primary key.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetUpdateSqlByWhere``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetUpdateSqlByWhere``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the update SQL by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetUpdateSqlByWhere``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetUpdateSqlByWhere``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String,System.Object)">
             <summary>
             Gets the update SQL by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.Update``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String)">
+        <member name="M:System.DataHelperOrmExtension.Update``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String)">
             <summary>
             Updates by the specified model.
             </summary>
         </member>
-        <!-- 对于成员“M:System.DataHelperOrmExtension.UpdateByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,System.Object,System.Object[])”忽略有格式错误的 XML 注释 -->
-        <member name="M:System.DataHelperOrmExtension.UpdateByByWhere``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
+        <!-- 对于成员“M:System.DataHelperOrmExtension.UpdateByPrimaryKey``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String,System.Object,System.Object[])”忽略有格式错误的 XML 注释 -->
+        <member name="M:System.DataHelperOrmExtension.UpdateByByWhere``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Updates the by by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.UpdateByByWhere``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.Boolean,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.UpdateByByWhere``1(Cocon90.Db.Common.IDataHelper,``0,System.Boolean,System.String,System.Object)">
             <summary>
             Updates the by by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetDeleteSqlByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetDeleteSqlByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the delete SQL by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetDeleteSqlByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetDeleteSqlByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
             <summary>
             Gets the delete SQL by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetDeleteSqlByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object,System.Object[])">
+        <member name="M:System.DataHelperOrmExtension.GetDeleteSqlByPrimaryKey``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object,System.Object[])">
             <summary>
             Gets the delete SQL by primary key.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetDeleteSql``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.GetDeleteSql``1(Cocon90.Db.Common.IDataHelper,``0,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the delete SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.GetDeleteSql``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.GetDeleteSql``1(Cocon90.Db.Common.IDataHelper,``0,System.String,System.Object)">
             <summary>
             Gets the delete SQL.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.Delete``1(Cocon90.Db.Common.Helper.DataHelper,``0)">
+        <member name="M:System.DataHelperOrmExtension.Delete``1(Cocon90.Db.Common.IDataHelper,``0)">
             <summary>
             Deletes the specified model.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.Delete``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.Delete``1(Cocon90.Db.Common.IDataHelper,``0,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Deletes table rows by the specified model.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.Delete``1(Cocon90.Db.Common.Helper.DataHelper,``0,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.Delete``1(Cocon90.Db.Common.IDataHelper,``0,System.String,System.Object)">
             <summary>
             Deletes table rows by the specified model.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.DeleteByPrimaryKey``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object,System.Object[])">
+        <member name="M:System.DataHelperOrmExtension.DeleteByPrimaryKey``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object,System.Object[])">
             <summary>
             Deletes table rows the by primary key.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.DeleteByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperOrmExtension.DeleteByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Deletes table rows the by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperOrmExtension.DeleteByWhere``1(Cocon90.Db.Common.Helper.DataHelper,System.String,System.Object)">
+        <member name="M:System.DataHelperOrmExtension.DeleteByWhere``1(Cocon90.Db.Common.IDataHelper,System.String,System.Object)">
             <summary>
             Deletes table rows the by where.
             </summary>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetBoolean(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetBoolean(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the boolean. 
             </summary>
@@ -608,7 +656,7 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns><c>true</c> if on, 1, true, yes, t, <c>false</c> otherwise.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetDateTime(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetDateTime(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the date time. if convert failed threw exception.
             </summary>
@@ -617,7 +665,7 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>DateTime.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetDateTimeOffset(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetDateTimeOffset(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the date time offset. if convert failed return 'DateTimeOffset.MinValue'
             </summary>
@@ -626,7 +674,7 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>DateTimeOffset.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetFloat(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetFloat(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the float. if convert failed threw exception.
             </summary>
@@ -635,7 +683,7 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>System.Single.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetDouble(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetDouble(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the double. if convert failed threw exception.
             </summary>
@@ -644,34 +692,34 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>System.Double.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetInt(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetInt(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the int. if convert failed return '-1'
+            Gets the int. 
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>System.Int32.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetDecimal(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetDecimal(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the decimal. if convert failed return '-1'
+            Gets the decimal. 
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>System.Decimal.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetLong(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetLong(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
-            Gets the long. if convert failed return '-1'
+            Gets the long. 
             </summary>
             <param name="dh">The dh.</param>
             <param name="tsqlParamed">The TSQL paramed.</param>
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>System.Int64.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetString(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetString(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the string. if convert failed return [string.Empty]
             </summary>
@@ -680,7 +728,7 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>System.String.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetTable(Cocon90.Db.Common.Helper.DataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetTable(Cocon90.Db.Common.IDataHelper,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the table. 
             </summary>
@@ -689,7 +737,7 @@
             <param name="paramKeyAndValue">The parameter key and value.</param>
             <returns>DataTable.</returns>
         </member>
-        <member name="M:System.DataHelperBaseExtension.GetListString(Cocon90.Db.Common.Helper.DataHelper,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
+        <member name="M:System.DataHelperBaseExtension.GetListString(Cocon90.Db.Common.IDataHelper,System.Boolean,System.String,Cocon90.Db.Common.Data.Params[])">
             <summary>
             Gets the list string.
             </summary>

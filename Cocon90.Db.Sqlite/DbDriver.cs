@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.Common;
 #if NETSTANDARD
 using Microsoft.Data.Sqlite;
+using System.Reflection;
 #else
 using System.Data.SQLite;
 #endif
@@ -135,13 +136,15 @@ namespace Cocon90.Db.Sqlite
             instence.Add(typeof(Guid?).FullName, "guid");
 
             //返回相应类型。
-            foreach (var key in instence.Keys)
-            {
-                if (key == csType.FullName)
-                {
-                    return instence[key];
-                }
-            }
+            if (instence.ContainsKey(csType.FullName))
+                return instence[csType.FullName];
+#if NETSTANDARD
+            if (csType.GetTypeInfo().IsEnum || (Nullable.GetUnderlyingType(csType)??csType).GetTypeInfo().IsEnum)
+                return "int";
+#else
+            if (csType.IsEnum || (Nullable.GetUnderlyingType(csType) ?? csType).IsEnum)
+                return "int";
+#endif
             return "mediumtext";
         }
 

@@ -3209,7 +3209,7 @@
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "Cocon90.DbCore.Common/1.0.4": {
+      "Cocon90.Db.Common/1.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -3226,11 +3226,11 @@
           "System.Runtime.Serialization.Primitives": "4.3.0"
         }
       },
-      "Cocon90.DbCore.SqlServer/1.0.3": {
+      "Cocon90.DbCore.SqlServer/1.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
-          "Cocon90.DbCore.Common": "1.0.4",
+          "Cocon90.Db.Common": "1.1.0",
           "NETStandard.Library": "1.6.1",
           "System.Data.SqlClient": "4.3.0"
         }
@@ -9181,12 +9181,12 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "Cocon90.DbCore.Common/1.0.4": {
+    "Cocon90.Db.Common/1.1.0": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
     },
-    "Cocon90.DbCore.SqlServer/1.0.3": {
+    "Cocon90.DbCore.SqlServer/1.1.0": {
       "type": "project",
       "path": "../Cocon90.Db.SqlServer/Cocon90.Db.SqlServer.csproj",
       "msbuildProject": "../Cocon90.Db.SqlServer/Cocon90.Db.SqlServer.csproj"
@@ -9194,8 +9194,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.1": [
-      "Cocon90.DbCore.Common >= 1.0.4",
-      "Cocon90.DbCore.SqlServer >= 1.0.3",
+      "Cocon90.Db.Common >= 1.1.0",
+      "Cocon90.DbCore.SqlServer >= 1.1.0",
       "Microsoft.NET.Test.Sdk >= 15.0.0",
       "Microsoft.NETCore.App >= 1.1.1",
       "xunit >= 2.2.0",
