@@ -1,20 +1,32 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.6/",
-    "signature": "65950d52e3e6a157a1b57d8a6638379adf6157fe"
+    "signature": "1732eb53394b31beb30d324e6fb9b00247df76fc"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v1.6": {},
     ".NETStandard,Version=v1.6/": {
-      "cocon90.db.mysql/1.0.0": {
+      "cocon90.db.mysql/1.0.3.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.4",
           "MySql.Data": "7.0.7-m61",
           "NETStandard.Library": "1.6.1"
         },
         "runtime": {
           "Cocon90.Db.Mysql.dll": {}
+        }
+      },
+      "cocon90.dynamicreflection/2.0.0": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
         }
       },
       "google.protobuf/3.0.0": {
@@ -1377,16 +1389,6 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "system.valuetuple/4.3.0": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.0/System.ValueTuple.dll": {}
-        }
-      },
       "system.xml.readerwriter/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -1428,8 +1430,9 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "cocon90.db.common/1.0.0": {
+      "cocon90.dbcore.common/1.0.4": {
         "dependencies": {
+          "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
           "NETStandard.Library": "1.6.1",
@@ -1439,8 +1442,7 @@
           "System.Reflection.TypeExtensions": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
           "System.Runtime.Serialization.Formatters": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.ValueTuple": "4.3.0"
+          "System.Runtime.Serialization.Primitives": "4.3.0"
         },
         "runtime": {
           "Cocon90.Db.Common.dll": {}
@@ -1449,15 +1451,22 @@
     }
   },
   "libraries": {
-    "cocon90.db.mysql/1.0.0": {
+    "cocon90.db.mysql/1.0.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
+    "cocon90.dynamicreflection/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L19LcDf3AzaWqRrpZ9WHcnnUzM1DXZtJOuSiRZILQvEKcX3l6sNfPvR81CCTxT5X2MyWvfDWprk2KsIf2HJA9w==",
+      "path": "cocon90.dynamicreflection/2.0.0",
+      "hashPath": "cocon90.dynamicreflection.2.0.0.nupkg.sha512"
+    },
     "google.protobuf/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dR2aOri7pW74e1mKgA7/+ocXnfDIW5fb+FrexPsxA9xx8EijQQp7ps09llRoF+M3D75GFVhusjlIMQ5We+ow/w==",
+      "sha512": "sha512-l5CH4IoWys8hIQR53F+nM3RpFOX12Jj9iXVOh30ejoz0TRHApzvAHc+5T5mGnMWa/vCVfYFZkhqStn+IuK8+5g==",
       "path": "google.protobuf/3.0.0",
       "hashPath": "google.protobuf.3.0.0.nupkg.sha512"
     },
@@ -2273,13 +2282,6 @@
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
     },
-    "system.valuetuple/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-cNLEvBX3d6MMQRZe3SMFNukVbitDAEpVZO17qa0/2FHxZ7Y7PpFRpr6m2615XYM/tYYYf0B+WyHNujqIw8Luwg==",
-      "path": "system.valuetuple/4.3.0",
-      "hashPath": "system.valuetuple.4.3.0.nupkg.sha512"
-    },
     "system.xml.readerwriter/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -2294,7 +2296,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "cocon90.db.common/1.0.0": {
+    "cocon90.dbcore.common/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

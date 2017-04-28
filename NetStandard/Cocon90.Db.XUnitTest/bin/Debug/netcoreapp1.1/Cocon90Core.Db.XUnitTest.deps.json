@@ -1,21 +1,26 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "05b447239596b8193a9275d3a6b443d9e3295f3e"
+    "signature": "8b57c748cf9f738e04c1bc94f392370a96363cd1"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "cocon90core.db.xunittest/1.0.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.0.0",
-          "Cocon90.Db.SqlServer": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.4",
+          "Cocon90.DbCore.SqlServer": "1.0.3",
           "Microsoft.NET.Test.Sdk": "15.0.0",
           "xunit": "2.2.0",
           "xunit.runner.visualstudio": "2.2.0"
         },
         "runtime": {
           "Cocon90Core.Db.XUnitTest.dll": {}
+        }
+      },
+      "cocon90.dynamicreflection/2.0.0": {
+        "runtime": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
         }
       },
       "microsoft.dotnet.platformabstractions/1.1.0": {
@@ -494,11 +499,6 @@
           }
         }
       },
-      "system.valuetuple/4.3.0": {
-        "runtime": {
-          "lib/netstandard1.0/System.ValueTuple.dll": {}
-        }
-      },
       "system.xml.xmlserializer/4.0.11": {
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
@@ -554,22 +554,22 @@
           "Microsoft.TestPlatform.ObjectModel": "15.0.0"
         }
       },
-      "cocon90.db.common/1.0.0": {
+      "cocon90.dbcore.common/1.0.4": {
         "dependencies": {
+          "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
           "System.Data.Common": "4.3.0",
           "System.Runtime.Serialization.Formatters": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.ValueTuple": "4.3.0"
+          "System.Runtime.Serialization.Primitives": "4.3.0"
         },
         "runtime": {
           "Cocon90.Db.Common.dll": {}
         }
       },
-      "cocon90.db.sqlserver/1.0.0": {
+      "cocon90.dbcore.sqlserver/1.0.3": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.4",
           "System.Data.SqlClient": "4.3.0"
         },
         "runtime": {
@@ -583,6 +583,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "cocon90.dynamicreflection/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L19LcDf3AzaWqRrpZ9WHcnnUzM1DXZtJOuSiRZILQvEKcX3l6sNfPvR81CCTxT5X2MyWvfDWprk2KsIf2HJA9w==",
+      "path": "cocon90.dynamicreflection/2.0.0",
+      "hashPath": "cocon90.dynamicreflection.2.0.0.nupkg.sha512"
     },
     "microsoft.dotnet.platformabstractions/1.1.0": {
       "type": "package",
@@ -815,13 +822,6 @@
       "path": "system.text.encoding.codepages/4.3.0",
       "hashPath": "system.text.encoding.codepages.4.3.0.nupkg.sha512"
     },
-    "system.valuetuple/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-cNLEvBX3d6MMQRZe3SMFNukVbitDAEpVZO17qa0/2FHxZ7Y7PpFRpr6m2615XYM/tYYYf0B+WyHNujqIw8Luwg==",
-      "path": "system.valuetuple/4.3.0",
-      "hashPath": "system.valuetuple.4.3.0.nupkg.sha512"
-    },
     "system.xml.xmlserializer/4.0.11": {
       "type": "package",
       "serviceable": true,
@@ -885,12 +885,12 @@
       "path": "xunit.runner.visualstudio/2.2.0",
       "hashPath": "xunit.runner.visualstudio.2.2.0.nupkg.sha512"
     },
-    "cocon90.db.common/1.0.0": {
+    "cocon90.dbcore.common/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "cocon90.db.sqlserver/1.0.0": {
+    "cocon90.dbcore.sqlserver/1.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

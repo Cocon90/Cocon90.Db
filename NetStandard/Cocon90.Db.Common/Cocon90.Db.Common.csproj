@@ -34,6 +34,7 @@
     <Compile Include="..\..\Cocon90.Db.Common\Attribute\ColumnAttribute.cs" Link="Attribute\ColumnAttribute.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Attribute\IgnoreAttribute.cs" Link="Attribute\IgnoreAttribute.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Attribute\TableAttribute.cs" Link="Attribute\TableAttribute.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Data\DbTypeEnum.cs" Link="Data\DbTypeEnum.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Data\DirverType.cs" Link="Data\DirverType.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Data\PagedResult.cs" Link="Data\PagedResult.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Data\PagedSqlBatch.cs" Link="Data\PagedSqlBatch.cs" />
@@ -86,7 +87,6 @@
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

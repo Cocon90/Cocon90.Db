@@ -19,6 +19,5 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Release\Cocon90.Db.
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\obj\Release\Cocon90.Db.Demo.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\obj\Release\Cocon90.Db.Demo.exe
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\obj\Release\Cocon90.Db.Demo.pdb
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Release\System.ValueTuple.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Release\Cocon90.DynamicReflection.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Release\Cocon90.DynamicReflection.xml

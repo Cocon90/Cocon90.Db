@@ -16,7 +16,9 @@ namespace Cocon90.Db.Common.Tools
         {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             if (obj == null) return dic;
-            var ignoreProps = AttributeHelper.GetIgnorePropertys(type);
+            List<string> ignoreProps = null;
+            if (isNotWithIgnoreProperty)
+                ignoreProps = AttributeHelper.GetIgnorePropertys(type);
             var props = type.GetProperties();
             foreach (var prop in props)
             {

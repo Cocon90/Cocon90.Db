@@ -1,20 +1,32 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.3/",
-    "signature": "1956aa0adc0637b51e99ea91aea7a9694c577a37"
+    "signature": "52a6732b642f23729e3aaa44cb98f2667735c592"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "cocon90.db.sqlite/1.0.0": {
+      "cocon90.db.sqlite/1.0.3.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.0.0",
+          "Cocon90.DbCore.Common": "1.0.4",
           "Microsoft.Data.Sqlite": "1.1.0",
           "NETStandard.Library": "1.6.1"
         },
         "runtime": {
           "Cocon90.Db.Sqlite.dll": {}
+        }
+      },
+      "cocon90.dynamicreflection/2.0.0": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
         }
       },
       "microsoft.csharp/4.0.1": {
@@ -566,6 +578,17 @@
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
         }
       },
+      "system.reflection.emit.lightweight/4.3.0": {
+        "dependencies": {
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Reflection.Primitives": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll": {}
+        }
+      },
       "system.reflection.extensions/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -788,16 +811,6 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "system.valuetuple/4.3.0": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.0/System.ValueTuple.dll": {}
-        }
-      },
       "system.xml.readerwriter/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -839,8 +852,9 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "cocon90.db.common/1.0.0": {
+      "cocon90.dbcore.common/1.0.4": {
         "dependencies": {
+          "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
           "Microsoft.Extensions.Configuration.Json": "1.1.1",
           "NETStandard.Library": "1.6.1",
@@ -850,8 +864,7 @@
           "System.Reflection.TypeExtensions": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
           "System.Runtime.Serialization.Formatters": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.ValueTuple": "4.3.0"
+          "System.Runtime.Serialization.Primitives": "4.3.0"
         },
         "runtime": {
           "Cocon90.Db.Common.dll": {}
@@ -860,10 +873,17 @@
     }
   },
   "libraries": {
-    "cocon90.db.sqlite/1.0.0": {
+    "cocon90.db.sqlite/1.0.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "cocon90.dynamicreflection/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L19LcDf3AzaWqRrpZ9WHcnnUzM1DXZtJOuSiRZILQvEKcX3l6sNfPvR81CCTxT5X2MyWvfDWprk2KsIf2HJA9w==",
+      "path": "cocon90.dynamicreflection/2.0.0",
+      "hashPath": "cocon90.dynamicreflection.2.0.0.nupkg.sha512"
     },
     "microsoft.csharp/4.0.1": {
       "type": "package",
@@ -875,7 +895,7 @@
     "microsoft.data.sqlite/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KjqKG4BwG/BAcqC5yTKTnLbKDPz9Z5sbes1Z8jtYTklwSPoyhsesXKzU2vw8hpGHfaiEUb9iXnz8xtNuyCUfNw==",
+      "sha512": "sha512-MeKGXTzsbfwDaqQB0ctvPPUSEieXpGEbTPT1yycFCzlNSAypEKRMWla4C93o02oquX5+j9FU7d12BRYeYknHqA==",
       "path": "microsoft.data.sqlite/1.1.0",
       "hashPath": "microsoft.data.sqlite.1.1.0.nupkg.sha512"
     },
@@ -1064,7 +1084,7 @@
     "sqlite/3.13.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OG4yJA/z0TJTB6IU2r0YB3ZHgVzdSsFGvr/XUpF+XHL6F2xAk57g97zqqsYPwt2SD2nXJE0VoE78+4biXyiKUw==",
+      "sha512": "sha512-o6ZyQRh9zAaHuBqQyrRiMDnhUVGqxI/J+I1bZz2ZDdtS4h4fr/yN0NbrNAFk7XqvwTpazJm9irx8fI2whcSung==",
       "path": "sqlite/3.13.0",
       "hashPath": "sqlite.3.13.0.nupkg.sha512"
     },
@@ -1264,6 +1284,13 @@
       "path": "system.reflection.emit.ilgeneration/4.3.0",
       "hashPath": "system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512"
     },
+    "system.reflection.emit.lightweight/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oadVHGSMsTmZsAF864QYN1t1QzZjIcuKU3l2S9cZOwDdDueNTrqq1yRj7koFfIGEnKpt6NjpL3rOzRhs4ryOgA==",
+      "path": "system.reflection.emit.lightweight/4.3.0",
+      "hashPath": "system.reflection.emit.lightweight.4.3.0.nupkg.sha512"
+    },
     "system.reflection.extensions/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1446,13 +1473,6 @@
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
     },
-    "system.valuetuple/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-cNLEvBX3d6MMQRZe3SMFNukVbitDAEpVZO17qa0/2FHxZ7Y7PpFRpr6m2615XYM/tYYYf0B+WyHNujqIw8Luwg==",
-      "path": "system.valuetuple/4.3.0",
-      "hashPath": "system.valuetuple.4.3.0.nupkg.sha512"
-    },
     "system.xml.readerwriter/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1467,7 +1487,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "cocon90.db.common/1.0.0": {
+    "cocon90.dbcore.common/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

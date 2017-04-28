@@ -14,3 +14,5 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Debug\Cocon90.Db.
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Debug\Cocon90.Db.Sqlite.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Debug\Cocon90.Db.Sqlite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\obj\Debug\Cocon90.Db.Sqlite.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Debug\Cocon90.DynamicReflection.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Sqlite\bin\Debug\Cocon90.DynamicReflection.xml

@@ -51,7 +51,7 @@ namespace Cocon90.Db.Common.Tools
                     return Convert.ToDouble(value);
 
                 if (targetType == typeof(DateTimeOffset?) || targetType == typeof(DateTimeOffset))
-                    return new DateTimeOffset(Convert.ToDateTime(value));
+                    return DateTimeOffset.Parse(value + "");
 
                 if (targetType == typeof(decimal?) || targetType == typeof(decimal))
                     return Convert.ToDecimal(value);

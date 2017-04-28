@@ -17,3 +17,8 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.SqlServer.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Common.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.SqlServer.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Mysql.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.DynamicReflection.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\MySql.Data.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Mysql.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.DynamicReflection.xml

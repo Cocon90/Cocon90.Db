@@ -50,6 +50,7 @@ namespace Cocon90.Db.Common.Tools
                         for (int columnIndex = 0; columnIndex < dbReader.FieldCount; columnIndex++)
                         {
                             string dbColumnName = dbReader.GetName(columnIndex);
+                            if (!col2PropDics.ContainsKey(dbColumnName)) continue;
                             string propertyName = col2PropDics[dbColumnName];
                             if (!typeInfo.DynamicPropertyDics.ContainsKey(propertyName)) continue;
                             indexs.Add(columnIndex);

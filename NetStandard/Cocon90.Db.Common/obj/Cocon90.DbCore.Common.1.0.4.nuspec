@@ -17,7 +17,6 @@
       <group targetFramework=".NETStandard1.3">
         <dependency id="System.Reflection.Extensions" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Configuration.Json" version="1.1.1" exclude="Build,Analyzers" />
-        <dependency id="System.ValueTuple" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Configuration" version="1.1.1" exclude="Build,Analyzers" />
         <dependency id="System.Runtime.Serialization.Primitives" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="System.Runtime.Serialization.Formatters" version="4.3.0" exclude="Build,Analyzers" />
@@ -31,7 +30,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\Cocon90.Db.Common.dll" target="lib\netstandard1.3\Cocon90.Db.Common.dll" />
-    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Release\netstandard1.3\.xml" target="lib\netstandard1.3\.xml" />
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Common\bin\Debug\netstandard1.3\Cocon90.Db.Common.dll" target="lib\netstandard1.3\Cocon90.Db.Common.dll" />
   </files>
 </package>

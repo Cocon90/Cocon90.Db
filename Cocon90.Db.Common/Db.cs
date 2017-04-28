@@ -1,4 +1,5 @@
-﻿using Cocon90.Db.Common.Driver;
+﻿using Cocon90.Db.Common.Data;
+using Cocon90.Db.Common.Driver;
 using Cocon90.Db.Common.Helper;
 using Cocon90.Db.Common.Tools;
 using System;
@@ -59,12 +60,17 @@ namespace Cocon90.Db.Common
         public static DataHelper GetDataHelper(string dbTypeName, string dbConnString)
         {
             var driver = GetDriver(dbTypeName, dbConnString);
-            return GetDataHelper(driver);
+            return new DataHelper(driver);
         }
-        internal static DataHelper GetDataHelper(Driver.BaseDriver driver)
+        /// <summary>
+        /// Gets the data helper. 
+        /// <para>If MySQL DB dbType is "Mysql" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+        /// <para>If MsSql DB dbType is "SqlServer" dbConnString  like "Server=127.0.0.1;Port=3306;Database=world;Uid=root;Pwd=123456;" </para> 
+        /// <para>If Sqlite DB dbType is "Sqlite" dbConnString  like "Data Source=${app}\\testdb.db3" </para> 
+        /// </summary>
+        public static DataHelper GetDataHelper(DbTypeEnum dbTypeName, string dbConnString)
         {
-            var dh = new DataHelper(driver);
-            return dh;
+            return GetDataHelper(dbTypeName.ToString(), dbConnString);
         }
         internal static BaseDriver GetDriver(Type driverType, string connectionString)
         {

@@ -30,3 +30,5 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.My
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.Sqlite.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Debug\Cocon90.Db.SqlServer.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\obj\Debug\Cocon90.Db.Demo.csprojResolveAssemblyReference.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Debug\Cocon90.DynamicReflection.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Demo\bin\Debug\Cocon90.DynamicReflection.xml

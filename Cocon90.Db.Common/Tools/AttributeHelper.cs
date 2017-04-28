@@ -136,7 +136,7 @@ namespace Cocon90.Db.Common.Tools
         public static string GetTableName(Type modelType, bool isWithSchemaName, Func<string, string> safeNameFunc = null)
         {
             if (safeNameFunc == null) safeNameFunc = (name) => name;
-            var tup = MemcacheHelper<(string schemaName, string tableName)>.ReadAndWrite("[GetTableName][" + modelType.FullName + "][" + isWithSchemaName + "]", () =>
+            var tup = MemcacheHelper<Attribute.TableAttribute>.ReadAndWrite("[GetTableName][" + modelType.FullName + "][" + isWithSchemaName + "]", () =>
             {
 #if NETSTANDARD
             List<System.Attribute> tableAttrList = new List<System.Attribute>();
@@ -148,14 +148,15 @@ namespace Cocon90.Db.Common.Tools
                 var tableAttr = modelType.GetCustomAttributes(typeof(Common.Attribute.TableAttribute), true);
 #endif
                 if (tableAttr == null || tableAttr.Length == 0)
-                    return (null, modelType.Name);
+                    return new Attribute.TableAttribute() { TableName = modelType.Name };
                 var tabAttr = tableAttr[0] as Common.Attribute.TableAttribute;
+                if (string.IsNullOrWhiteSpace(tabAttr.TableName)) tabAttr.TableName = modelType.Name;
                 if (!string.IsNullOrWhiteSpace(tabAttr.SchemaName) && isWithSchemaName)
-                    return (tabAttr.SchemaName, tabAttr.TableName);
-                return (null, tabAttr.TableName);
+                    return new Attribute.TableAttribute() { SchemaName = tabAttr.SchemaName, TableName = tabAttr.TableName };
+                return new Attribute.TableAttribute { TableName = tabAttr.TableName };
             });
-            if (tup.schemaName == null) return safeNameFunc(tup.tableName);
-            else return string.Format("{0}.{1}", safeNameFunc(tup.schemaName), safeNameFunc(tup.tableName));
+            if (tup.SchemaName == null) return safeNameFunc(tup.TableName);
+            else return string.Format("{0}.{1}", safeNameFunc(tup.SchemaName), safeNameFunc(tup.TableName));
         }
 
 
@@ -171,11 +172,10 @@ namespace Cocon90.Db.Common.Tools
             if (paramUsingModel != null)
             {
                 var paramUsingModelType = paramUsingModel.GetType();
-                var columns = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, paramUsingModelType);
                 var props = ReflectHelper.GetPropertyValues(paramUsingModelType, paramUsingModel, true, false, false);
                 foreach (var prop in props)
                 {
-                    paramList.Add(new Params(columns[prop.Key], prop.Value));
+                    paramList.Add(new Params(prop.Key, prop.Value));
                 }
             }
             return paramList.ToArray();

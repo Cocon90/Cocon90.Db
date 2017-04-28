@@ -91,7 +91,7 @@ namespace Cocon90.Db.Mysql
             instence.Add(typeof(string).FullName, "longtext");
             instence.Add(typeof(byte[]).FullName, "longblob");
             instence.Add(typeof(DateTime).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset).FullName, "longtext");
+            instence.Add(typeof(DateTimeOffset).FullName, "datetime");
             instence.Add(typeof(Guid).FullName, "varchar(36)");
 
             instence.Add(typeof(int?).FullName, "int");
@@ -104,7 +104,7 @@ namespace Cocon90.Db.Mysql
             instence.Add(typeof(double?).FullName, "double");
             instence.Add(typeof(decimal?).FullName, "double");
             instence.Add(typeof(DateTime?).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset?).FullName, "longtext");
+            instence.Add(typeof(DateTimeOffset?).FullName, "datetime");
             instence.Add(typeof(Guid?).FullName, "varchar(36)");
 
             //返回相应类型。

@@ -11,8 +11,12 @@ namespace Cocon90.Db.Common.Tools
     /// <typeparam name="T"></typeparam>
     public class MemcacheHelper<T>
     {
+        static MemcacheHelper()
+        {
+            dictionary = new Dictionary<string, T>();
+        }
         private static readonly object obj = new object();
-        static volatile Dictionary<string, T> dictionary = new Dictionary<string, T>();
+        private volatile static Dictionary<string, T> dictionary = null;
         /// <summary>
         /// get or set data by key from cache
         /// </summary>

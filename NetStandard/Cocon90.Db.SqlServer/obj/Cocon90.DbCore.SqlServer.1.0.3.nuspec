@@ -22,7 +22,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Release\netstandard1.3\Cocon90.Db.SqlServer.dll" target="lib\netstandard1.3\Cocon90.Db.SqlServer.dll" />
-    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Release\netstandard1.3\.xml" target="lib\netstandard1.3\.xml" />
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90.Db.SqlServer.dll" target="lib\netstandard1.3\Cocon90.Db.SqlServer.dll" />
   </files>
 </package>

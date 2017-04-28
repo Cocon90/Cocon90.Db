@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace Cocon90.Db.XUnitTest
 {
-    [Table()]
     public class Student
     {
         [Column(PrimaryKey = true)]
         public Guid? RowId { get; set; }
-        [Column(ColumnName = "cusName")]
+        [Column(ColumnName = "CusName")]
         public string Name { get; set; }
         public int? Age { get; set; }
+        public DateTime? Birth { get; set; }
+        public string BirthString { get { return Birth?.ToString("yyyy年MM月dd日"); } }
+
     }
 }

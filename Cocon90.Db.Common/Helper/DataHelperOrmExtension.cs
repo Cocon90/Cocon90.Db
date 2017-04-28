@@ -23,6 +23,15 @@ namespace System
         /// <summary>
         /// Gets the list.
         /// </summary>
+        public static List<T> GetList<T>(this DataHelper dh) where T : new()
+        {
+            var tableName = AttributeHelper.GetTableName(typeof(T), true, dh.Driver.SafeName);
+            var tsqlParamed = "SELECT * FROM " + tableName;
+            return GetList<T>(dh, tsqlParamed);
+        }
+        /// <summary>
+        /// Gets the list.
+        /// </summary>
         public static List<T> GetList<T>(this DataHelper dh, string tsqlParamed, params Params[] paramKeyAndValue) where T : new()
         {
             Data.Common.DbDataReader dr = null;

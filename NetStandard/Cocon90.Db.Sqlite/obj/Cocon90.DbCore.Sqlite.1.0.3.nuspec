@@ -22,7 +22,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\bin\Release\netstandard1.3\Cocon90.Db.Sqlite.dll" target="lib\netstandard1.3\Cocon90.Db.Sqlite.dll" />
-    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\bin\Release\netstandard1.3\Cocon90.Db.Sqlite.xml" target="lib\netstandard1.3\Cocon90.Db.Sqlite.xml" />
+    <file src="D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.Sqlite\bin\Debug\netstandard1.3\Cocon90.Db.Sqlite.dll" target="lib\netstandard1.3\Cocon90.Db.Sqlite.dll" />
   </files>
 </package>
