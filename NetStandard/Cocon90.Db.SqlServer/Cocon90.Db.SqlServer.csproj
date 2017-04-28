@@ -10,7 +10,7 @@
     <Authors>Sindrol(Xingzhu Song)</Authors>
     <Company>Sindrol(Xingzhu Song)</Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>Cocon90.DbCore.SqlServer</PackageId>
+    <PackageId>Cocon90.Db.SqlServer</PackageId>
     <Copyright>Copyright @ SongXingZhu 2015</Copyright>
     <PackageLicenseUrl>https://github.com/Cocon90/Cocon90.Db</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Cocon90/Cocon90.Db</PackageProjectUrl>

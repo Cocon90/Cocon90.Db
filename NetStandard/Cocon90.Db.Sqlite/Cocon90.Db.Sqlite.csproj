@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>chinapsu.pfx</AssemblyOriginatorKeyFile>
-    <PackageId>Cocon90.DbCore.Sqlite</PackageId>
+    <PackageId>Cocon90.Db.Sqlite</PackageId>
     <Version>1.1.0.0</Version>
     <Authors>Sindrol(Xingzhu Song)</Authors>
     <Company>Sindrol(Xingzhu Song)</Company>
