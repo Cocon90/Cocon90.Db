@@ -4,6 +4,67 @@
         <name>Cocon90.Db.Common</name>
     </assembly>
     <members>
+        <member name="T:Cocon90.Db.Common.Attribute.ColumnAttribute">
+            <summary>
+            column option attribute.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.ColumnAttribute.DirverType">
+            <summary>
+            option the database type to which the current attribute tag is applied priority.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.ColumnAttribute.ColumnName">
+            <summary>
+            option the name of the column in the table, and if it is not set, the attribute name is automatically used.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.ColumnAttribute.PrimaryKey">
+            <summary>
+            option the table primary key. A table can have more than one primary key
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.ColumnAttribute.CreateDDL">
+            <summary>
+            option how to create table use sql ddl except ColumnName. like setting 'int not null default 0' in mysql and sqlite or 'int not null default (0)' in sqlserver.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.ColumnAttribute.IndexName">
+            <summary>
+            option the index name for the column. if setting same indexName for different column, it's will generate one index in a group. 
+            </summary>
+        </member>
+        <member name="T:Cocon90.Db.Common.Attribute.IgnoreAttribute">
+            <summary>
+            If set to True, the current column is ignored automatically
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Attribute.IgnoreAttribute.#ctor(System.Boolean)">
+            <summary>
+            If set to True, the current column is ignored automatically
+            </summary>
+            <param name="isIgnore"></param>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.IgnoreAttribute.IsIgnore">
+            <summary>
+            If set to True, the current column is ignored automatically
+            </summary>
+        </member>
+        <member name="T:Cocon90.Db.Common.Attribute.TableAttribute">
+            <summary>
+            Sets the name of the configuration table, and the schema name of the table.
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.TableAttribute.TableName">
+            <summary>
+            Configuration the name of the table
+            </summary>
+        </member>
+        <member name="P:Cocon90.Db.Common.Attribute.TableAttribute.SchemaName">
+            <summary>
+            Sets the name of the schema name of the table.
+            </summary>
+        </member>
         <member name="T:Cocon90.Db.Common.Data.Schema.MCell">
             <summary>
             Class MCell.
@@ -357,6 +418,11 @@
         <member name="M:Cocon90.Db.Common.Tools.AttributeHelper.GetProp2ColumnNameDics(Cocon90.Db.Common.Data.DirverType,System.Type)">
             <summary>
             Gets the column names.the key is PropertyName and the value is ColumnName.
+            </summary>
+        </member>
+        <member name="M:Cocon90.Db.Common.Tools.AttributeHelper.GetColumn2IndexNameDics(Cocon90.Db.Common.Data.DirverType,System.Type)">
+            <summary>
+            Gets the index names.the key is PropertyName and the value is IndexName.
             </summary>
         </member>
         <member name="M:Cocon90.Db.Common.Tools.AttributeHelper.GetColumn2PropNameDics(Cocon90.Db.Common.Data.DirverType,System.Type)">

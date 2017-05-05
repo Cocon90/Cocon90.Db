@@ -37,6 +37,34 @@ namespace Cocon90.Db.Common.Tools
             });
         }
         /// <summary>
+        /// Gets the index names.the key is PropertyName and the value is IndexName.
+        /// </summary>
+        public static Dictionary<string, string> GetColumn2IndexNameDics(Data.DirverType dirverType, Type modelType)
+        {
+            return MemcacheHelper<Dictionary<string, string>>.ReadAndWrite("[GetColumn2IndexNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
+            {
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                var props = modelType.GetProperties().ToList();
+                foreach (var prop in props)
+                {
+                    if (!prop.CanRead || !prop.CanWrite) continue;
+                    var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
+                    if (attrs == null) { continue; }
+                    var lstAttrs = attrs.ToList().Select(a => (Common.Attribute.ColumnAttribute)a);
+                    var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
+                    if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
+                    if (targetAttr != null && !string.IsNullOrWhiteSpace(targetAttr.IndexName))
+                    {
+                        var colName = prop.Name;
+                        if (!string.IsNullOrWhiteSpace(targetAttr.ColumnName))
+                            colName = targetAttr.ColumnName;
+                        dic[colName] = targetAttr.IndexName;
+                    }
+                }
+                return dic;
+            });
+        }
+        /// <summary>
         /// Gets the column names.the key is ColumnName and the value is PropertyName.
         /// </summary>
         public static Dictionary<string, string> GetColumn2PropNameDics(Data.DirverType dirverType, Type modelType)

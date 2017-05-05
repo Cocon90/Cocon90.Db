@@ -22,3 +22,6 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\MySql.Data.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Mysql.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.DynamicReflection.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Sqlite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\System.Data.SQLite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Debug\Cocon90.Db.Sqlite.pdb

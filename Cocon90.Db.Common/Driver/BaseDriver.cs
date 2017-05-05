@@ -20,8 +20,8 @@ namespace Cocon90.Db.Common.Driver
         public abstract char ParameterChar { get; }
         public abstract string SafeName(string columnNameOrTableName);
         public abstract string TypeMapping(Type csType, int len = 0);
-        public abstract SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns);
-        public abstract SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns);
+        public abstract SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames);
+        public abstract SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames);
         public abstract SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param);
         public abstract PagedSqlBatch GetPagedSql(string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, params Params[] param);
     }

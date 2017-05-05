@@ -120,33 +120,99 @@ namespace Cocon90.Db.SqlServer
             return "nvarchar(max)";
         }
 
-        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
+        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
         {
+            /* 
+           IF NOT EXISTS (select * from sysobjects where id = object_id('[myindextab]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) BEGIN 
+            CREATE TABLE [myindextab]
+            ([RowId] uniqueidentifier,[UserType] int,[AgeType] int,[NameType] varchar(255));
+            Primary key([RowId],[UserType])
+            CREATE INDEX [idx_myindextab_usertype] ON [myindextab]([UserType]);
+            CREATE INDEX [idx_myindextab_group] ON [myindextab]([AgeType],[NameType]);
+            END
+            */
+
             var sql = new StringBuilder();
-            sql.AppendFormat("if not exists (select * from sysobjects where id = object_id('{0}') and OBJECTPROPERTY(id, 'IsUserTable') = 1) Create Table {0}(", SafeName(tableName));
-            foreach (var ddl in columnDdls)
+            //add create tab.
+            sql.AppendFormat("IF NOT EXISTS (select * from sysobjects where id = object_id('{0}') and OBJECTPROPERTY(id, 'IsUserTable') = 1) BEGIN CREATE TABLE {0}(", SafeName(tableName));
+            for (int i = 0; i < columnDdls.Count; i++)
             {
-                sql.AppendFormat("{0} {1},", SafeName(ddl.Key), ddl.Value);
+                var ddl = columnDdls.ElementAt(i);
+                var dot = (i == columnDdls.Count - 1 && primaryKeyColumns.Count == 0) ? string.Empty : ",";
+                sql.AppendFormat("{0} {1}{2}", SafeName(ddl.Key), ddl.Value, dot);
             }
             if (primaryKeyColumns != null && primaryKeyColumns.Count > 0)
             {
                 var pkString = string.Join(",", primaryKeyColumns.ConvertToAll(pk => SafeName(pk)));
-                sql.AppendFormat("Primary key ({0}) ", pkString);
+                sql.AppendFormat("Primary key ({0})", pkString);
             }
-            sql.AppendFormat(");");
+            sql.Append(");");
+            //add index.
+            var kvs = ConvertIndexStrings(columnName2IndexNames);
+            foreach (var kv in kvs)
+            {
+                sql.AppendFormat("CREATE INDEX {0} ON {1}({2});", SafeName(kv.Key), SafeName(tableName), kv.Value);
+            }
+            sql.Append("END");
             return new SqlBatch(sql.ToString());
         }
 
-        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
+        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
         {
+            /*
+             BEGIN 
+             if not exists (select * from syscolumns where id=object_id('myindextab') and name='RowId') alter table [myindextab] add [RowId] uniqueidentifier;
+             if not exists (select * from syscolumns where id=object_id('myindextab') and name='UserType') alter table [myindextab] add [UserType] int;
+             if not exists (select * from syscolumns where id=object_id('myindextab') and name='AgeType') alter table [myindextab] add [AgeType] int;
+             if not exists (select * from syscolumns where id=object_id('myindextab') and name='NameType') alter table [myindextab] add [NameType] varchar(255);
+             IF Not EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[myindextab]') AND NAME ='idx_myindextab_usertype') CREATE INDEX [idx_myindextab_usertype] ON [myindextab]([UserType]);
+             IF Not EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[myindextab]') AND NAME ='idx_myindextab_group') CREATE INDEX [idx_myindextab_group] ON [myindextab]([AgeType],[NameType]); 
+             END
+              */
             var sql = new StringBuilder();
+            sql.Append("BEGIN ");
             foreach (var ddl in columnDdls)
             {
-                sql.AppendLine(string.Format("if not exists (select * from syscolumns where id=object_id('{0}') and name='{1}') alter table [{0}] add [{1}] {2};", tableName, ddl.Key, ddl.Value));
+                sql.Append(string.Format("IF NOT EXISTS (SELECT * FROM syscolumns WHERE id=object_id('{0}') AND NAME='{1}') ALTER TABLE [{0}] ADD [{1}] {2};", tableName, ddl.Key, ddl.Value));
             }
+            //add index.
+            var kvs = ConvertIndexStrings(columnName2IndexNames);
+            foreach (var kv in kvs)
+            {
+                sql.AppendFormat("IF NOT EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('{1}') AND NAME ='{3}') CREATE INDEX {0} ON {1}({2});", SafeName(kv.Key), SafeName(tableName), kv.Value, kv.Key);
+            }
+            sql.Append(" END");
             return new SqlBatch(sql.ToString());
         }
-
+        /// <summary>
+        /// convert to indexName:[pro1],[prop2]
+        /// </summary>
+        private List<KeyValuePair<string, string>> ConvertIndexStrings(Dictionary<string, string> columnName2IndexNames)
+        {
+            if (columnName2IndexNames != null && columnName2IndexNames.Count > 0)
+            {
+                Dictionary<string, List<string>> indexName2Props = new Dictionary<string, List<string>>();
+                foreach (var kv in columnName2IndexNames)
+                {
+                    var indexName = kv.Value;
+                    var columnName = kv.Key;
+                    if (!indexName2Props.ContainsKey(indexName))
+                    {
+                        List<string> cols = new List<string>();
+                        cols.Add(columnName);
+                        indexName2Props.Add(indexName, cols);
+                    }
+                    else
+                    {
+                        if (indexName2Props[indexName] != null && !indexName2Props[indexName].Contains(columnName))
+                            indexName2Props[indexName].Add(columnName);
+                    }
+                }
+                var kvs = indexName2Props.ConvertToAll(s => new KeyValuePair<string, string>(s.Key, string.Join(",", s.Value.ConvertToAll(v => SafeName(v)))));
+                return kvs;
+            }
+            return new List<KeyValuePair<string, string>>();
+        }
         public override SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param)
         {
             /*

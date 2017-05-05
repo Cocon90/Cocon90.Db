@@ -66,6 +66,10 @@
       <Project>{d735d1d8-1e3d-47bf-8c2f-5c055edaa047}</Project>
       <Name>Cocon90.Db.Mysql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cocon90.Db.Sqlite\Cocon90.Db.Sqlite.csproj">
+      <Project>{2d8d45e6-c546-470f-966c-fd96ea36db52}</Project>
+      <Name>Cocon90.Db.Sqlite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cocon90.Db.SqlServer\Cocon90.Db.SqlServer.csproj">
       <Project>{88de23c4-2ae7-4ea0-92ba-ed60fef461aa}</Project>
       <Name>Cocon90.Db.SqlServer</Name>

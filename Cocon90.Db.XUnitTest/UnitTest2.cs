@@ -102,5 +102,30 @@ namespace Cocon90.Db.XUnitTest
             int a = 3;
 
         }
+
+        [TestMethod]
+        public void TestSqlServerCreatTableWithIndex()
+        {
+            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "Server=.;Database=DataRepair;Uid=sa;Pwd=123456;");
+            var sql = dh.GetCreateTableSql<MyIndexTab>();
+            var sql2 = dh.GetUpdateTableSql<MyIndexTab>();
+            dh.CreateOrUpdateTable<MyIndexTab>();
+        }
+        [TestMethod]
+        public void TestMySqlCreatTableWithIndex()
+        {
+            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.Mysql, "Server=127.0.0.1;Database=DataRepair;Uid=root;Pwd=123456;");
+            var sql = dh.GetCreateTableSql<MyIndexTab>();
+            var sql2 = dh.GetUpdateTableSql<MyIndexTab>();
+            dh.CreateOrUpdateTable<MyIndexTab>();
+        }
+        [TestMethod]
+        public void TestSqliteCreatTableWithIndex()
+        {
+            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.Sqlite, @"Data Source=D:\Applicaton\DbTools\sqlspy\World.db3");
+            var sql = dh.GetCreateTableSql<MyIndexTab>();
+            var sql2 = dh.GetUpdateTableSql<MyIndexTab>();
+            dh.CreateOrUpdateTable<MyIndexTab>();
+        }
     }
 }

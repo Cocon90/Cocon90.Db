@@ -22,12 +22,20 @@ namespace System
             return GetCreateTableSql(dh, typeof(T));
         }
         /// <summary>
+        /// Gets the update table SQL.
+        /// </summary>
+        public static SqlBatch GetUpdateTableSql<T>(this IDataHelper dh)
+        {
+            return GetUpdateTableSql(dh, typeof(T));
+        }
+        /// <summary>
         /// Gets the create table SQL.
         /// </summary>
         public static SqlBatch GetCreateTableSql(this IDataHelper dh, Type modelType)
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, modelType);
+            var colIndexs = AttributeHelper.GetColumn2IndexNameDics(dh.Driver.DirverType, modelType);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, modelType, false);
             var createDdls = AttributeHelper.GetPropertyName2DDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
             var tableName = AttributeHelper.GetTableName(modelType, false, null);
@@ -37,7 +45,7 @@ namespace System
                 columnDdls.Add(columnNameDic[ddl.Key], ddl.Value);
             }
             var primaryKeyColumns = primaryKeyProps.ConvertToAll(p => columnNameDic[p]);
-            SqlBatch sql = dh.Driver.GetCreateTableSql(tableName, columnDdls, primaryKeyColumns);
+            SqlBatch sql = dh.Driver.GetCreateTableSql(tableName, columnDdls, primaryKeyColumns, colIndexs);
             return sql;
         }
         /// <summary>
@@ -47,6 +55,7 @@ namespace System
         {
             List<SqlBatch> sqls = new List<SqlBatch>();
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, modelType);
+            var colIndexs = AttributeHelper.GetColumn2IndexNameDics(dh.Driver.DirverType, modelType);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, modelType, false);
             var createDdls = AttributeHelper.GetPropertyName2DDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
             var tableName = AttributeHelper.GetTableName(modelType, false, null);
@@ -56,7 +65,7 @@ namespace System
                 columnDdls.Add(columnNameDic[ddl.Key], ddl.Value);
             }
             var primaryKeyColumns = primaryKeyProps.ConvertToAll(p => columnNameDic[p]);
-            SqlBatch sql = dh.Driver.GetUpdateTableSql(tableName, columnDdls, primaryKeyColumns);
+            SqlBatch sql = dh.Driver.GetUpdateTableSql(tableName, columnDdls, primaryKeyColumns, colIndexs);
             return sql;
         }
         /// <summary>

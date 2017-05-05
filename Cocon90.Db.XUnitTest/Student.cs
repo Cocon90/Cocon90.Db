@@ -25,4 +25,16 @@ namespace Cocon90.Db.XUnitTest
         BadStudent = 2,
         LimitStudent = 3
     }
+    [Table(TableName = "myindextab")]
+    public class MyIndexTab
+    {
+        [Column(PrimaryKey = true)]
+        public Guid? RowId { get; set; }
+        [Column(IndexName = "idx_myindextab_usertype")]
+        public UserType? UserType { get; set; }
+        [Column(IndexName = "idx_myindextab_group")]
+        public int? AgeType { get; set; }
+        [Column(IndexName = "idx_myindextab_group", CreateDDL = "varchar(255)")]
+        public string NameType { get; set; }
+    }
 }

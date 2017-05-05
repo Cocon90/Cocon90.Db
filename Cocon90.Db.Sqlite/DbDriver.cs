@@ -148,7 +148,7 @@ namespace Cocon90.Db.Sqlite
             return "mediumtext";
         }
 
-        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
+        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
         {
             var sql = new StringBuilder();
             sql.AppendFormat("Create Table If Not Exists {0}(", SafeName(tableName));
@@ -162,10 +162,15 @@ namespace Cocon90.Db.Sqlite
                 sql.AppendFormat("Primary key ({0}) ", pkString);
             }
             sql.AppendFormat(");");
+            var kvs = ConvertIndexStrings(columnName2IndexNames);
+            foreach (var kv in kvs)
+            {
+                sql.AppendFormat("CREATE INDEX IF NOT EXISTS '{0}' on '{1}'({2});", kv.Key, tableName, kv.Value);
+            }
             return new SqlBatch(sql.ToString());
         }
 
-        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
+        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
         {
 #if NETSTANDARD
             var conn = (SqliteConnection)CreateConnection();
@@ -195,10 +200,43 @@ namespace Cocon90.Db.Sqlite
                     sql.AppendLine(string.Format("ALTER TABLE {0} Add Column {1} {2};", SafeName(tableName), SafeName(ddl.Key), ddl.Value));
                 }
             }
-            if (string.IsNullOrWhiteSpace(sql.ToString())) sql.AppendLine(";");
+            var kvs = ConvertIndexStrings(columnName2IndexNames);
+            foreach (var kv in kvs)
+            {
+                sql.AppendFormat("CREATE INDEX IF NOT EXISTS '{0}' on '{1}'({2});", kv.Key, tableName, kv.Value);
+            }
+            if (string.IsNullOrWhiteSpace(sql.ToString())) sql.Append(";");
             return new SqlBatch(sql.ToString());
         }
-
+        /// <summary>
+        /// convert to indexName:[pro1],[prop2]
+        /// </summary>
+        private List<KeyValuePair<string, string>> ConvertIndexStrings(Dictionary<string, string> columnName2IndexNames)
+        {
+            if (columnName2IndexNames != null && columnName2IndexNames.Count > 0)
+            {
+                Dictionary<string, List<string>> indexName2Props = new Dictionary<string, List<string>>();
+                foreach (var kv in columnName2IndexNames)
+                {
+                    var indexName = kv.Value;
+                    var columnName = kv.Key;
+                    if (!indexName2Props.ContainsKey(indexName))
+                    {
+                        List<string> cols = new List<string>();
+                        cols.Add(columnName);
+                        indexName2Props.Add(indexName, cols);
+                    }
+                    else
+                    {
+                        if (indexName2Props[indexName] != null && !indexName2Props[indexName].Contains(columnName))
+                            indexName2Props[indexName].Add(columnName);
+                    }
+                }
+                var kvs = indexName2Props.ConvertToAll(s => new KeyValuePair<string, string>(s.Key, string.Join(",", s.Value.ConvertToAll(v => SafeName(v)))));
+                return kvs;
+            }
+            return new List<KeyValuePair<string, string>>();
+        }
         public override SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param)
         {
             var columnString = string.Join(",", columnList.ConvertToAll(p => SafeName(p)));

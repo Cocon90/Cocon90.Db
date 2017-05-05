@@ -121,33 +121,90 @@ namespace Cocon90.Db.Mysql
             return "longtext";
         }
 
-        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
+        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
         {
+            /*
+             CREATE TABLE IF NOT EXISTS `myindextab`(
+	            `RowId` varchar(36),
+	            `UserType` int,
+	            `AgeType` int,
+	            `NameType` varchar(255),
+	            Primary key (`RowId`),
+	            INDEX `idx_myindextab_usertype`(`UserType`),
+	            INDEX `idx_myindextab_group`(`AgeType`,`NameType`)
+            )Engine InnoDB;
+             */
             var sql = new StringBuilder();
-            sql.AppendFormat("Create Table If Not Exists {0}(", SafeName(tableName));
-            foreach (var ddl in columnDdls)
+            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}(", SafeName(tableName));
+            for (int i = 0; i < columnDdls.Count; i++)
             {
-                sql.AppendFormat("{0} {1},", SafeName(ddl.Key), ddl.Value);
+                var ddl = columnDdls.ElementAt(i);
+                var dot = (i == columnDdls.Count - 1 && primaryKeyColumns.Count == 0) ? string.Empty : ",";
+                sql.AppendFormat("{0} {1}{2}", SafeName(ddl.Key), ddl.Value, dot);
             }
             if (primaryKeyColumns != null && primaryKeyColumns.Count > 0)
             {
                 var pkString = string.Join(",", primaryKeyColumns.ConvertToAll(pk => SafeName(pk)));
-                sql.AppendFormat("Primary key ({0}) ", pkString);
+                var dot = columnName2IndexNames.Count > 0 ? "," : string.Empty;
+                sql.AppendFormat("Primary key ({0}){1}", pkString, dot);
             }
+            //add index.
+            var kvs = ConvertIndexStrings(columnName2IndexNames);
+            List<string> indexStringList = new List<string>();
+            foreach (var kv in kvs)
+            {
+                indexStringList.Add(string.Format("INDEX {0}({1})", SafeName(kv.Key), kv.Value));
+            }
+            sql.Append(string.Join(",", indexStringList));
             sql.AppendFormat(")Engine InnoDB;");
             return new SqlBatch(sql.ToString());
         }
 
-        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns)
+        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
         {
             var sql = new StringBuilder();
             foreach (var ddl in columnDdls)
             {
                 sql.AppendLine(string.Format("SELECT count(*) INTO @exist FROM information_schema.columns WHERE table_schema = database() AND table_name = '{0}' and COLUMN_NAME = '{1}';set @query = IF(@exist <= 0, 'Alter table `{0}` add column `{1}` {2}','select 1 status'); prepare stmt from @query; EXECUTE stmt;", tableName, ddl.Key, ddl.Value));
             }
+            //add index.
+            var kvs = ConvertIndexStrings(columnName2IndexNames);
+            List<string> indexStringList = new List<string>();
+            foreach (var kv in kvs)
+            {
+                sql.AppendLine(string.Format("DROP PROCEDURE IF EXISTS schema_change_cocon90_mysql; CREATE PROCEDURE schema_change_cocon90_mysql() BEGIN  IF NOT EXISTS (SELECT * FROM information_schema.statistics WHERE table_schema=database() AND table_name = '{0}' AND index_name = '{1}') THEN   ALTER TABLE `{0}` ADD INDEX `{1}` ({2}); END IF; END ; CALL schema_change_cocon90_mysql(); DROP PROCEDURE IF EXISTS schema_change_cocon90_mysql;", tableName, kv.Key, kv.Value));
+            }
             return new SqlBatch(sql.ToString());
         }
-
+        /// <summary>
+        /// convert to indexName:[pro1],[prop2]
+        /// </summary>
+        private List<KeyValuePair<string, string>> ConvertIndexStrings(Dictionary<string, string> columnName2IndexNames)
+        {
+            if (columnName2IndexNames != null && columnName2IndexNames.Count > 0)
+            {
+                Dictionary<string, List<string>> indexName2Props = new Dictionary<string, List<string>>();
+                foreach (var kv in columnName2IndexNames)
+                {
+                    var indexName = kv.Value;
+                    var columnName = kv.Key;
+                    if (!indexName2Props.ContainsKey(indexName))
+                    {
+                        List<string> cols = new List<string>();
+                        cols.Add(columnName);
+                        indexName2Props.Add(indexName, cols);
+                    }
+                    else
+                    {
+                        if (indexName2Props[indexName] != null && !indexName2Props[indexName].Contains(columnName))
+                            indexName2Props[indexName].Add(columnName);
+                    }
+                }
+                var kvs = indexName2Props.ConvertToAll(s => new KeyValuePair<string, string>(s.Key, string.Join(",", s.Value.ConvertToAll(v => SafeName(v)))));
+                return kvs;
+            }
+            return new List<KeyValuePair<string, string>>();
+        }
         public override SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param)
         {
             var columnString = string.Join(",", columnList.ConvertToAll(p => SafeName(p)));
