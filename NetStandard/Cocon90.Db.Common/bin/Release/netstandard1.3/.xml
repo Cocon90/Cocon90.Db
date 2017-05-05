@@ -607,6 +607,11 @@
             Gets the create table SQL.
             </summary>
         </member>
+        <member name="M:System.DataHelperDdlExtension.GetUpdateTableSql``1(Cocon90.Db.Common.IDataHelper)">
+            <summary>
+            Gets the update table SQL.
+            </summary>
+        </member>
         <member name="M:System.DataHelperDdlExtension.GetCreateTableSql(Cocon90.Db.Common.IDataHelper,System.Type)">
             <summary>
             Gets the create table SQL.

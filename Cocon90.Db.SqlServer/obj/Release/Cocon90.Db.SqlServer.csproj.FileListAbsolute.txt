@@ -2,10 +2,10 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon9
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.Db.SqlServer.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.Db.SqlServer.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.Db.Common.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.DynamicReflection.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.Db.Common.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.Db.Common.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.DynamicReflection.xml
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\obj\Release\Cocon90.Db.SqlServer.csprojResolveAssemblyReference.cache
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\obj\Release\Cocon90.Db.SqlServer.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\obj\Release\Cocon90.Db.SqlServer.pdb
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.DynamicReflection.dll
-D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.SqlServer\bin\Release\Cocon90.DynamicReflection.xml

@@ -25,3 +25,7 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon9
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\MySql.Data.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Mysql.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Mysql.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Sqlite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\System.Data.SQLite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Sqlite.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Sqlite.xml

@@ -4,5 +4,10 @@
         <name>Cocon90.Db.Sqlite</name>
     </assembly>
     <members>
+        <member name="M:Cocon90.Db.Sqlite.DbDriver.ConvertIndexStrings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            convert to indexName:[pro1],[prop2]
+            </summary>
+        </member>
     </members>
 </doc>
