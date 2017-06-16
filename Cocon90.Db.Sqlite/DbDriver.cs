@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cocon90.Db.Common.Data;
 using System.Data;
 using System.Data.Common;
+using System.Collections.Concurrent;
 #if NETSTANDARD
 using Microsoft.Data.Sqlite;
 using System.Reflection;
@@ -64,7 +65,7 @@ namespace Cocon90.Db.Sqlite
         {
 #if NETSTANDARD
             SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder(this.ConnectionString);
-            connString.Add("BinaryGUID", false);
+            //connString.Add("BinaryGUID", false);
             SqliteConnection conn = new SqliteConnection(connString.ConnectionString);
 #else
             SQLiteConnectionStringBuilder connString = new SQLiteConnectionStringBuilder(this.ConnectionString);
@@ -108,32 +109,32 @@ namespace Cocon90.Db.Sqlite
 
         public override string TypeMapping(Type csType, int len = 0)
         {
-            Dictionary<string, string> instence = new Dictionary<string, string>();
-            instence.Add(typeof(int).FullName, "int");
-            instence.Add(typeof(bool).FullName, "int");
-            instence.Add(typeof(char).FullName, "varchar(2)");
-            instence.Add(typeof(byte).FullName, "tinyint");
-            instence.Add(typeof(short).FullName, "smallint");
-            instence.Add(typeof(long).FullName, "bigint");
-            instence.Add(typeof(float).FullName, "float");
-            instence.Add(typeof(double).FullName, "decimal");
-            instence.Add(typeof(decimal).FullName, "decimal");
-            instence.Add(typeof(string).FullName, "mediumtext");
-            instence.Add(typeof(byte[]).FullName, "longblob");
-            instence.Add(typeof(DateTime).FullName, "datetime");
-            instence.Add(typeof(Guid).FullName, "guid");
+            ConcurrentDictionary<string, string> instence = new ConcurrentDictionary<string, string>();
+            instence.TryAdd(typeof(int).FullName, "int");
+            instence.TryAdd(typeof(bool).FullName, "int");
+            instence.TryAdd(typeof(char).FullName, "varchar(2)");
+            instence.TryAdd(typeof(byte).FullName, "tinyint");
+            instence.TryAdd(typeof(short).FullName, "smallint");
+            instence.TryAdd(typeof(long).FullName, "bigint");
+            instence.TryAdd(typeof(float).FullName, "float");
+            instence.TryAdd(typeof(double).FullName, "decimal");
+            instence.TryAdd(typeof(decimal).FullName, "decimal");
+            instence.TryAdd(typeof(string).FullName, "mediumtext");
+            instence.TryAdd(typeof(byte[]).FullName, "longblob");
+            instence.TryAdd(typeof(DateTime).FullName, "datetime");
+            instence.TryAdd(typeof(Guid).FullName, "guid");
 
-            instence.Add(typeof(int?).FullName, "int");
-            instence.Add(typeof(bool?).FullName, "int");
-            instence.Add(typeof(char?).FullName, "varchar(2)");
-            instence.Add(typeof(byte?).FullName, "tinyint");
-            instence.Add(typeof(short?).FullName, "smallint");
-            instence.Add(typeof(long?).FullName, "bigint");
-            instence.Add(typeof(float?).FullName, "float");
-            instence.Add(typeof(double?).FullName, "double");
-            instence.Add(typeof(decimal?).FullName, "double");
-            instence.Add(typeof(DateTime?).FullName, "datetime");
-            instence.Add(typeof(Guid?).FullName, "guid");
+            instence.TryAdd(typeof(int?).FullName, "int");
+            instence.TryAdd(typeof(bool?).FullName, "int");
+            instence.TryAdd(typeof(char?).FullName, "varchar(2)");
+            instence.TryAdd(typeof(byte?).FullName, "tinyint");
+            instence.TryAdd(typeof(short?).FullName, "smallint");
+            instence.TryAdd(typeof(long?).FullName, "bigint");
+            instence.TryAdd(typeof(float?).FullName, "float");
+            instence.TryAdd(typeof(double?).FullName, "double");
+            instence.TryAdd(typeof(decimal?).FullName, "double");
+            instence.TryAdd(typeof(DateTime?).FullName, "datetime");
+            instence.TryAdd(typeof(Guid?).FullName, "guid");
 
             //返回相应类型。
             if (instence.ContainsKey(csType.FullName))
@@ -148,7 +149,7 @@ namespace Cocon90.Db.Sqlite
             return "mediumtext";
         }
 
-        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
+        public override SqlBatch GetCreateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             var sql = new StringBuilder();
             sql.AppendFormat("Create Table If Not Exists {0}(", SafeName(tableName));
@@ -170,7 +171,7 @@ namespace Cocon90.Db.Sqlite
             return new SqlBatch(sql.ToString());
         }
 
-        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
+        public override SqlBatch GetUpdateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames)
         {
 #if NETSTANDARD
             var conn = (SqliteConnection)CreateConnection();
@@ -211,7 +212,7 @@ namespace Cocon90.Db.Sqlite
         /// <summary>
         /// convert to indexName:[pro1],[prop2]
         /// </summary>
-        private List<KeyValuePair<string, string>> ConvertIndexStrings(Dictionary<string, string> columnName2IndexNames)
+        private List<KeyValuePair<string, string>> ConvertIndexStrings(ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             if (columnName2IndexNames != null && columnName2IndexNames.Count > 0)
             {

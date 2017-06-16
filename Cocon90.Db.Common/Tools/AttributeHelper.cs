@@ -5,6 +5,7 @@ using System.Text;
 using Cocon90.Db.Common.Data;
 using System.Reflection;
 using Cocon90.Db.Common.Helper;
+using System.Collections.Concurrent;
 
 namespace Cocon90.Db.Common.Tools
 {
@@ -16,17 +17,17 @@ namespace Cocon90.Db.Common.Tools
         /// <summary>
         /// Gets the column names.the key is PropertyName and the value is ColumnName.
         /// </summary>
-        public static Dictionary<string, string> GetProp2ColumnNameDics(Data.DirverType dirverType, Type modelType)
+        public static ConcurrentDictionary<string, string> GetProp2ColumnNameDics(Data.DirverType dirverType, Type modelType)
         {
-            return MemcacheHelper<Dictionary<string, string>>.ReadAndWrite("[GetProp2ColumnNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
+            return MemcacheHelper<ConcurrentDictionary<string, string>>.ReadAndWrite("[GetProp2ColumnNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
+                ConcurrentDictionary<string, string> dic = new ConcurrentDictionary<string, string>();
                 var props = modelType.GetProperties().ToList();
                 foreach (var prop in props)
                 {
                     if (!prop.CanRead || !prop.CanWrite) continue;
                     var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
-                    if (attrs == null) { dic.Add(prop.Name, prop.Name); continue; }
+                    if (attrs == null) { dic.TryAdd(prop.Name, prop.Name); continue; }
                     var lstAttrs = attrs.ToList().Select(a => (Common.Attribute.ColumnAttribute)a);
                     var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
                     if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
@@ -39,11 +40,11 @@ namespace Cocon90.Db.Common.Tools
         /// <summary>
         /// Gets the index names.the key is PropertyName and the value is IndexName.
         /// </summary>
-        public static Dictionary<string, string> GetColumn2IndexNameDics(Data.DirverType dirverType, Type modelType)
+        public static ConcurrentDictionary<string, string> GetColumn2IndexNameDics(Data.DirverType dirverType, Type modelType)
         {
-            return MemcacheHelper<Dictionary<string, string>>.ReadAndWrite("[GetColumn2IndexNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
+            return MemcacheHelper<ConcurrentDictionary<string, string>>.ReadAndWrite("[GetColumn2IndexNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
+                ConcurrentDictionary<string, string> dic = new ConcurrentDictionary<string, string>();
                 var props = modelType.GetProperties().ToList();
                 foreach (var prop in props)
                 {
@@ -67,17 +68,17 @@ namespace Cocon90.Db.Common.Tools
         /// <summary>
         /// Gets the column names.the key is ColumnName and the value is PropertyName.
         /// </summary>
-        public static Dictionary<string, string> GetColumn2PropNameDics(Data.DirverType dirverType, Type modelType)
+        public static ConcurrentDictionary<string, string> GetColumn2PropNameDics(Data.DirverType dirverType, Type modelType)
         {
-            return MemcacheHelper<Dictionary<string, string>>.ReadAndWrite("[GetColumn2PropNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
+            return MemcacheHelper<ConcurrentDictionary<string, string>>.ReadAndWrite("[GetColumn2PropNameDics][" + modelType.FullName + "][" + dirverType + "]", () =>
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
+                ConcurrentDictionary<string, string> dic = new ConcurrentDictionary<string, string>();
                 var props = modelType.GetProperties().ToList();
                 foreach (var prop in props)
                 {
                     if (!prop.CanRead || !prop.CanWrite) continue;
                     var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
-                    if (attrs == null) { dic.Add(prop.Name, prop.Name); continue; }
+                    if (attrs == null) { dic.TryAdd(prop.Name, prop.Name); continue; }
                     var lstAttrs = attrs.ToList().Select(a => (Common.Attribute.ColumnAttribute)a);
                     var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
                     if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
@@ -90,11 +91,11 @@ namespace Cocon90.Db.Common.Tools
         /// <summary>
         /// Gets the create ddl script. the key is PropertyName and the value is CreateDdl.
         /// </summary>
-        public static Dictionary<string, string> GetPropertyName2DDLs(DirverType dirverType, Type modelType, Func<Type, int, string> typeMappingFunc)
+        public static ConcurrentDictionary<string, string> GetPropertyName2DDLs(DirverType dirverType, Type modelType, Func<Type, int, string> typeMappingFunc)
         {
-            return MemcacheHelper<Dictionary<string, string>>.ReadAndWrite("[GetPropertyName2DDLs][" + modelType.FullName + "][" + dirverType + "]", () =>
+            return MemcacheHelper<ConcurrentDictionary<string, string>>.ReadAndWrite("[GetPropertyName2DDLs][" + modelType.FullName + "][" + dirverType + "]", () =>
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
+                ConcurrentDictionary<string, string> dic = new ConcurrentDictionary<string, string>();
                 var props = modelType.GetProperties().ToList();
                 var ignoreProperys = GetIgnorePropertys(modelType);
                 foreach (var prop in props)
@@ -102,12 +103,12 @@ namespace Cocon90.Db.Common.Tools
                     if (!prop.CanRead || !prop.CanWrite) continue;
                     if (ignoreProperys.Contains(prop.Name)) continue;
                     var attrs = prop.GetCustomAttributes(typeof(Common.Attribute.ColumnAttribute), true);
-                    if (attrs == null) { dic.Add(prop.Name, prop.Name); continue; }
+                    if (attrs == null) { dic.TryAdd(prop.Name, prop.Name); continue; }
                     var lstAttrs = attrs.ToList().ConvertToAll(a => (Common.Attribute.ColumnAttribute)a);
                     var targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == dirverType);
                     if (targetAttr == null) targetAttr = lstAttrs.FirstOrDefault(a => a.DirverType == Data.DirverType.UnKnown);
-                    if (targetAttr != null && !string.IsNullOrWhiteSpace(targetAttr.CreateDDL)) dic.Add(prop.Name, targetAttr.CreateDDL);
-                    else if (typeMappingFunc != null) dic.Add(prop.Name, typeMappingFunc(prop.PropertyType, 0));
+                    if (targetAttr != null && !string.IsNullOrWhiteSpace(targetAttr.CreateDDL)) dic.TryAdd(prop.Name, targetAttr.CreateDDL);
+                    else if (typeMappingFunc != null) dic.TryAdd(prop.Name, typeMappingFunc(prop.PropertyType, 0));
                 }
                 return dic;
             });

@@ -7,6 +7,7 @@ using Cocon90.Db.Common.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Reflection;
+using System.Collections.Concurrent;
 
 namespace Cocon90.Db.Mysql
 {
@@ -79,34 +80,34 @@ namespace Cocon90.Db.Mysql
 
         public override string TypeMapping(Type csType, int len = 0)
         {
-            Dictionary<string, string> instence = new Dictionary<string, string>();
-            instence.Add(typeof(int?).FullName, "int");
-            instence.Add(typeof(bool?).FullName, "bit");
-            instence.Add(typeof(char?).FullName, "varchar(2)");
-            instence.Add(typeof(byte?).FullName, "tinyint");
-            instence.Add(typeof(short?).FullName, "smallint");
-            instence.Add(typeof(long?).FullName, "bigint");
-            instence.Add(typeof(float?).FullName, "float");
-            instence.Add(typeof(double?).FullName, "double");
-            instence.Add(typeof(decimal?).FullName, "double");
-            instence.Add(typeof(DateTime?).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset?).FullName, "datetime");
-            instence.Add(typeof(Guid?).FullName, "varchar(36)");
+            ConcurrentDictionary<string, string> instence = new ConcurrentDictionary<string, string>();
+            instence.TryAdd(typeof(int?).FullName, "int");
+            instence.TryAdd(typeof(bool?).FullName, "bit");
+            instence.TryAdd(typeof(char?).FullName, "varchar(2)");
+            instence.TryAdd(typeof(byte?).FullName, "tinyint");
+            instence.TryAdd(typeof(short?).FullName, "smallint");
+            instence.TryAdd(typeof(long?).FullName, "bigint");
+            instence.TryAdd(typeof(float?).FullName, "float");
+            instence.TryAdd(typeof(double?).FullName, "double");
+            instence.TryAdd(typeof(decimal?).FullName, "double");
+            instence.TryAdd(typeof(DateTime?).FullName, "datetime");
+            instence.TryAdd(typeof(DateTimeOffset?).FullName, "datetime");
+            instence.TryAdd(typeof(Guid?).FullName, "varchar(36)");
 
-            instence.Add(typeof(int).FullName, "int");
-            instence.Add(typeof(bool).FullName, "bit");
-            instence.Add(typeof(char).FullName, "varchar(2)");
-            instence.Add(typeof(byte).FullName, "tinyint");
-            instence.Add(typeof(short).FullName, "smallint");
-            instence.Add(typeof(long).FullName, "bigint");
-            instence.Add(typeof(float).FullName, "float");
-            instence.Add(typeof(double).FullName, "decimal");
-            instence.Add(typeof(decimal).FullName, "decimal");
-            instence.Add(typeof(string).FullName, "longtext");
-            instence.Add(typeof(byte[]).FullName, "longblob");
-            instence.Add(typeof(DateTime).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset).FullName, "datetime");
-            instence.Add(typeof(Guid).FullName, "varchar(36)");
+            instence.TryAdd(typeof(int).FullName, "int");
+            instence.TryAdd(typeof(bool).FullName, "bit");
+            instence.TryAdd(typeof(char).FullName, "varchar(2)");
+            instence.TryAdd(typeof(byte).FullName, "tinyint");
+            instence.TryAdd(typeof(short).FullName, "smallint");
+            instence.TryAdd(typeof(long).FullName, "bigint");
+            instence.TryAdd(typeof(float).FullName, "float");
+            instence.TryAdd(typeof(double).FullName, "decimal");
+            instence.TryAdd(typeof(decimal).FullName, "decimal");
+            instence.TryAdd(typeof(string).FullName, "longtext");
+            instence.TryAdd(typeof(byte[]).FullName, "longblob");
+            instence.TryAdd(typeof(DateTime).FullName, "datetime");
+            instence.TryAdd(typeof(DateTimeOffset).FullName, "datetime");
+            instence.TryAdd(typeof(Guid).FullName, "varchar(36)");
 
             //返回相应类型。
             if (instence.ContainsKey(csType.FullName))
@@ -121,7 +122,7 @@ namespace Cocon90.Db.Mysql
             return "longtext";
         }
 
-        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
+        public override SqlBatch GetCreateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             /*
              CREATE TABLE IF NOT EXISTS `myindextab`(
@@ -160,7 +161,7 @@ namespace Cocon90.Db.Mysql
             return new SqlBatch(sql.ToString());
         }
 
-        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
+        public override SqlBatch GetUpdateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             var sql = new StringBuilder();
             foreach (var ddl in columnDdls)
@@ -179,7 +180,7 @@ namespace Cocon90.Db.Mysql
         /// <summary>
         /// convert to indexName:[pro1],[prop2]
         /// </summary>
-        private List<KeyValuePair<string, string>> ConvertIndexStrings(Dictionary<string, string> columnName2IndexNames)
+        private List<KeyValuePair<string, string>> ConvertIndexStrings(ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             if (columnName2IndexNames != null && columnName2IndexNames.Count > 0)
             {

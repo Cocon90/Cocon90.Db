@@ -1,16 +1,16 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.3/",
-    "signature": "52a6732b642f23729e3aaa44cb98f2667735c592"
+    "signature": "8644462caca9689d9f6ebfa599330686a789f7be"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "cocon90.db.sqlite/1.1.0.0": {
+      "cocon90.db.sqlite/1.1.2.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.1.0",
-          "Microsoft.Data.Sqlite": "1.1.0",
+          "Cocon90.Db.Common": "1.1.2",
+          "Microsoft.Data.Sqlite": "1.1.1",
           "NETStandard.Library": "1.6.1"
         },
         "runtime": {
@@ -52,7 +52,7 @@
           "lib/netstandard1.3/Microsoft.CSharp.dll": {}
         }
       },
-      "microsoft.data.sqlite/1.1.0": {
+      "microsoft.data.sqlite/1.1.1": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
           "SQLite": "3.13.0",
@@ -852,7 +852,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "cocon90.db.common/1.1.0": {
+      "cocon90.db.common/1.1.2": {
         "dependencies": {
           "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
@@ -873,7 +873,7 @@
     }
   },
   "libraries": {
-    "cocon90.db.sqlite/1.1.0.0": {
+    "cocon90.db.sqlite/1.1.2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -892,12 +892,12 @@
       "path": "microsoft.csharp/4.0.1",
       "hashPath": "microsoft.csharp.4.0.1.nupkg.sha512"
     },
-    "microsoft.data.sqlite/1.1.0": {
+    "microsoft.data.sqlite/1.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MeKGXTzsbfwDaqQB0ctvPPUSEieXpGEbTPT1yycFCzlNSAypEKRMWla4C93o02oquX5+j9FU7d12BRYeYknHqA==",
-      "path": "microsoft.data.sqlite/1.1.0",
-      "hashPath": "microsoft.data.sqlite.1.1.0.nupkg.sha512"
+      "sha512": "sha512-EA/L0kQtkPm037kHyLtt/9dsB4ephlgmXgaQbW2qcb2jcW8R5RbfT9zh1j9amZIqFP3OwpnZ7kt7xTwC8z7M1A==",
+      "path": "microsoft.data.sqlite/1.1.1",
+      "hashPath": "microsoft.data.sqlite.1.1.1.nupkg.sha512"
     },
     "microsoft.extensions.configuration/1.1.1": {
       "type": "package",
@@ -1487,7 +1487,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "cocon90.db.common/1.1.0": {
+    "cocon90.db.common/1.1.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -11,7 +11,6 @@ namespace Cocon90.Db.XUnitTest
         {
      
             //var dh = Cocon90.Db.Common.Db.GetDataHelper("Cocon90.Db.Sqlite.dll", "Cocon90.Db.Sqlite.DbDriver", "D:\\Application\\DbTools\\sqliteSpy\\SQLiteSpy.db3;");
-
             var dh = Cocon90.Db.Common.Db.GetDataHelper();
 
             var createSql = dh.GetCreateTableSql<Model.CountryLanguageModel>();

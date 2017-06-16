@@ -1,15 +1,17 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "8b57c748cf9f738e04c1bc94f392370a96363cd1"
+    "signature": "37a7f141462399e198696e04c463bdbd7d35c022"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "cocon90core.db.xunittest/1.0.0": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.1.0",
-          "Cocon90.Db.SqlServer": "1.1.0",
+          "Cocon90.Db.Common": "1.1.2",
+          "Cocon90.Db.SqlServer": "1.1.2",
+          "Cocon90.Db.Sqlite": "1.1.2",
+          "Microsoft.Data.Sqlite": "1.1.1",
           "Microsoft.NET.Test.Sdk": "15.0.0",
           "xunit": "2.2.0",
           "xunit.runner.visualstudio": "2.2.0"
@@ -21,6 +23,15 @@
       "cocon90.dynamicreflection/2.0.0": {
         "runtime": {
           "lib/netstandard1.3/Cocon90.Core.DynamicReflection.dll": {}
+        }
+      },
+      "microsoft.data.sqlite/1.1.1": {
+        "dependencies": {
+          "SQLite": "3.13.0",
+          "System.Data.Common": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.Data.Sqlite.dll": {}
         }
       },
       "microsoft.dotnet.platformabstractions/1.1.0": {
@@ -364,6 +375,26 @@
           }
         }
       },
+      "sqlite/3.13.0": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libsqlite3.so": {
+            "rid": "linux-x64",
+            "assetType": "native"
+          },
+          "runtimes/osx-x64/native/libsqlite3.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native"
+          },
+          "runtimes/win7-x64/native/sqlite3.dll": {
+            "rid": "win7-x64",
+            "assetType": "native"
+          },
+          "runtimes/win7-x86/native/sqlite3.dll": {
+            "rid": "win7-x86",
+            "assetType": "native"
+          }
+        }
+      },
       "system.collections.nongeneric/4.0.1": {
         "runtime": {
           "lib/netstandard1.3/System.Collections.NonGeneric.dll": {}
@@ -554,7 +585,7 @@
           "Microsoft.TestPlatform.ObjectModel": "15.0.0"
         }
       },
-      "cocon90.db.common/1.1.0": {
+      "cocon90.db.common/1.1.2": {
         "dependencies": {
           "Cocon90.DynamicReflection": "2.0.0",
           "Microsoft.Extensions.Configuration": "1.1.1",
@@ -567,9 +598,18 @@
           "Cocon90.Db.Common.dll": {}
         }
       },
-      "cocon90.db.sqlserver/1.1.0": {
+      "cocon90.db.sqlite/1.1.2": {
         "dependencies": {
-          "Cocon90.Db.Common": "1.1.0",
+          "Cocon90.Db.Common": "1.1.2",
+          "Microsoft.Data.Sqlite": "1.1.1"
+        },
+        "runtime": {
+          "Cocon90.Db.Sqlite.dll": {}
+        }
+      },
+      "cocon90.db.sqlserver/1.1.2": {
+        "dependencies": {
+          "Cocon90.Db.Common": "1.1.2",
           "System.Data.SqlClient": "4.3.0"
         },
         "runtime": {
@@ -590,6 +630,13 @@
       "sha512": "sha512-L19LcDf3AzaWqRrpZ9WHcnnUzM1DXZtJOuSiRZILQvEKcX3l6sNfPvR81CCTxT5X2MyWvfDWprk2KsIf2HJA9w==",
       "path": "cocon90.dynamicreflection/2.0.0",
       "hashPath": "cocon90.dynamicreflection.2.0.0.nupkg.sha512"
+    },
+    "microsoft.data.sqlite/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EA/L0kQtkPm037kHyLtt/9dsB4ephlgmXgaQbW2qcb2jcW8R5RbfT9zh1j9amZIqFP3OwpnZ7kt7xTwC8z7M1A==",
+      "path": "microsoft.data.sqlite/1.1.1",
+      "hashPath": "microsoft.data.sqlite.1.1.1.nupkg.sha512"
     },
     "microsoft.dotnet.platformabstractions/1.1.0": {
       "type": "package",
@@ -709,6 +756,13 @@
       "sha512": "sha512-4cXRTIcttvIreAoqK/5hzTtzepeggac+m5A0rzH+9zLtnFh2J0rLuGeJR4KjNLyKqPzO0kjqrs5lkRJEKX8HAA==",
       "path": "runtime.win7-x86.runtime.native.system.data.sqlclient.sni/4.3.0",
       "hashPath": "runtime.win7-x86.runtime.native.system.data.sqlclient.sni.4.3.0.nupkg.sha512"
+    },
+    "sqlite/3.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o6ZyQRh9zAaHuBqQyrRiMDnhUVGqxI/J+I1bZz2ZDdtS4h4fr/yN0NbrNAFk7XqvwTpazJm9irx8fI2whcSung==",
+      "path": "sqlite/3.13.0",
+      "hashPath": "sqlite.3.13.0.nupkg.sha512"
     },
     "system.collections.nongeneric/4.0.1": {
       "type": "package",
@@ -885,12 +939,17 @@
       "path": "xunit.runner.visualstudio/2.2.0",
       "hashPath": "xunit.runner.visualstudio.2.2.0.nupkg.sha512"
     },
-    "cocon90.db.common/1.1.0": {
+    "cocon90.db.common/1.1.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "cocon90.db.sqlserver/1.1.0": {
+    "cocon90.db.sqlite/1.1.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "cocon90.db.sqlserver/1.1.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

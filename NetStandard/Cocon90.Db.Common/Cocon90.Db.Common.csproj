@@ -7,7 +7,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>chinapsu.pfx</AssemblyOriginatorKeyFile>
     <PackageId>Cocon90.Db.Common</PackageId>
-    <Version>1.1.1.0</Version>
+    <Version>1.1.2.0</Version>
     <Authors>Sindrol(Xingzhu Song)</Authors>
     <Company>Sindrol(Xingzhu Song)</Company>
     <Description>Cocon90.Db是由Cocon90.Db.Common为核心的类库与其它数据库操作库组合而成，以方便调用为主要目的，支持ORM操作，增、删、改、查、事务、批量执行、创建表、插入或保存记录 等等，并提供多种数据库支持。当前已支持Mysql、Sqlite、SqlServer。</Description>
@@ -18,7 +18,7 @@
     <RepositoryUrl>https://github.com/Cocon90/Cocon90.Db</RepositoryUrl>
     <PackageReleaseNotes>Cocon90.Db是由Cocon90.Db.Common为核心的类库与其它数据库操作库组合而成，以方便调用为主要目的，支持ORM操作，增、删、改、查、事务、批量执行、创建表、插入或保存记录 等等，并提供多种数据库支持。当前已支持Mysql、Sqlite、SqlServer。</PackageReleaseNotes>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <FileVersion>1.1.1.0</FileVersion>
+    <FileVersion>1.1.2.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -57,7 +57,10 @@
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelper.cs" Link="Helper\DataHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperBaseExtension.cs" Link="Helper\DataHelperBaseExtension.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperDdlExtension.cs" Link="Helper\DataHelperDdlExtension.cs" />
-    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmExtension.cs" Link="Helper\DataHelperOrmExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmDeleteExtension.cs" Link="Helper\DataHelperOrmDeleteExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmGetExtension.cs" Link="Helper\DataHelperOrmGetExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmInsertExtension.cs" Link="Helper\DataHelperOrmInsertExtension.cs" />
+    <Compile Include="..\..\Cocon90.Db.Common\Helper\DataHelperOrmUpdateExtension.cs" Link="Helper\DataHelperOrmUpdateExtension.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\IDataHelper.cs" Link="IDataHelper.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\ArrayExtensions.cs" Link="Tools\ArrayExtensions.cs" />
     <Compile Include="..\..\Cocon90.Db.Common\Tools\AttributeHelper.cs" Link="Tools\AttributeHelper.cs" />

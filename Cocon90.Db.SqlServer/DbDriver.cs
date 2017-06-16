@@ -7,6 +7,7 @@ using Cocon90.Db.Common.Data;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
+using System.Collections.Concurrent;
 
 namespace Cocon90.Db.SqlServer
 {
@@ -78,35 +79,35 @@ namespace Cocon90.Db.SqlServer
 
         public override string TypeMapping(Type csType, int len = 0)
         {
-            Dictionary<string, string> instence = new Dictionary<string, string>();
+            ConcurrentDictionary<string, string> instence = new ConcurrentDictionary<string, string>();
 
-            instence.Add(typeof(int).FullName, "int");
-            instence.Add(typeof(bool).FullName, "bit");
-            instence.Add(typeof(char).FullName, "nvarchar(1)");
-            instence.Add(typeof(byte).FullName, "tinyint");
-            instence.Add(typeof(short).FullName, "smallint");
-            instence.Add(typeof(long).FullName, "bigint");
-            instence.Add(typeof(float).FullName, "real");
-            instence.Add(typeof(double).FullName, "money");
-            instence.Add(typeof(decimal).FullName, "money");
-            instence.Add(typeof(string).FullName, "nvarchar(max)");
-            instence.Add(typeof(byte[]).FullName, "image");
-            instence.Add(typeof(DateTime).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset).FullName, "datetimeoffset");
-            instence.Add(typeof(Guid).FullName, "uniqueidentifier");
+            instence.TryAdd(typeof(int).FullName, "int");
+            instence.TryAdd(typeof(bool).FullName, "bit");
+            instence.TryAdd(typeof(char).FullName, "nvarchar(1)");
+            instence.TryAdd(typeof(byte).FullName, "tinyint");
+            instence.TryAdd(typeof(short).FullName, "smallint");
+            instence.TryAdd(typeof(long).FullName, "bigint");
+            instence.TryAdd(typeof(float).FullName, "real");
+            instence.TryAdd(typeof(double).FullName, "money");
+            instence.TryAdd(typeof(decimal).FullName, "money");
+            instence.TryAdd(typeof(string).FullName, "nvarchar(max)");
+            instence.TryAdd(typeof(byte[]).FullName, "image");
+            instence.TryAdd(typeof(DateTime).FullName, "datetime");
+            instence.TryAdd(typeof(DateTimeOffset).FullName, "datetimeoffset");
+            instence.TryAdd(typeof(Guid).FullName, "uniqueidentifier");
 
-            instence.Add(typeof(int?).FullName, "int");
-            instence.Add(typeof(bool?).FullName, "bit");
-            instence.Add(typeof(char?).FullName, "nvarchar(1)");
-            instence.Add(typeof(byte?).FullName, "tinyint");
-            instence.Add(typeof(short?).FullName, "smallint");
-            instence.Add(typeof(long?).FullName, "bigint");
-            instence.Add(typeof(float?).FullName, "real");
-            instence.Add(typeof(double?).FullName, "money");
-            instence.Add(typeof(decimal?).FullName, "money");
-            instence.Add(typeof(DateTime?).FullName, "datetime");
-            instence.Add(typeof(DateTimeOffset?).FullName, "datetimeoffset");
-            instence.Add(typeof(Guid?).FullName, "uniqueidentifier");
+            instence.TryAdd(typeof(int?).FullName, "int");
+            instence.TryAdd(typeof(bool?).FullName, "bit");
+            instence.TryAdd(typeof(char?).FullName, "nvarchar(1)");
+            instence.TryAdd(typeof(byte?).FullName, "tinyint");
+            instence.TryAdd(typeof(short?).FullName, "smallint");
+            instence.TryAdd(typeof(long?).FullName, "bigint");
+            instence.TryAdd(typeof(float?).FullName, "real");
+            instence.TryAdd(typeof(double?).FullName, "money");
+            instence.TryAdd(typeof(decimal?).FullName, "money");
+            instence.TryAdd(typeof(DateTime?).FullName, "datetime");
+            instence.TryAdd(typeof(DateTimeOffset?).FullName, "datetimeoffset");
+            instence.TryAdd(typeof(Guid?).FullName, "uniqueidentifier");
             //返回相应类型。
             if (instence.ContainsKey(csType.FullName))
                 return instence[csType.FullName];
@@ -120,7 +121,7 @@ namespace Cocon90.Db.SqlServer
             return "nvarchar(max)";
         }
 
-        public override SqlBatch GetCreateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
+        public override SqlBatch GetCreateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             /* 
            IF NOT EXISTS (select * from sysobjects where id = object_id('[myindextab]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) BEGIN 
@@ -157,7 +158,7 @@ namespace Cocon90.Db.SqlServer
             return new SqlBatch(sql.ToString());
         }
 
-        public override SqlBatch GetUpdateTableSql(string tableName, Dictionary<string, string> columnDdls, List<string> primaryKeyColumns, Dictionary<string, string> columnName2IndexNames)
+        public override SqlBatch GetUpdateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             /*
              BEGIN 
@@ -187,7 +188,7 @@ namespace Cocon90.Db.SqlServer
         /// <summary>
         /// convert to indexName:[pro1],[prop2]
         /// </summary>
-        private List<KeyValuePair<string, string>> ConvertIndexStrings(Dictionary<string, string> columnName2IndexNames)
+        private List<KeyValuePair<string, string>> ConvertIndexStrings(ConcurrentDictionary<string, string> columnName2IndexNames)
         {
             if (columnName2IndexNames != null && columnName2IndexNames.Count > 0)
             {

@@ -77,7 +77,10 @@
     <Compile Include="Exceptions\PropertyNoneValueException.cs" />
     <Compile Include="Exceptions\SqlBatchExecuteException.cs" />
     <Compile Include="Helper\DataHelperDdlExtension.cs" />
-    <Compile Include="Helper\DataHelperOrmExtension.cs" />
+    <Compile Include="Helper\DataHelperOrmDeleteExtension.cs" />
+    <Compile Include="Helper\DataHelperOrmUpdateExtension.cs" />
+    <Compile Include="Helper\DataHelperOrmInsertExtension.cs" />
+    <Compile Include="Helper\DataHelperOrmGetExtension.cs" />
     <Compile Include="Helper\DataHelperBaseExtension.cs" />
     <Compile Include="Helper\DataHelper.cs" />
     <Compile Include="IDataHelper.cs" />

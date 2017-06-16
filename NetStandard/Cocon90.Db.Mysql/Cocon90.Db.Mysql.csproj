@@ -5,7 +5,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>chinapsu.pfx</AssemblyOriginatorKeyFile>
     <PackageId>Cocon90.Db.Mysql</PackageId>
-    <Version>1.1.1.0</Version>
+    <Version>1.1.2.0</Version>
     <Authors>Sindrol(Xingzhu Song)</Authors>
     <Company>Sindrol(Xingzhu Song)</Company>
     <Product>Cocon90.Db.Mysql</Product>

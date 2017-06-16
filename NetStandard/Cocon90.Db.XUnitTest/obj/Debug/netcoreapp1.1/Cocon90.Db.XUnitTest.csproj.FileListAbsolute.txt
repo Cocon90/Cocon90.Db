@@ -15,3 +15,5 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\De
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\Debug\netcoreapp1.1\Cocon90.Db.SqlServer.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\Debug\netcoreapp1.1\Cocon90.Db.Common.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\Debug\netcoreapp1.1\Cocon90.Db.SqlServer.pdb
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\Debug\netcoreapp1.1\Cocon90.Db.Sqlite.dll
+D:\Project\NetProject\Cocon90\Cocon90.Db\NetStandard\Cocon90.Db.XUnitTest\bin\Debug\netcoreapp1.1\Cocon90.Db.Sqlite.pdb

@@ -162,6 +162,20 @@
           "lib/netstandard1.3/Microsoft.CSharp.dll": {}
         }
       },
+      "Microsoft.Data.Sqlite/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "SQLite": "3.13.0",
+          "System.Data.Common": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.Data.Sqlite.dll": {}
+        }
+      },
       "Microsoft.DiaSymReader.Native/1.4.1": {
         "type": "package",
         "build": {
@@ -1051,6 +1065,33 @@
         "type": "package",
         "runtimeTargets": {
           "runtimes/win7-x86/native/sni.dll": {
+            "assetType": "native",
+            "rid": "win7-x86"
+          }
+        }
+      },
+      "SQLite/3.13.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libsqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/libsqlite3.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win7-x64/native/sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win7-x64"
+          },
+          "runtimes/win7-x86/native/sqlite3.dll": {
             "assetType": "native",
             "rid": "win7-x86"
           }
@@ -3211,7 +3252,7 @@
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "Cocon90.Db.Common/1.1.1": {
+      "Cocon90.Db.Common/1.1.2": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -3228,11 +3269,20 @@
           "System.Runtime.Serialization.Primitives": "4.3.0"
         }
       },
-      "Cocon90.Db.SqlServer/1.1.1": {
+      "Cocon90.Db.Sqlite/1.1.2": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
-          "Cocon90.Db.Common": "1.1.1",
+          "Cocon90.Db.Common": "1.1.2",
+          "Microsoft.Data.SQLite": "1.1.1",
+          "NETStandard.Library": "1.6.1"
+        }
+      },
+      "Cocon90.Db.SqlServer/1.1.2": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.3",
+        "dependencies": {
+          "Cocon90.Db.Common": "1.1.2",
           "NETStandard.Library": "1.6.1",
           "System.Data.SqlClient": "4.3.0"
         }
@@ -3390,6 +3440,19 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
+      ]
+    },
+    "Microsoft.Data.Sqlite/1.1.1": {
+      "sha512": "EA/L0kQtkPm037kHyLtt/9dsB4ephlgmXgaQbW2qcb2jcW8R5RbfT9zh1j9amZIqFP3OwpnZ7kt7xTwC8z7M1A==",
+      "type": "package",
+      "path": "microsoft.data.sqlite/1.1.1",
+      "files": [
+        "lib/net451/Microsoft.Data.Sqlite.dll",
+        "lib/net451/Microsoft.Data.Sqlite.xml",
+        "lib/netstandard1.3/Microsoft.Data.Sqlite.dll",
+        "lib/netstandard1.3/Microsoft.Data.Sqlite.xml",
+        "microsoft.data.sqlite.1.1.1.nupkg.sha512",
+        "microsoft.data.sqlite.nuspec"
       ]
     },
     "Microsoft.DiaSymReader.Native/1.4.1": {
@@ -4156,6 +4219,25 @@
         "runtime.win7-x86.runtime.native.System.Data.SqlClient.sni.4.3.0.nupkg.sha512",
         "runtime.win7-x86.runtime.native.System.Data.SqlClient.sni.nuspec",
         "runtimes/win7-x86/native/sni.dll"
+      ]
+    },
+    "SQLite/3.13.0": {
+      "sha512": "o6ZyQRh9zAaHuBqQyrRiMDnhUVGqxI/J+I1bZz2ZDdtS4h4fr/yN0NbrNAFk7XqvwTpazJm9irx8fI2whcSung==",
+      "type": "package",
+      "path": "sqlite/3.13.0",
+      "files": [
+        "build/net45/SQLite.props",
+        "lib/netstandard1.0/_._",
+        "runtimes/linux-x64/native/libsqlite3.so",
+        "runtimes/osx-x64/native/libsqlite3.dylib",
+        "runtimes/win10-arm/nativeassets/uap10.0/sqlite3.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/sqlite3.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/sqlite3.dll",
+        "runtimes/win7-x64/native/sqlite3.dll",
+        "runtimes/win7-x86/native/sqlite3.dll",
+        "sqlite-version.txt",
+        "sqlite.3.13.0.nupkg.sha512",
+        "sqlite.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -9143,12 +9225,17 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "Cocon90.Db.Common/1.1.1": {
+    "Cocon90.Db.Common/1.1.2": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
     },
-    "Cocon90.Db.SqlServer/1.1.1": {
+    "Cocon90.Db.Sqlite/1.1.2": {
+      "type": "project",
+      "path": "../Cocon90.Db.Sqlite/Cocon90.Db.Sqlite.csproj",
+      "msbuildProject": "../Cocon90.Db.Sqlite/Cocon90.Db.Sqlite.csproj"
+    },
+    "Cocon90.Db.SqlServer/1.1.2": {
       "type": "project",
       "path": "../Cocon90.Db.SqlServer/Cocon90.Db.SqlServer.csproj",
       "msbuildProject": "../Cocon90.Db.SqlServer/Cocon90.Db.SqlServer.csproj"
@@ -9156,8 +9243,10 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.1": [
-      "Cocon90.Db.Common >= 1.1.1",
-      "Cocon90.Db.SqlServer >= 1.1.1",
+      "Cocon90.Db.Common >= 1.1.2",
+      "Cocon90.Db.SqlServer >= 1.1.2",
+      "Cocon90.Db.Sqlite >= 1.1.2",
+      "Microsoft.Data.SQLite >= 1.1.1",
       "Microsoft.NET.Test.Sdk >= 15.0.0",
       "Microsoft.NETCore.App >= 1.1.2",
       "xunit >= 2.2.0",
@@ -9186,6 +9275,9 @@
             },
             "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Common\\Cocon90.Db.Common.csproj": {
               "projectPath": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Common\\Cocon90.Db.Common.csproj"
+            },
+            "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Sqlite\\Cocon90.Db.Sqlite.csproj": {
+              "projectPath": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Sqlite\\Cocon90.Db.Sqlite.csproj"
             }
           }
         }
@@ -9194,6 +9286,10 @@
     "frameworks": {
       "netcoreapp1.1": {
         "dependencies": {
+          "Microsoft.Data.SQLite": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
           "xunit.runner.visualstudio": {
             "target": "Package",
             "version": "2.2.0"

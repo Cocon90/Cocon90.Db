@@ -27,6 +27,7 @@ namespace Cocon90.Db.Common
         /// </summary>
         /// <returns></returns>
         int ExecNoQuery(string tsqlParamed, params Params[] paramKeyAndValue);
+    
         /// <summary>
         /// get a datatable collections.
         /// </summary>

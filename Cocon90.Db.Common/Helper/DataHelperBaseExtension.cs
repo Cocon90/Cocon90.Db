@@ -161,5 +161,13 @@ namespace System
             }
             return list;
         }
+
+        /// <summary>
+        /// Executes the no query. but the parameter using model.
+        /// </summary>
+        public static int ExecNoQuery(this IDataHelper dh, string tsqlParamed, object paramUsingModel)
+        {
+            return dh.ExecNoQuery(tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
     }
 }

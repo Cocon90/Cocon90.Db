@@ -56,7 +56,7 @@ namespace Cocon90.Db.Common.Helper
                                     cmd.Parameters.Add(this.Driver.CreateParameter(p.Name, p.Value));
                                 }
                             }
-                            cmd.ExecuteNonQuery();
+                            var ret = cmd.ExecuteNonQuery();
                             count += 1;
                         }
                     }
@@ -116,7 +116,7 @@ namespace Cocon90.Db.Common.Helper
                 }
             }
         }
-
+   
         /// <summary>
         /// Gets the data set.
         /// </summary>

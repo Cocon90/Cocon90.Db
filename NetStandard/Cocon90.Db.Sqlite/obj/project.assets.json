@@ -45,7 +45,7 @@
           "lib/netstandard1.3/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Data.Sqlite/1.1.0": {
+      "Microsoft.Data.Sqlite/1.1.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
@@ -1321,7 +1321,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Cocon90.Db.Common/1.1.1": {
+      "Cocon90.Db.Common/1.1.2": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -1411,16 +1411,16 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "Microsoft.Data.Sqlite/1.1.0": {
-      "sha512": "MeKGXTzsbfwDaqQB0ctvPPUSEieXpGEbTPT1yycFCzlNSAypEKRMWla4C93o02oquX5+j9FU7d12BRYeYknHqA==",
+    "Microsoft.Data.Sqlite/1.1.1": {
+      "sha512": "EA/L0kQtkPm037kHyLtt/9dsB4ephlgmXgaQbW2qcb2jcW8R5RbfT9zh1j9amZIqFP3OwpnZ7kt7xTwC8z7M1A==",
       "type": "package",
-      "path": "microsoft.data.sqlite/1.1.0",
+      "path": "microsoft.data.sqlite/1.1.1",
       "files": [
         "lib/net451/Microsoft.Data.Sqlite.dll",
         "lib/net451/Microsoft.Data.Sqlite.xml",
         "lib/netstandard1.3/Microsoft.Data.Sqlite.dll",
         "lib/netstandard1.3/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.1.1.0.nupkg.sha512",
+        "microsoft.data.sqlite.1.1.1.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
@@ -4877,7 +4877,7 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Cocon90.Db.Common/1.1.1": {
+    "Cocon90.Db.Common/1.1.2": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
@@ -4885,8 +4885,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v1.3": [
-      "Cocon90.Db.Common >= 1.1.1",
-      "Microsoft.Data.SQLite >= 1.1.0",
+      "Cocon90.Db.Common >= 1.1.2",
+      "Microsoft.Data.SQLite >= 1.1.1",
       "NETStandard.Library >= 1.6.1"
     ]
   },
@@ -4894,7 +4894,7 @@
     "C:\\Users\\yungoal\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.1.1",
+    "version": "1.1.2",
     "restore": {
       "projectUniqueName": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Sqlite\\Cocon90.Db.Sqlite.csproj",
       "projectName": "Cocon90.Db.Sqlite",
@@ -4919,7 +4919,7 @@
         "dependencies": {
           "Microsoft.Data.SQLite": {
             "target": "Package",
-            "version": "1.1.0"
+            "version": "1.1.1"
           },
           "NETStandard.Library": {
             "target": "Package",

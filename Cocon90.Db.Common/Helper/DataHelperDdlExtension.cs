@@ -5,6 +5,7 @@ using Cocon90.Db.Common.Exceptions;
 using Cocon90.Db.Common.Helper;
 using Cocon90.Db.Common.Tools;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -39,10 +40,10 @@ namespace System
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, modelType, false);
             var createDdls = AttributeHelper.GetPropertyName2DDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
             var tableName = AttributeHelper.GetTableName(modelType, false, null);
-            Dictionary<string, string> columnDdls = new Dictionary<string, string>();
+            ConcurrentDictionary<string, string> columnDdls = new ConcurrentDictionary<string, string>();
             foreach (var ddl in createDdls)
             {
-                columnDdls.Add(columnNameDic[ddl.Key], ddl.Value);
+                columnDdls.TryAdd(columnNameDic[ddl.Key], ddl.Value);
             }
             var primaryKeyColumns = primaryKeyProps.ConvertToAll(p => columnNameDic[p]);
             SqlBatch sql = dh.Driver.GetCreateTableSql(tableName, columnDdls, primaryKeyColumns, colIndexs);
@@ -59,10 +60,10 @@ namespace System
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, modelType, false);
             var createDdls = AttributeHelper.GetPropertyName2DDLs(dh.Driver.DirverType, modelType, dh.Driver.TypeMapping);
             var tableName = AttributeHelper.GetTableName(modelType, false, null);
-            Dictionary<string, string> columnDdls = new Dictionary<string, string>();
+            ConcurrentDictionary<string, string> columnDdls = new ConcurrentDictionary<string, string>();
             foreach (var ddl in createDdls)
             {
-                columnDdls.Add(columnNameDic[ddl.Key], ddl.Value);
+                columnDdls.TryAdd(columnNameDic[ddl.Key], ddl.Value);
             }
             var primaryKeyColumns = primaryKeyProps.ConvertToAll(p => columnNameDic[p]);
             SqlBatch sql = dh.Driver.GetUpdateTableSql(tableName, columnDdls, primaryKeyColumns, colIndexs);

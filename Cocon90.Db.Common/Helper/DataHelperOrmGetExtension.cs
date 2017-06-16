@@ -12,15 +12,9 @@ using System.Text;
 
 namespace System
 {
-    public static class DataHelperOrmExtension
+    public static class DataHelperOrmGetExtension
     {
-        /// <summary>
-        /// Executes the no query. but the parameter using model.
-        /// </summary>
-        public static int ExecNoQuery(this IDataHelper dh, string tsqlParamed, object paramUsingModel)
-        {
-            return dh.ExecNoQuery(tsqlParamed, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
-        }
+     
         /// <summary>
         /// Gets the list.
         /// </summary>
@@ -153,7 +147,7 @@ namespace System
         /// <summary>
         /// Gets the one by primary key.
         /// </summary>
-        public static T GetOneByPrimaryKey<T>(this IDataHelper dh, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName) where T : new()
+        public static T GetOneByPrimaryKey<T>(this IDataHelper dh, params object[] allParmaryKeysSortByColumnName) where T : new()
         {
             var type = typeof(T);
             var primaryKeys = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type);
@@ -162,8 +156,8 @@ namespace System
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
 
             List<object> primaryKeyValues = new List<object>();
-            primaryKeyValues.Add(primaryKeyValue ?? DBNull.Value);
-            if (otherParmaryKeysSortByColumnName != null) primaryKeyValues.AddRange(otherParmaryKeysSortByColumnName.ToList().ConvertToAll(obj => obj ?? DBNull.Value));
+            if (allParmaryKeysSortByColumnName != null && allParmaryKeysSortByColumnName.Length > 0)
+                primaryKeyValues.AddRange(allParmaryKeysSortByColumnName);
             if (primaryKeyValues.Count > primaryKeys.Count) throw new PrimaryKeyCountUnequalExceptionException("primary key and it's values count unequal.") { PrimaryKeys = primaryKeys.ToArray(), PrimaryKeyValues = primaryKeyValues.ToArray() };
             var conditionPrimaryKeys = new List<string>();
             List<Params> paraList = new List<Params>();
@@ -187,26 +181,7 @@ namespace System
             var one = GetOne<T>(dh, tsql, paraList.ToArray());
             return one;
         }
-
-        /// <summary>
-        /// Inserts by the specified models.
-        /// </summary>
-        public static int Insert<T>(this IDataHelper dh, params T[] models)
-        {
-            var sqls = GetInsertSql<T>(dh, models);
-            var successRows = dh.ExecBatch(sqls, true, true);
-            return successRows;
-        }
-        /// <summary>
-        /// Inserts or Replace into tables by the specified models.
-        /// </summary>
-        public static int Save<T>(this IDataHelper dh, params T[] models)
-        {
-            var sqls = GetSaveSql<T>(dh, models);
-            var successRows = dh.ExecBatch(sqls, true, true);
-            return successRows;
-        }
-
+         
         /// <summary>
         /// Gets the insert SQL.
         /// </summary>
@@ -294,7 +269,7 @@ namespace System
         /// <summary>
         /// Gets the update SQL by primary key.
         /// </summary>
-        public static SqlBatch GetUpdateSqlByPrimaryKey<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
+        public static SqlBatch GetUpdateSqlByPrimaryKey<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, params object[] allParmaryKeysSortByColumnName)
         {
             var type = typeof(T);
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
@@ -305,9 +280,9 @@ namespace System
             List<string> wherePropList = new List<string>();
             List<Params> paramList = new List<Params>();
             List<object> primaryValues = new List<object>();
-            primaryValues.Add(primaryKeyValue);
-            if (otherParmaryKeysSortByColumnName != null && otherParmaryKeysSortByColumnName.Length > 0)
-                primaryValues.AddRange(otherParmaryKeysSortByColumnName);
+            if (allParmaryKeysSortByColumnName != null && allParmaryKeysSortByColumnName.Length > 0)
+                primaryValues.AddRange(allParmaryKeysSortByColumnName);
+
             for (int i = 0; i < Math.Min(primaryKeyProps.Count, primaryValues.Count); i++)
             {
                 var key = primaryKeyProps[i];
@@ -357,44 +332,8 @@ namespace System
         {
             return GetUpdateSqlByWhere(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
-        /// <summary>
-        /// Updates by the specified model.
-        /// </summary>
-        public static int Update<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition)
-        {
-            var sql = GetUpdateSql<T>(dh, model, isNullMeansIgnore, otherWhereCondition);
-            var successRows = dh.ExecBatch(new[] { sql }, true, true);
-            return successRows;
-        }
-
-        /// <summary>
-        /// Updates table by primary key.
-        public static int UpdateByPrimaryKey<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
-        {
-            var sql = GetUpdateSqlByPrimaryKey<T>(dh, model, isNullMeansIgnore, otherWhereCondition, primaryKeyValue, otherParmaryKeysSortByColumnName);
-            var successRows = dh.ExecBatch(new[] { sql }, true, true);
-            return successRows;
-        }
-
-        /// <summary>
-        /// Updates the by by where.
-        /// </summary>
-        public static int UpdateByByWhere<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, params Params[] paramKeyAndValue)
-        {
-            var sql = GetUpdateSqlByWhere<T>(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue);
-            var successRows = dh.ExecBatch(new[] { sql }, true, true);
-            return successRows;
-        }
-
-        /// <summary>
-        /// Updates the by by where.
-        /// </summary>
-        public static int UpdateByByWhere<T>(this IDataHelper dh, T model, bool isNullMeansIgnore, string whereCondition, object paramUsingModel)
-        {
-            return UpdateByByWhere<T>(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
-        }
-
-
+     
+       
         /// <summary>
         /// Gets the delete SQL by where.
         /// </summary>
@@ -421,7 +360,7 @@ namespace System
         /// <summary>
         /// Gets the delete SQL by primary key.
         /// </summary>
-        public static SqlBatch GetDeleteSqlByPrimaryKey<T>(this IDataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
+        public static SqlBatch GetDeleteSqlByPrimaryKey<T>(this IDataHelper dh, string otherWhereCondition, params object[] allParmaryKeysSortByColumnName)
         {
             var type = typeof(T);
             var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
@@ -432,9 +371,8 @@ namespace System
             List<string> wherePropList = new List<string>();
             List<Params> paramList = new List<Params>();
             List<object> primaryValues = new List<object>();
-            primaryValues.Add(primaryKeyValue);
-            if (otherParmaryKeysSortByColumnName != null && otherParmaryKeysSortByColumnName.Length > 0)
-                primaryValues.AddRange(otherParmaryKeysSortByColumnName);
+            if (allParmaryKeysSortByColumnName != null && allParmaryKeysSortByColumnName.Length > 0)
+                primaryValues.AddRange(allParmaryKeysSortByColumnName);
             for (int i = 0; i < Math.Min(primaryKeyProps.Count, primaryValues.Count); i++)
             {
                 var key = primaryKeyProps[i];
@@ -487,58 +425,7 @@ namespace System
         {
             return GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
-        /// <summary>
-        /// Deletes the specified model.
-        /// </summary>
-        public static int Delete<T>(this IDataHelper dh, T model)
-        {
-            return Delete(dh, model, null, null);
-        }
-
-        /// <summary>
-        /// Deletes table rows by the specified model.
-        /// </summary>
-        public static int Delete<T>(this IDataHelper dh, T model, string otherWhereCondition, params Params[] paramKeyAndValue)
-        {
-            var sql = GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue);
-            var successRows = dh.ExecBatch(new[] { sql }, true, true);
-            return successRows;
-        }
-
-        /// <summary>
-        /// Deletes table rows by the specified model.
-        /// </summary>
-        public static int Delete<T>(this IDataHelper dh, T model, string otherWhereCondition, object paramUsingModel)
-        {
-            return Delete<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
-        }
-
-        /// <summary>
-        /// Deletes table rows the by primary key.
-        /// </summary>
-        public static int DeleteByPrimaryKey<T>(this IDataHelper dh, string otherWhereCondition, object primaryKeyValue, params object[] otherParmaryKeysSortByColumnName)
-        {
-            var sql = GetDeleteSqlByPrimaryKey<T>(dh, otherWhereCondition, primaryKeyValue, otherParmaryKeysSortByColumnName);
-            var successRows = dh.ExecBatch(new[] { sql }, true, true);
-            return successRows;
-        }
-
-        /// <summary>
-        /// Deletes table rows the by where.
-        /// </summary>
-        public static int DeleteByWhere<T>(this IDataHelper dh, string whereCondition, params Params[] paramKeyAndValue)
-        {
-            var sql = GetDeleteSqlByWhere<T>(dh, whereCondition, paramKeyAndValue);
-            var successRows = dh.ExecBatch(new[] { sql }, true, true);
-            return successRows;
-        }
-
-        /// <summary>
-        /// Deletes table rows the by where.
-        /// </summary>
-        public static int DeleteByWhere<T>(this IDataHelper dh, string whereCondition, object paramUsingModel)
-        {
-            return DeleteByWhere<T>(dh, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
-        }
+      
+        
     }
 }

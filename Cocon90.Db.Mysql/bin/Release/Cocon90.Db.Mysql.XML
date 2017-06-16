@@ -4,7 +4,7 @@
         <name>Cocon90.Db.Mysql</name>
     </assembly>
     <members>
-        <member name="M:Cocon90.Db.Mysql.DbDriver.ConvertIndexStrings(System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:Cocon90.Db.Mysql.DbDriver.ConvertIndexStrings(System.Collections.Concurrent.ConcurrentDictionary{System.String,System.String})">
             <summary>
             convert to indexName:[pro1],[prop2]
             </summary>
