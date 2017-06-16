@@ -2198,7 +2198,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Cocon90.Db.Common/1.1.0": {
+      "Cocon90.Db.Common/1.1.1": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
@@ -6842,7 +6842,7 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Cocon90.Db.Common/1.1.0": {
+    "Cocon90.Db.Common/1.1.1": {
       "type": "project",
       "path": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj",
       "msbuildProject": "../Cocon90.Db.Common/Cocon90.Db.Common.csproj"
@@ -6850,7 +6850,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v1.6": [
-      "Cocon90.Db.Common >= 1.1.0",
+      "Cocon90.Db.Common >= 1.1.1",
       "MySql.Data >= 7.0.7-m61",
       "NETStandard.Library >= 1.6.1"
     ]
@@ -6859,7 +6859,7 @@
     "C:\\Users\\yungoal\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "restore": {
       "projectUniqueName": "D:\\Project\\NetProject\\Cocon90\\Cocon90.Db\\NetStandard\\Cocon90.Db.Mysql\\Cocon90.Db.Mysql.csproj",
       "projectName": "Cocon90.Db.Mysql",
