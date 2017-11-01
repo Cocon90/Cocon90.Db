@@ -167,15 +167,7 @@ namespace Cocon90.Db.Common.Tools
             if (safeNameFunc == null) safeNameFunc = (name) => name;
             var tup = MemcacheHelper<Attribute.TableAttribute>.ReadAndWrite("[GetTableName][" + modelType.FullName + "][" + isWithSchemaName + "]", () =>
             {
-#if NETSTANDARD
-            List<System.Attribute> tableAttrList = new List<System.Attribute>();
-            var attrs = modelType.GetTypeInfo().GetCustomAttributes(typeof(Common.Attribute.TableAttribute), true);
-            if (attrs.Count() > 0)
-                tableAttrList.AddRange(attrs);
-            System.Attribute[] tableAttr = tableAttrList.ToArray();
-#elif NETFRAMEWORK
                 var tableAttr = modelType.GetCustomAttributes(typeof(Common.Attribute.TableAttribute), true);
-#endif
                 if (tableAttr == null || tableAttr.Length == 0)
                     return new Attribute.TableAttribute() { TableName = modelType.Name };
                 var tabAttr = tableAttr[0] as Common.Attribute.TableAttribute;

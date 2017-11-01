@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cocon90.Db.Common</RootNamespace>
     <AssemblyName>Cocon90.Db.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cocon90.DynamicReflection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=137f586c16013447, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cocon90.DynamicReflection.2.0.0\lib\net40\Cocon90.DynamicReflection.dll</HintPath>
+      <HintPath>..\packages\Cocon90.DynamicReflection.2.0.2\lib\net47\Cocon90.DynamicReflection.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

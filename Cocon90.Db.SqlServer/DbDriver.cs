@@ -111,13 +111,10 @@ namespace Cocon90.Db.SqlServer
             //返回相应类型。
             if (instence.ContainsKey(csType.FullName))
                 return instence[csType.FullName];
-#if NETSTANDARD
-            if (csType.GetTypeInfo().IsEnum || (Nullable.GetUnderlyingType(csType)??csType).GetTypeInfo().IsEnum)
-                return "int";
-#else
+ 
             if (csType.IsEnum || (Nullable.GetUnderlyingType(csType) ?? csType).IsEnum)
                 return "int";
-#endif
+ 
             return "nvarchar(max)";
         }
 

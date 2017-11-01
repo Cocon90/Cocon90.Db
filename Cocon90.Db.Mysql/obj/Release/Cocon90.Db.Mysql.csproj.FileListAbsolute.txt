@@ -10,3 +10,6 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\obj\Release\Cocon90.Db
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\obj\Release\Cocon90.Db.Mysql.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.DynamicReflection.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.DynamicReflection.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\obj\Release\Cocon90.Db.Mysql.csproj.CoreCompileInputs.cache
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\Cocon90.Db.Mysql.dll.config
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Mysql\bin\Release\MySql.Data.xml

@@ -333,7 +333,7 @@
             Initializes a new instance of the <see cref="T:Cocon90.Db.Common.Helper.DataHelper"/> class.
             </summary>
             <param name="driver">The driver.</param>
-            <exception cref="!:NoNullAllowedException">driver can not be null.</exception>
+            <exception cref="T:System.Data.NoNullAllowedException">driver can not be null.</exception>
         </member>
         <member name="P:Cocon90.Db.Common.Helper.DataHelper.Driver">
             <summary>

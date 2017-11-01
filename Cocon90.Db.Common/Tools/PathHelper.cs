@@ -9,11 +9,7 @@ namespace Cocon90.Db.Common.Tools
     {
         public static string GetBaseDirectory()
         {
-#if NETSTANDARD
             return AppContext.BaseDirectory;
-#elif NETFRAMEWORK
-            return AppDomain.CurrentDomain.BaseDirectory;
-#endif
         }
     }
 }

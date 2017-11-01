@@ -50,13 +50,10 @@ namespace Cocon90.Db.Common.Tools
 
                 if (targetType == typeof(double?) || targetType == typeof(double))
                     return Convert.ToDouble(value);
-#if NETSTANDARD
-                if (targetType.GetTypeInfo().IsEnum || Nullable.GetUnderlyingType(targetType).GetTypeInfo().IsEnum)
-                    return Enum.ToObject(Nullable.GetUnderlyingType(targetType)??targetType, Convert.ToInt32(value));
-#else
+ 
                 if (targetType.IsEnum || Nullable.GetUnderlyingType(targetType).IsEnum)
                     return Enum.ToObject(Nullable.GetUnderlyingType(targetType) ?? targetType, Convert.ToInt32(value));
-#endif           
+   
                 if (targetType == typeof(decimal?) || targetType == typeof(decimal))
                     return Convert.ToDecimal(value);
 

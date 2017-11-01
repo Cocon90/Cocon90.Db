@@ -6,3 +6,4 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\obj\Release\Cocon90.D
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\obj\Release\Cocon90.Db.Common.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\bin\Release\Cocon90.DynamicReflection.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\bin\Release\Cocon90.DynamicReflection.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.Common\obj\Release\Cocon90.Db.Common.csproj.CoreCompileInputs.cache

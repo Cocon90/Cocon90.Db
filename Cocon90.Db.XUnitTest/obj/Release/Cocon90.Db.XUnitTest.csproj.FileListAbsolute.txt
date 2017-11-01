@@ -29,3 +29,6 @@ D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon9
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\System.Data.SQLite.dll
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Sqlite.pdb
 D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Sqlite.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\Cocon90.Db.Mysql.dll.config
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\bin\Release\MySql.Data.xml
+D:\Project\NetProject\Cocon90\Cocon90.Db\Cocon90.Db.XUnitTest\obj\Release\Cocon90.Db.XUnitTest.csproj.CoreCompileInputs.cache
