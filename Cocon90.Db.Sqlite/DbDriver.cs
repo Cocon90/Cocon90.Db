@@ -65,16 +65,11 @@ namespace Cocon90.Db.Sqlite
         {
 #if NETSTANDARD
             SqliteConnectionStringBuilder connString = new SqliteConnectionStringBuilder(this.ConnectionString);
-            //connString.Add("BinaryGUID", false);
             SqliteConnection conn = new SqliteConnection(connString.ConnectionString);
 #else
             SQLiteConnectionStringBuilder connString = new SQLiteConnectionStringBuilder(this.ConnectionString);
-            connString.BinaryGUID = false;
             SQLiteConnection conn = new SQLiteConnection(connString.ConnectionString);
 #endif
-
-
-
             conn.Open();
             return conn;
         }
@@ -104,7 +99,7 @@ namespace Cocon90.Db.Sqlite
 
         public override string SafeName(string columnNameOrTableName)
         {
-            return string.Format("'{0}'", columnNameOrTableName);
+            return string.Format("`{0}`", columnNameOrTableName);
         }
 
         public override string TypeMapping(Type csType, int len = 0)

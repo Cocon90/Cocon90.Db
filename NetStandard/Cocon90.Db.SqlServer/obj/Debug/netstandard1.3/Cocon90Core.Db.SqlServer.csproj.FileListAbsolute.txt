@@ -1,3 +1,0 @@
-D:\Project\NetProject\Cocon90\Cocon90Core.Db\Cocon90Core.Db.SqlServer\bin\Debug\netstandard1.3\Cocon90Core.Db.SqlServer.deps.json
-D:\Project\NetProject\Cocon90\Cocon90Core.Db\Cocon90Core.Db.SqlServer\obj\Debug\netstandard1.3\Cocon90Core.Db.SqlServer.AssemblyInfo.cs
-D:\Project\NetProject\Cocon90\Cocon90Core.Db\Cocon90Core.Db.SqlServer\obj\Debug\netstandard1.3\Cocon90Core.Db.SqlServer.csprojResolveAssemblyReference.cache
