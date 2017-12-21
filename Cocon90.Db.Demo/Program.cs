@@ -13,10 +13,15 @@ namespace Cocon90.Db.Demo
         static void Main(string[] args)
         {
 
-            //var dh = Cocon90.Db.Common.Db.GetDataHelper("Sqlite", "Data Source=${app}\\test.db3");
+            var dh = Cocon90.Db.Common.Db.GetDataHelper("Sqlite", "Data Source=${app}\\test.db3");
             //var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.Mysql,"server=127.0.0.1;port=3306;database=datarepair;uid=root;pwd=123456;");
-            var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "server=.;database=datarepair;uid=sa;pwd=123456;");
-
+            //var dh = Cocon90.Db.Common.Db.GetDataHelper(DbTypeEnum.SqlServer, "server=dataanalyze.database.chinacloudapi.cn;database=cy-data;uid=dataanalyze;pwd=password001!;");
+            var updsql = dh.GetUpdateSql(new Model.CountryLanguageModel { Code = 23, CodeAndLang = "bbb", Date = DateTime.Now, Percent = 2 }, true, "IsOfficial=1");
+            dh.CreateOrUpdateTable<Model.CountryLanguageModel>();
+            var sqlExist = dh.GetInsertIfNotExistPrimeryKeySql<Model.CountryLanguageModel>(new Model.CountryLanguageModel { CodeAndLang = "asdf", Date = DateTime.Now, Code = 099, Percent = 3 }, 23, "Lang");
+            //测试InsertIgnore
+            var sql = dh.GetInsertIfNotExistSql(new Model.CountryLanguageModel { Code = 23, CodeAndLang = "bbb", Language = "zh", Date = DateTime.Now, Percent = 2 }, "select 1 from CountryLanguage where IsOfficial=1");
+            var succ = dh.InsertIfNotExist(new Model.CountryLanguageModel { Code = 23, CodeAndLang = "bbb", Language = "zh", Date = DateTime.Now, Percent = 2 }, "select 1 from CountryLanguage where IsOfficial=1");
             var createSql = dh.GetCreateTableSql<Model.CountryLanguageModel>();
             var updateTabSql = dh.GetUpdateTableSql(typeof(Model.CountryLanguageModel));
             var effRow = dh.CreateOrUpdateTable<Model.CountryLanguageModel>();

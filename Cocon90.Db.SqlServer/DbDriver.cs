@@ -88,8 +88,8 @@ namespace Cocon90.Db.SqlServer
             instence.TryAdd(typeof(short).FullName, "smallint");
             instence.TryAdd(typeof(long).FullName, "bigint");
             instence.TryAdd(typeof(float).FullName, "real");
-            instence.TryAdd(typeof(double).FullName, "money");
-            instence.TryAdd(typeof(decimal).FullName, "money");
+            instence.TryAdd(typeof(double).FullName, "decimal(18,8)");
+            instence.TryAdd(typeof(decimal).FullName, "decimal(18,8)");
             instence.TryAdd(typeof(string).FullName, "nvarchar(max)");
             instence.TryAdd(typeof(byte[]).FullName, "image");
             instence.TryAdd(typeof(DateTime).FullName, "datetime");
@@ -103,18 +103,18 @@ namespace Cocon90.Db.SqlServer
             instence.TryAdd(typeof(short?).FullName, "smallint");
             instence.TryAdd(typeof(long?).FullName, "bigint");
             instence.TryAdd(typeof(float?).FullName, "real");
-            instence.TryAdd(typeof(double?).FullName, "money");
-            instence.TryAdd(typeof(decimal?).FullName, "money");
+            instence.TryAdd(typeof(double?).FullName, "decimal(18,8)");
+            instence.TryAdd(typeof(decimal?).FullName, "decimal(18,8)");
             instence.TryAdd(typeof(DateTime?).FullName, "datetime");
             instence.TryAdd(typeof(DateTimeOffset?).FullName, "datetimeoffset");
             instence.TryAdd(typeof(Guid?).FullName, "uniqueidentifier");
             //返回相应类型。
             if (instence.ContainsKey(csType.FullName))
                 return instence[csType.FullName];
- 
+
             if (csType.IsEnum || (Nullable.GetUnderlyingType(csType) ?? csType).IsEnum)
                 return "int";
- 
+
             return "nvarchar(max)";
         }
 
@@ -211,6 +211,7 @@ namespace Cocon90.Db.SqlServer
             }
             return new List<KeyValuePair<string, string>>();
         }
+
         public override SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param)
         {
             /*
@@ -244,6 +245,29 @@ namespace Cocon90.Db.SqlServer
             var pagedSql = string.Format("select * from (select *,ROW_NUMBER() over (order by {0} " + (isAsc ? " Asc " : " Desc ") + ") " + rownum + " from ({1}) oldsqlstring" + DateTime.Now.Millisecond + "" + DateTime.Now.Second + "" + DateTime.Now.Minute + ") tab where tab." + rownum + " between {2} and {3}", orderColumnName, sourceSql, limitStart, limitEnd);
             var countSql = string.Format("select count(1) from ({0}) oldsqlstring", sourceSql, orderColumnName);
             return new PagedSqlBatch() { PagedSql = new SqlBatch(pagedSql, param), CountSql = new SqlBatch(countSql, param) };
+        }
+
+        public override SqlBatch GetInsertIfNotExistSql(string tableNameWithSchema, List<string> insertColumns, ConcurrentDictionary<string, object> insertColumnsValues, string selectSqlCondition, params Params[] param)
+        {
+            /*
+            "IF NOT EXISTS (SELECT id FROM books WHERE id = 1)  INSERT INTO books (name) SELECT 'Songxingzhu'"
+            */
+            if (string.IsNullOrWhiteSpace(tableNameWithSchema) || insertColumns == null || insertColumns.Count == 0 || insertColumnsValues.Count != insertColumns.Count || string.IsNullOrWhiteSpace(selectSqlCondition))
+                throw new ArgumentException("please check input arguments:tableNameWithSchema/insertColumns/insertColumnsValues/selectSqlCondition,and insertColumnsValues count must equal with insertColumns count.");
+            var insertColumnsStr = string.Join(",", insertColumns.ConvertToAll(s => SafeName(s)));
+            Func<string, string> buildNewColumnName = (s => ParameterChar + "SysParam_" + s);
+            var insertColumnsArgs = insertColumns.ConvertToAll(buildNewColumnName);
+            List<Params> paramlist = new List<Params>();
+            if (param != null && param.Length > 0) paramlist.AddRange(param);
+            foreach (var col in insertColumns)
+            {
+                if (insertColumnsValues.ContainsKey(col))
+                    paramlist.Add(new Params(buildNewColumnName(col), insertColumnsValues[col]));
+                else
+                    paramlist.Add(new Params(buildNewColumnName(col), null));
+            }
+            var sql = string.Format("IF NOT EXISTS ({1}) INSERT INTO {0} ({2}) SELECT {3}", tableNameWithSchema, selectSqlCondition, insertColumnsStr, string.Join(",", insertColumnsArgs));
+            return new SqlBatch(sql, paramlist.ToArray());
         }
     }
 }

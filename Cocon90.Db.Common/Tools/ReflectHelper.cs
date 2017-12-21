@@ -1,5 +1,6 @@
 ﻿using Cocon90.DynamicReflection;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,9 +13,9 @@ namespace Cocon90.Db.Common.Tools
         /// <summary>
         /// Gets the property values. the key is PropertyName and the value is the parameter obj's value.
         /// </summary>
-        public static Dictionary<string, object> GetPropertyValues(Type type, object obj, bool isWithNullValue, bool isOnlyCanReadWrite, bool isNotWithIgnoreProperty)
+        public static ConcurrentDictionary<string, object> GetPropertyValues(Type type, object obj, bool isWithNullValue, bool isOnlyCanReadWrite, bool isNotWithIgnoreProperty)
         {
-            Dictionary<string, object> dic = new Dictionary<string, object>();
+            ConcurrentDictionary<string, object> dic = new ConcurrentDictionary<string, object>();
             if (obj == null) return dic;
             List<string> ignoreProps = null;
             if (isNotWithIgnoreProperty)
@@ -26,7 +27,7 @@ namespace Cocon90.Db.Common.Tools
                 if (!isWithNullValue && value == null) continue;
                 if (isOnlyCanReadWrite && (!prop.CanRead || !prop.CanWrite)) continue;
                 if (isNotWithIgnoreProperty && ignoreProps.Contains(prop.Name)) continue;
-                dic.Add(prop.Name, value);
+                dic.TryAdd(prop.Name, value);
             }
             return dic;
         }

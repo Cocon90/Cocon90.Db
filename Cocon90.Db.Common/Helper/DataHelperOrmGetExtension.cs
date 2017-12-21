@@ -14,7 +14,7 @@ namespace System
 {
     public static class DataHelperOrmGetExtension
     {
-     
+
         /// <summary>
         /// Gets the list.
         /// </summary>
@@ -181,7 +181,7 @@ namespace System
             var one = GetOne<T>(dh, tsql, paraList.ToArray());
             return one;
         }
-         
+
         /// <summary>
         /// Gets the insert SQL.
         /// </summary>
@@ -237,6 +237,65 @@ namespace System
             return sqls;
         }
 
+
+        /// <summary>
+        /// Gets the Inserts into tables if selectSqlCondition(such as 'select 1 from student where name=@name') has no record SQL.
+        /// </summary>
+        public static SqlBatch GetInsertIfNotExistSql<T>(this IDataHelper dh, T model, string selectSqlCondition, object paramUsingModel)
+        {
+            return GetInsertIfNotExistSql<T>(dh, model, selectSqlCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
+        }
+
+
+        /// <summary>
+        /// Gets the Inserts into tables if selectSqlCondition(such as 'select 1 from student where name=@name') has no record SQL.
+        /// </summary>
+        public static SqlBatch GetInsertIfNotExistSql<T>(this IDataHelper dh, T model, string selectSqlCondition, params Params[] paramKeyAndValue)
+        {
+            var type = typeof(T);
+            var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
+            var insertColumnsValues = ReflectHelper.GetPropertyValues(type, model, false, true, true);
+            Collections.Concurrent.ConcurrentDictionary<string, object> columnValueDic = new Collections.Concurrent.ConcurrentDictionary<string, object>();
+            foreach (var item in insertColumnsValues)
+            {
+                if (columnNameDic.ContainsKey(item.Key))
+                    columnValueDic.TryAdd(columnNameDic[item.Key], item.Value);
+            }
+            var insertColumns = columnValueDic.Keys.ToList();
+            return dh.Driver.GetInsertIfNotExistSql(tableName, insertColumns, columnValueDic, selectSqlCondition, paramKeyAndValue);
+        }
+
+        /// <summary>
+        /// Gets the Inserts into tables if selectSqlCondition(such as 'select 1 from student where name=@name') has no record SQL.
+        /// </summary>
+        public static SqlBatch GetInsertIfNotExistPrimeryKeySql<T>(this IDataHelper dh, T model, params object[] allParmaryKeysSortByColumnName)
+        {
+            var type = typeof(T);
+            var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
+            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
+            var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type, false);
+            if (primaryKeyProps.Count <= 0)
+                throw new NoConfigurePrimaryKeyExceptionException("Not config any primary key in model.");
+            primaryKeyProps.Sort((s1, s2) => string.Compare(s1, s2));
+            List<string> wherePropList = new List<string>();
+            List<Params> paramList = new List<Params>();
+            List<object> primaryValues = new List<object>();
+            if (allParmaryKeysSortByColumnName != null && allParmaryKeysSortByColumnName.Length > 0)
+                primaryValues.AddRange(allParmaryKeysSortByColumnName);
+
+            for (int i = 0; i < Math.Min(primaryKeyProps.Count, primaryValues.Count); i++)
+            {
+                var key = primaryKeyProps[i];
+                var columnName = columnNameDic[key];
+                wherePropList.Add(string.Format("{0}=@SysWhere{1}", dh.Driver.SafeName(columnName), columnName));
+                paramList.Add(new Params("SysWhere" + columnName, primaryValues[i]));
+            }
+
+            var whereSql = "SELECT 1 FROM  " + tableName + " " + string.Join(" AND ", wherePropList);
+            return GetInsertIfNotExistSql(dh, model, whereSql, paramList.ToArray());
+        }
+
         /// <summary>
         /// Gets the update SQL.
         /// </summary>
@@ -244,7 +303,7 @@ namespace System
         {
             var type = typeof(T);
             var tableName = AttributeHelper.GetTableName(type, true, dh.Driver.SafeName);
-            var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
+            //var columnNameDic = AttributeHelper.GetProp2ColumnNameDics(dh.Driver.DirverType, type);
             var modelValues = ReflectHelper.GetPropertyValues(type, model, !isNullMeansIgnore, true, true);
             var primaryKeyProps = AttributeHelper.GetPrimaryKeys(dh.Driver.DirverType, type, false);
             if (primaryKeyProps.Count <= 0)
@@ -332,8 +391,8 @@ namespace System
         {
             return GetUpdateSqlByWhere(dh, model, isNullMeansIgnore, whereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
-     
-       
+
+
         /// <summary>
         /// Gets the delete SQL by where.
         /// </summary>
@@ -425,7 +484,7 @@ namespace System
         {
             return GetDeleteSql<T>(dh, model, otherWhereCondition, paramKeyAndValue: AttributeHelper.GetParamsArrayByModel(dh, paramUsingModel));
         }
-      
-        
+
+
     }
 }

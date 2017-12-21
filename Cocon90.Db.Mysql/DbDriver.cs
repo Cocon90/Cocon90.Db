@@ -216,5 +216,28 @@ namespace Cocon90.Db.Mysql
             var countSql = string.Format("select count(1) from ({0}) oldsqlstring", sourceSql, orderColumnName, pageNumber, pageSize);
             return new PagedSqlBatch() { PagedSql = new SqlBatch(pagedSql, param), CountSql = new SqlBatch(countSql, param) };
         }
+
+        public override SqlBatch GetInsertIfNotExistSql(string tableNameWithSchema, List<string> insertColumns, ConcurrentDictionary<string, object> insertColumnsValues, string selectSqlCondition, params Params[] param)
+        {
+            /*
+            "INSERT INTO books (name) SELECT 'SongXingzhu' FROM dual WHERE NOT EXISTS (SELECT id FROM books WHERE id = 1)"
+            */
+            if (string.IsNullOrWhiteSpace(tableNameWithSchema) || insertColumns == null || insertColumns.Count == 0 || insertColumnsValues.Count != insertColumns.Count || string.IsNullOrWhiteSpace(selectSqlCondition))
+                throw new ArgumentException("please check input arguments:tableNameWithSchema/insertColumns/insertColumnsValues/selectSqlCondition,and insertColumnsValues count must equal with insertColumns count.");
+            var insertColumnsStr = string.Join(",", insertColumns.ConvertToAll(s => SafeName(s)));
+            Func<string, string> buildNewColumnName = (s => ParameterChar + "SysParam_" + s);
+            var insertColumnsArgs = insertColumns.ConvertToAll(buildNewColumnName);
+            List<Params> paramlist = new List<Params>();
+            if (param != null && param.Length > 0) paramlist.AddRange(param);
+            foreach (var col in insertColumns)
+            {
+                if (insertColumnsValues.ContainsKey(col))
+                    paramlist.Add(new Params(buildNewColumnName(col), insertColumnsValues[col]));
+                else
+                    paramlist.Add(new Params(buildNewColumnName(col), null));
+            }
+            var sql = string.Format("INSERT INTO {0} ({1}) SELECT {2} FROM dual WHERE NOT EXISTS ({3})", tableNameWithSchema, insertColumnsStr, string.Join(",", insertColumnsArgs), selectSqlCondition);
+            return new SqlBatch(sql, paramlist.ToArray());
+        }
     }
 }

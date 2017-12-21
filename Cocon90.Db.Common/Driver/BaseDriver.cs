@@ -25,5 +25,15 @@ namespace Cocon90.Db.Common.Driver
         public abstract SqlBatch GetUpdateTableSql(string tableName, ConcurrentDictionary<string, string> columnDdls, List<string> primaryKeyColumns, ConcurrentDictionary<string, string> columnName2IndexNames);
         public abstract SqlBatch GetSaveSql(string tableNameWithSchema, List<string> primaryKeys, List<string> columnList, params Params[] param);
         public abstract PagedSqlBatch GetPagedSql(string sourceSql, string orderColumnName, bool isAsc, int pageNumber, int pageSize, params Params[] param);
+        /// <summary>
+        /// Gets the Inserts into tables if selectSqlCondition(such as 'select 1 from student where name=@name') has no record SQL.
+        /// </summary>
+        /// <param name="tableNameWithSchema"></param>
+        /// <param name="insertColumns"></param>
+        /// <param name="insertColumnsValues"></param>
+        /// <param name="selectSqlCondition"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public abstract SqlBatch GetInsertIfNotExistSql(string tableNameWithSchema, List<string> insertColumns, ConcurrentDictionary<string, object> insertColumnsValues, string selectSqlCondition, params Params[] param);
     }
 }
