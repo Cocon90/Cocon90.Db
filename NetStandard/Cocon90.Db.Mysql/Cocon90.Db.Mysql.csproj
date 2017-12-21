@@ -5,7 +5,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>chinapsu.pfx</AssemblyOriginatorKeyFile>
     <PackageId>Cocon90.Db.Mysql</PackageId>
-    <Version>1.1.3.0</Version>
+    <Version>1.1.4.0</Version>
     <Authors>Sindrol(Xingzhu Song)</Authors>
     <Company>Sindrol(Xingzhu Song)</Company>
     <Product>Cocon90.Db.Mysql</Product>
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="6.10.4" />
+    <PackageReference Include="MySql.Data" Version="6.10.5" />
   </ItemGroup>
 
   <ItemGroup>
