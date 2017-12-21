@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoGenColumnTest.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="UpdateTest.cs" />
     <Compile Include="UnitTest2.cs" />

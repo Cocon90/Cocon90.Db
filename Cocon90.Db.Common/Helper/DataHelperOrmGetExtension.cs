@@ -211,7 +211,7 @@ namespace System
         }
 
         /// <summary>
-        /// Gets the insert or replace SQL.
+        /// Gets the insert or replace SQL. The Save method is not suitable for tables that contain the primary key in the auto-increment column.
         /// </summary>
         public static List<SqlBatch> GetSaveSql<T>(this IDataHelper dh, params T[] models)
         {
@@ -292,7 +292,7 @@ namespace System
                 paramList.Add(new Params("SysWhere" + columnName, primaryValues[i]));
             }
 
-            var whereSql = "SELECT 1 FROM  " + tableName + " " + string.Join(" AND ", wherePropList);
+            var whereSql = "SELECT 1 FROM  " + tableName + " WHERE " + string.Join(" AND ", wherePropList);
             return GetInsertIfNotExistSql(dh, model, whereSql, paramList.ToArray());
         }
 
@@ -352,6 +352,11 @@ namespace System
             if (!string.IsNullOrWhiteSpace(otherWhereCondition))
                 wherePropList.Add(otherWhereCondition);
             var whereSql = string.Join(" AND ", wherePropList);
+            foreach (var primaryKeyPropertyName in primaryKeyProps)
+            {
+                var propInfo = type.GetProperty(primaryKeyPropertyName);
+                if (propInfo != null) propInfo.SetValue(model, null);
+            }
             var sql = GetUpdateSqlByWhere(dh, model, isNullMeansIgnore, whereSql, paramList.ToArray());
             return sql;
         }

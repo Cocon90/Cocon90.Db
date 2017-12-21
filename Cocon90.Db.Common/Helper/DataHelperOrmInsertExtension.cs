@@ -26,7 +26,7 @@ namespace System
             return successRows;
         }
         /// <summary>
-        /// Inserts or Replace into tables by the specified models.
+        /// Inserts or Replace into tables by the specified models.  The Save method is not suitable for tables that contain the primary key in the auto-increment column.
         /// </summary>
         public static int Save<T>(this IDataHelper dh, params T[] models)
         {
