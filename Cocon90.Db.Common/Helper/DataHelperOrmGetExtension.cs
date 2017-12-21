@@ -355,7 +355,7 @@ namespace System
             foreach (var primaryKeyPropertyName in primaryKeyProps)
             {
                 var propInfo = type.GetProperty(primaryKeyPropertyName);
-                if (propInfo != null) propInfo.SetValue(model, null);
+                if (propInfo != null) propInfo.SetValue(model, null, null);
             }
             var sql = GetUpdateSqlByWhere(dh, model, isNullMeansIgnore, whereSql, paramList.ToArray());
             return sql;

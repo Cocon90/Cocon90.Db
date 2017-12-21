@@ -58,12 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cocon90.Db.Common\Cocon90.Db.Common.csproj">
-      <Project>{dc5be3fa-d29e-460a-9ee6-59e44ec3cdd6}</Project>
-      <Name>Cocon90.Db.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="sqlite\Auto\System.Data.SQLite.dll" />
     <Content Include="sqlite\Readme.txt" />
     <Content Include="sqlite\x64\System.Data.SQLite.dll" />
@@ -71,6 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="chinapsu.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cocon90.Db.Common\Cocon90.Db.Common.csproj">
+      <Project>{dc5be3fa-d29e-460a-9ee6-59e44ec3cdd6}</Project>
+      <Name>Cocon90.Db.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
